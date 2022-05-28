@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-import CampusLevelButton from '../chuncks/campuslevelbutton.component';
+import CampusLevelButton from './campuslevelbutton.component';
 
 interface floorTypes {
   name: string;

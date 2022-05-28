@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
+import { Button, IconButton } from "@mui/material";
 import FormInput from "../chuncks/forminput.component";
-import Button from "../chuncks/button.component";
+import GoogleIcon from '@mui/icons-material/Google';
 
 function  SignInForm(): ReactElement {
     return (
@@ -11,9 +12,11 @@ function  SignInForm(): ReactElement {
             </div>
 
             <div className="flex flex-col">
-                <Button type="submit">Sign In</Button>
-                <p className="m-auto">or</p>
-                <Button type="auth">Log in With Google</Button>
+                <Button variant="outlined">Sign In</Button>
+                <IconButton>
+                    <GoogleIcon />
+                    Log in With Google
+                </IconButton>
             </div>
         </form>
     )
