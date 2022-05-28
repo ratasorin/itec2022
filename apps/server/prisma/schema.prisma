@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int        @id() @default(autoincrement())
+  name     String     @unique
+  bookings Booking[]
+  admin    Boolean    @default(false)
+  Building Building[]
+
+  @@map("users")
+}
+
+model Booking {
+  id         Int      @id @default(autoincrement())
+  book_from  DateTime
+  book_until DateTime
+  space      Space    @relation(fields: [space_id], references: [id])
+  space_id   Int
+  User       User?    @relation(fields: [user_id], references: [id])
+  user_id    Int?
+
+  @@map("bookings")
+}
+
+model Space {
+  id          Int       @id @default(autoincrement())
+  Bookings    Booking[]
+  x           Int       @default(0)
+  y           Int       @default(0)
+  z           Int       @default(0)
+  Building    Building? @relation(fields: [building_id], references: [id])
+  building_id Int?
+
+  @@unique([x, y, z])
+  @@map("spaces")
+}
+
+model Building {
+  id      Int     @id @default(autoincrement())
+  spaces  Space[]
+  owner   User    @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  @@map("buildings")
+}
