@@ -8,4 +8,8 @@ export class User implements PrismaUser {
   @IsNotEmpty()
   @IsString()
   name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }

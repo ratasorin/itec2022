@@ -9,6 +9,7 @@ const main = async () => {
       data: {
         id: 1,
         name: 'Sorin',
+        password: 'Sorin',
       },
     });
 

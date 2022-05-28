@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Booking, Timeframe } from './interfaces';
 
 type Overlaps = {
@@ -13,7 +13,7 @@ type Intervals = {
 
 const sanitizeInterval = (
   interval: [Date, Date],
-  limits: [Date, Date],
+  limits: [Date, Date]
 ): [Date, Date] => {
   if (interval[1] > limits[1]) return [interval[0], limits[1]];
   if (interval[0] < limits[0]) return [limits[0], interval[1]];
@@ -23,7 +23,7 @@ const sanitizeInterval = (
 
 const findAvailableTimeframes = (
   limits: [Date, Date],
-  bookedIntervals: [Date, Date][],
+  bookedIntervals: [Date, Date][]
 ): [Date, Date][] => {
   if (!bookedIntervals.length) return [];
   if (limits[0] < bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
@@ -31,7 +31,7 @@ const findAvailableTimeframes = (
       [limits[0], bookedIntervals[0][0]],
       ...findAvailableTimeframes(
         [bookedIntervals[0][0], limits[1]],
-        bookedIntervals,
+        bookedIntervals
       ),
     ];
   if (limits[0] >= bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
@@ -39,7 +39,7 @@ const findAvailableTimeframes = (
       [bookedIntervals[0][1], limits[1]],
       ...findAvailableTimeframes(
         [bookedIntervals[0][1], limits[1]],
-        bookedIntervals.slice(0, -1),
+        bookedIntervals.slice(0, -1)
       ),
     ];
   return [];
@@ -47,7 +47,7 @@ const findAvailableTimeframes = (
 
 const allTimeframes = (
   limits: [Date, Date],
-  bookedIntervals: [Date, Date][],
+  bookedIntervals: [Date, Date][]
 ): [Date, Date][] => {
   if (!bookedIntervals.length) return [];
   if (limits[0] < bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
@@ -62,7 +62,7 @@ const allTimeframes = (
       [bookedIntervals[0][1], limits[1]],
       ...allTimeframes(
         [bookedIntervals[0][1], limits[1]],
-        bookedIntervals.slice(0, -1),
+        bookedIntervals.slice(0, -1)
       ),
     ];
   return [];
@@ -85,12 +85,12 @@ export class BookingService {
 
     const bookedIntervals = timeframes.map(
       ({ book_from, book_until }) =>
-        [new Date(book_from), new Date(book_until)] as [Date, Date],
+        [new Date(book_from), new Date(book_until)] as [Date, Date]
     );
 
     const availableTimeframes = findAvailableTimeframes(
       [start, end],
-      bookedIntervals,
+      bookedIntervals
     );
 
     console.log({ availableTimeframes });
@@ -108,7 +108,7 @@ export class BookingService {
 
     const bookedIntervals = bookedTimeframes.map(
       ({ book_from, book_until }) =>
-        [new Date(book_from), new Date(book_until)] as [Date, Date],
+        [new Date(book_from), new Date(book_until)] as [Date, Date]
     );
     const timeframes = allTimeframes([start, end], bookedIntervals);
 
@@ -135,7 +135,7 @@ export class BookingService {
     try {
       const isAvailable = await this.isAvalibleSpace(
         { start: book_from, end: book_until },
-        space_id,
+        space_id
       );
       if (!isAvailable)
         return `SPACE ${space_id} is booked from ${book_from} until ${book_until}` as const;
