@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { User } from './interfaces';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
+  constructor(private prisma: PrismaService) {}
 
   async getUser(name: string): Promise<User> {
     return await this.prisma.user.findFirst({
@@ -24,9 +23,7 @@ export class UserService {
         },
       });
 
-      return {
-        access_token: this.jwtService.sign(user),
-      };
+      return user;
     } catch (e) {
       console.error(e);
     }
