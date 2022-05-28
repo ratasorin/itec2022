@@ -1,4 +1,4 @@
-import moment from 'moment';
+const moment = require('moment');
 
 const from = moment().toDate();
 const to = moment().add(2, 'hours').toDate();
