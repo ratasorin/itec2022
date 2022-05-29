@@ -15,7 +15,7 @@ import { Booking } from './interfaces';
 export class BookingController {
   constructor(private service: BookingService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('available/:id')
   async availableTimeframes(
     @Param('id', ParseIntPipe) id: number,
@@ -25,7 +25,7 @@ export class BookingController {
     return await this.service.availableTimeframes(id, end);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('availability/:id')
   async availability(
     @Param('id', ParseIntPipe) id: number,
@@ -34,7 +34,7 @@ export class BookingController {
     return await this.service.availability(id, end);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   async bookSpace(@Body() input: Booking) {
     const booking = await this.service.bookSpace(input);

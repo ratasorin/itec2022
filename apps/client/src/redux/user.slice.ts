@@ -1,4 +1,4 @@
-import { JwtUser } from '@itec/server/src/auth/interface';
+import { JwtUser } from '@shared';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const userSlice = createSlice({

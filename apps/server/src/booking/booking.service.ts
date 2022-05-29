@@ -26,7 +26,8 @@ const findAvailableTimeframes = (
   bookedIntervals: [Date, Date][]
 ): [Date, Date][] => {
   if (!bookedIntervals.length) return [];
-  if (limits[0] < bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
+  console.log({ limits }, { bookedIntervals });
+  if (limits[0] < bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1]) {
     return [
       [limits[0], bookedIntervals[0][0]],
       ...findAvailableTimeframes(
@@ -34,14 +35,19 @@ const findAvailableTimeframes = (
         bookedIntervals
       ),
     ];
-  if (limits[0] >= bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
+  }
+  if (limits[0] >= bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1]) {
     return [
-      [bookedIntervals[0][1], limits[1]],
+      [
+        bookedIntervals[0][1],
+        bookedIntervals[1] ? bookedIntervals[1][0] : limits[1],
+      ],
       ...findAvailableTimeframes(
-        [bookedIntervals[0][1], limits[1]],
-        bookedIntervals.slice(0, -1)
+        [bookedIntervals[1] ? bookedIntervals[1][0] : limits[1], limits[1]],
+        bookedIntervals.slice(1)
       ),
     ];
+  }
   return [];
 };
 
@@ -62,7 +68,7 @@ const allTimeframes = (
       [bookedIntervals[0][1], limits[1]],
       ...allTimeframes(
         [bookedIntervals[0][1], limits[1]],
-        bookedIntervals.slice(0, -1)
+        bookedIntervals.slice(1)
       ),
     ];
   return [];
@@ -81,6 +87,7 @@ export class BookingService {
       WHERE space_id = ${space_id}
       AND book_until BETWEEN ${start} AND ${end}
       OR book_from BETWEEN ${start} AND ${end}
+      ORDER BY book_from;
     `;
 
     const bookedIntervals = timeframes.map(

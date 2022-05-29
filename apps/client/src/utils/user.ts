@@ -1,5 +1,5 @@
 import decode from 'jwt-decode';
-import { JwtUser } from '@itec/server/src/auth/interface';
+import { JwtUser } from '@shared';
 const getUser = () => {
   const jwt = localStorage.getItem('token');
   console.log({ jwt });

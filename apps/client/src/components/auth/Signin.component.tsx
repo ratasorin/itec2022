@@ -4,7 +4,7 @@ import FormInput from '../chuncks/forminput.component';
 import { useAppDispatch } from '../../hooks/redux.hooks';
 import { updateUser } from '../../redux/user.slice';
 import decode from 'jwt-decode';
-import { JwtUser } from '@itec/server/src/auth/interface';
+import { JwtUser } from '@shared';
 
 function SignInForm(): ReactElement {
   const [username, setUsername] = useState('');

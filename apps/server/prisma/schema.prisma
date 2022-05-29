@@ -33,22 +33,28 @@ model Booking {
   @@map("bookings")
 }
 
-model Space {
-  id          Int       @id @default(autoincrement())
-  Bookings    Booking[]
-  x           Int       @default(0)
-  y           Int       @default(0)
-  z           Int       @default(0)
-  Building    Building? @relation(fields: [building_id], references: [id])
-  building_id Int?
+model Floor {
+  id          Int      @id @default(autoincrement())
+  level       Int
+  building    Building @relation(fields: [building_id], references: [id])
+  building_id Int
+  spaces      Space[]
+}
 
-  @@unique([x, y, z])
+model Space {
+  id       Int       @id @default(autoincrement())
+  Bookings Booking[]
+  x        Int       @default(0)
+  y        Int       @default(0)
+  Floor    Floor?    @relation(fields: [floor_id], references: [id])
+  floor_id Int?
+
   @@map("spaces")
 }
 
 model Building {
   id      Int     @id @default(autoincrement())
-  spaces  Space[]
+  floors  Floor[]
   owner   User    @relation(fields: [user_id], references: [id])
   user_id Int
   name    String  @unique

@@ -1,1 +1,1 @@
-export * from './User';
+export * from '@shared';
