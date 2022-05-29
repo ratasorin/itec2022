@@ -40,17 +40,18 @@ function SearchPage(): ReactElement {
       <div className="text-3xl font-mono font-light pb-5">
         Cauta un loc liber
       </div>
-      <div className="w-3/5">
+      <div className="w-3/5 flex flex-col items-center">
         <SearchBar className="border-4" />
         {buildings.map(({ name, id, floors }) => (
-          <div
+          <button
             key={name}
+            className="shadow-md hover:shadow transition-all py-2 px-5 rounded mt-5"
             onClick={() =>
               navigate({ pathname: `buildings/${id}` }, { state: floors })
             }
           >
             {name}
-          </div>
+          </button>
         ))}
       </div>
     </div>
