@@ -2,18 +2,15 @@ import { Floor } from '@prisma/client';
 import { RetrievedSpaces } from '@shared';
 import { FC, useEffect, useState } from 'react';
 import { url } from '../../constants/server';
-
-import { Grid, Button } from '@mui/material';
-import { Box } from '@mui/system';
 import { useNavigate } from 'react-router';
 
-const Board: FC<{ floor: Floor }> = ({ floor }) => {
+const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<RetrievedSpaces[]>([]);
   const navigation = useNavigate();
   useEffect(() => {
     const getSpacesOnLevel = async () => {
       const response = await fetch(
-        url(`buildings/${floor.building_id}/floor/${floor.id}`)
+        url(`buildings/${floor?.building_id}/floor/${floor?.id}`)
       );
 
       const spaces = (await response.json()) as RetrievedSpaces[] | undefined;
@@ -24,53 +21,30 @@ const Board: FC<{ floor: Floor }> = ({ floor }) => {
     };
 
     getSpacesOnLevel();
-  }, []);
+  }, [floor]);
 
+  if (!floor) return null;
   if (!spaces || !spaces.length) return <div>No spots found!</div>;
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: 'grid',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gridTemplateColumns: `repeat(2, 1fr)`,
-        gridTemplateRows: 'repeat(2, 1fr)',
-      }}
+    <div
+      className={`w-2/3 aspect-square bg-slate-500 rounded-2xl grid grid-cols-2 grid-rows-2 text-2xl bold`}
     >
-      {spaces.map((space) => (
-        <Button
-          onClick={() => {
-            navigation(`/timetable/${space.id}`, { state: space.id });
-          }}
-          variant="contained"
-          style={{
-            width: '100px',
-            background: space.book_until ? 'red' : 'green',
-          }}
+      {spaces.map(({ x, y, id, book_until }) => (
+        <div
+          className={`rounded-2xl shadow-lg  shadow-slate-600 col-span-${
+            y + 1
+          } row-span-${
+            x + 1
+          }  justify-self-center items-center	content-center justify-items-center	self-center justify-center text-white w-1/2 h-1/2 ${
+            book_until ? 'bg-red-400' : 'bg-green-400'
+          } flex `}
         >
-          {space.id}
-        </Button>
+          {' '}
+          {id}{' '}
+        </div>
       ))}
-    </Box>
-    // <Grid container spacing={2}>
-    //   {spaces.map((space) => (
-    //     <Grid item key={space.id} xs={3} className="w-4">
-    //       <Button
-    //         variant="contained"
-    //         style={{
-    //           background: space.book_until ? 'red' : 'green',
-    //         }}
-    //         onClick={() => {
-    //           navigation(`/timetable/${space.id}`, { state: space.id });
-    //         }}
-    //       >
-    //         {space.id}
-    //       </Button>
-    //     </Grid>
-    //   ))}
-    // </Grid>
+    </div>
   );
 };
 
