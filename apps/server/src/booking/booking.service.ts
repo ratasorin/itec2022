@@ -141,25 +141,28 @@ export class BookingService {
       return err;
     }
   }
-  async bookSpace({ book_from, id, space_id, book_until, user_id }: Booking) {
+  async bookSpace({ book_from, space_id, book_until, user_id }: Booking) {
     try {
       const isAvailable = await this.isAvalibleSpace(
         { start: book_from, end: book_until },
         space_id
       );
       if (!isAvailable)
-        return `SPACE ${space_id} is booked from ${book_from} until ${book_until}` as const;
+        throw new Error(
+          `SPACE ${space_id} is booked from ${book_from} until ${book_until}`
+        );
       return this.prisma.booking.create({
         data: {
           book_from,
           book_until,
-          id,
           space_id,
           user_id,
         },
       });
     } catch (err) {
-      console.error(err);
+      return {
+        err: `SPACE ${space_id} is booked from ${book_from.toLocaleTimeString()} until ${book_until.toLocaleTimeString()}`,
+      };
     }
   }
 }

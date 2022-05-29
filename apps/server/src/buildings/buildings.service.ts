@@ -12,7 +12,11 @@ export class BuildingsService {
         select: {
           name: true,
           id: true,
-          floors: true,
+          floors: {
+            include: {
+              spaces: true,
+            },
+          },
         },
       });
 
@@ -33,7 +37,6 @@ export class BuildingsService {
         },
         select: {
           floors: {
-            take: 1,
             where: {
               id,
             },

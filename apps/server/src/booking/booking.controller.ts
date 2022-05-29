@@ -47,7 +47,6 @@ export class BookingController {
   // @UseGuards(JwtAuthGuard)
   @Post()
   async bookSpace(@Body() input: Booking) {
-    const booking = await this.service.bookSpace(input);
-    return booking;
+    return await this.service.bookSpace(input);
   }
 }
