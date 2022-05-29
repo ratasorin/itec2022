@@ -14,8 +14,10 @@ function SignInForm(): ReactElement {
     const response = await fetch('http://localhost:3000/auth/login', {
       body: JSON.stringify({ username, password }),
       method: 'POST',
+      headers: [['Content-Type', 'application/json']],
     });
-    const token = await response.json();
+    const { access_token: token } = await response.json();
+    console.log({ token });
     const user = decode(token) as JwtUser;
     console.log({ token, user });
     localStorage.setItem('token', token);

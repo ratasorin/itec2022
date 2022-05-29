@@ -7,7 +7,8 @@ import { FC, useCallback, useState } from 'react';
 import Button from '@mui/material/Button';
 import { add } from 'date-fns';
 import getUser from '../../utils/user';
-import { url } from 'inspector';
+import { url } from '../../constants/server';
+
 const Picker: FC<{ id: number }> = ({ id }) => {
   const [bookFrom, setBookFrom] = useState<Date | null>(new Date());
   const [bookUntil, setBookUntil] = useState<Date | null>(
@@ -17,8 +18,21 @@ const Picker: FC<{ id: number }> = ({ id }) => {
   const bookSpace = useCallback(async () => {
     const user = getUser();
 
-    const response = await fetch(url(''));
-  }, [bookFrom, bookUntil]);
+    if (!user) return;
+    const response = await fetch(url('booking'), {
+      method: 'POST',
+      body: JSON.stringify({
+        book_from: bookFrom,
+        book_until: bookUntil,
+        space_id: Number(id),
+        user_id: Number(user.sub),
+      }),
+      headers: [['Content-Type', 'application/json']],
+    });
+
+    const msg = await response.json();
+    console.log({ msg });
+  }, [bookFrom, bookUntil, id]);
   return (
     <div>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -51,13 +65,7 @@ const Picker: FC<{ id: number }> = ({ id }) => {
             renderInput={(params) => <TextField {...params} />}
           />
         </Stack>
-        <Button
-          onClick={() => {
-            //
-          }}
-          variant="outlined"
-          className="mt-10"
-        >
+        <Button onClick={bookSpace} variant="outlined" className="mt-10">
           Book now
         </Button>
       </LocalizationProvider>
