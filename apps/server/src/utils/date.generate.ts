@@ -1,6 +1,6 @@
-const moment = require('moment');
+import { add } from 'date-fns';
 
-const from = moment().toDate();
-const to = moment().add(2, 'hours').toDate();
+const from = new Date();
+const to = add(new Date(), { hours: 2 });
 
 console.log({ from, to });
