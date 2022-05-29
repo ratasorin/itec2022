@@ -1,5 +1,6 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { Outlet } from 'react-router';
+import { useUser } from './mock/useUser';
 
 function App(): ReactElement {
 

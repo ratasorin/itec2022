@@ -1,4 +1,4 @@
-import { ReactElement, SyntheticEvent, useState } from "react";
+import { ReactElement, useState } from "react";
 import SignInForm from "./signinfrom.component";
 import SignUpForm from "./signupform.component";
 
@@ -8,8 +8,8 @@ function AuthForm(): ReactElement {
     const [ authType, setAuthType ] = useState<"SIGN IN" | "SIGN UP">("SIGN IN");
 
     return (
-        <div className="flex flex-col justify-center flex-1 gap-4 h-min m-auto">
-            <FormControl>
+        <div className="flex flex-col justify-center flex-1 gap-4 h-max m-auto">
+            <FormControl className="w-min m-auto">
                 <FormLabel>Authentication:</FormLabel>
                 <RadioGroup
                     value={authType}

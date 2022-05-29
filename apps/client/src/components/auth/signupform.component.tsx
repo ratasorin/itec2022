@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Button } from "@mui/material";
 import FormInput from "../chuncks/forminput.component";
 
 function SignUpForm(): ReactElement {
@@ -13,9 +14,7 @@ function SignUpForm(): ReactElement {
             </div>
 
             <div className="flex flex-col">
-                {/* <Button type="submit">Sign Up</Button> */}
-                <p className="m-auto">or</p>
-                {/* <Button type="auth">Log in With Google</Button> */}
+                <Button variant="outlined">Sign Up</Button>
             </div>
         </form>
     )

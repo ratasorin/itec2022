@@ -8,7 +8,7 @@ interface InputProps {
 
 function  FormInput(props: InputProps): ReactElement {
     return (
-        <TextField id="standard-basic" label={props.name} variant="standard" />
+        <TextField label={props.name} variant="standard" type={props.type}/>
     )
 }
 
