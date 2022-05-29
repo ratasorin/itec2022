@@ -1,16 +1,17 @@
-import { ReactElement } from 'react';
-import AuthForm from '../components/auth/authform.component';
-
+import { ReactElement, useEffect } from 'react';
+import AuthForm from '../components/auth/Auth.component';
+import { useNavigate } from 'react-router';
 import AuthIllustration from '../assets/photo/auth-illustration.jpg';
-import useUser from '../hooks/useUser';
-import { Navigate } from 'react-router';
+import getUser from '../utils/user';
 
 function AuthPage(): ReactElement {
-  const user = useUser();
-  if (user)
-    Navigate({
-      to: '',
-    });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getUser();
+    if (user) navigate({ pathname: '/' });
+  }, [navigate]);
+
   return (
     <div className="flex md:flex-row flex-col-reverse w-screen">
       <AuthForm />

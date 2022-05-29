@@ -27,6 +27,7 @@ export class AuthService {
   }
 
   async signIn(user: User) {
+    console.log({ user });
     const { name, id } = await this.userService.createUser(user);
     return {
       access_token: this.jwtService.sign({

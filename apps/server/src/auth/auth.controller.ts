@@ -17,7 +17,7 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @Post('sign-in')
+  @Post('signup')
   async signIn(@Body() user: User) {
     return this.authService.signIn(user);
   }

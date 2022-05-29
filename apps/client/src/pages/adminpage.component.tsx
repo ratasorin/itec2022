@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
-import Admin from '../components/Admin/Admin';
+import Admin from '../components/Admin/Admin.component';
 
 function AdminPage(): ReactElement {
-  return <Admin />;
+  return (
+    <div>
+      Admin Page
+    </div>
+  );
 }
 
 export default AdminPage;

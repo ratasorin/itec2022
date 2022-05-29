@@ -1,15 +1,23 @@
-import { TextField } from "@mui/material";
-import { ReactElement } from "react";
+import { TextField } from '@mui/material';
+import { Dispatch, ReactElement, SetStateAction } from 'react';
 
 interface InputProps {
-    type: "text" | "email" | "password",
-    name: string | undefined,
+  type: 'text' | 'email' | 'password';
+  name: string | undefined;
+  set?: Dispatch<SetStateAction<string>>;
 }
 
-function  FormInput(props: InputProps): ReactElement {
-    return (
-        <TextField id="standard-basic" label={props.name} variant="standard" />
-    )
+function FormInput({ name, type, set }: InputProps): ReactElement {
+  return (
+    <TextField
+      label={name}
+      variant="standard"
+      type={type}
+      onChange={(ev) => {
+        if (set) set(ev.target.value);
+      }}
+    />
+  );
 }
 
 export default FormInput;

@@ -9,9 +9,9 @@ import { Route, Routes } from 'react-router';
 import { StyledEngineProvider } from '@mui/material';
 
 import * as ROUTES from './constants/routes';
-import AuthPage from './pages/authpage.component';
+import AuthPage from './pages/Auth';
+import SearchPage from './pages/Search';
 import AdminPage from './pages/adminpage.component';
-import SearchPage from './pages/searchpage.component';
 import CampusPage from './pages/campuspage.component';
 import NotFoundPage from './pages/notfoundpage.component';
 import { store } from './config/store';
