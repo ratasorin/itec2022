@@ -51,6 +51,7 @@ model Building {
   spaces  Space[]
   owner   User    @relation(fields: [user_id], references: [id])
   user_id Int
+  name    String  @unique
 
   @@map("buildings")
 }

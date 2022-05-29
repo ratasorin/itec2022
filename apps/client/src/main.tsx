@@ -14,23 +14,27 @@ import AdminPage from './pages/adminpage.component';
 import SearchPage from './pages/searchpage.component';
 import CampusPage from './pages/campuspage.component';
 import NotFoundPage from './pages/notfoundpage.component';
+import { store } from './config/store';
+import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <Router>
-        <Routes>
-          <Route path={ROUTES.DEFAULT} element={<App />}>
-            <Route index element={<AuthPage />} />
-            <Route path={ROUTES.SEARCH} element={<SearchPage />} />
-            <Route path={ROUTES.CAMPUS} element={<CampusPage />} />
-            <Route path={ROUTES.ADMIN} element={<AdminPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </StyledEngineProvider>
+    <Provider store={store}>
+      <StyledEngineProvider injectFirst>
+        <Router>
+          <Routes>
+            <Route path={ROUTES.DEFAULT} element={<App />}>
+              <Route index element={<SearchPage />} />
+              <Route path={ROUTES.AUTH} element={<AuthPage />} />
+              <Route path={ROUTES.CAMPUS} element={<CampusPage />} />
+              <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </StyledEngineProvider>
+    </Provider>
   </React.StrictMode>
 );

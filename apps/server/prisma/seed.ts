@@ -17,6 +17,7 @@ const main = async () => {
       data: {
         id: 1,
         user_id: 1,
+        name: "UPT"
       },
     });
 
