@@ -10,8 +10,8 @@ import * as ROUTES from './constants/routes';
 import AuthPage from './pages/Auth';
 import SearchPage from './pages/Search';
 import BuildingPage from './pages/Building';
-import AdminPage from './pages/adminpage.component';
-import NotFoundPage from './pages/notfoundpage.component';
+import AdminPage from './pages/Admin';
+import NotFoundPage from './pages/NotFound';
 
 import { store } from './config/store';
 import { Provider } from 'react-redux';
