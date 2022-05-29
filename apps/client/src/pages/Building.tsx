@@ -8,7 +8,7 @@ const CampusMenu = () => {
   return (
     <div className="w-screen h-auto">
       {floors.map((floor) => (
-        <div className="w-full h-72 border-b-4">
+        <div className="w-screen">
           <Board floor={floor} />
         </div>
       ))}

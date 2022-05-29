@@ -1,18 +1,16 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
 import FormInput from '../chuncks/forminput.component';
-import { useAppDispatch } from '../../hooks/redux.hooks';
 import decode from 'jwt-decode';
-import { updateUser } from '../../redux/user.slice';
 import { JwtUser } from '@shared';
+import { useNavigate } from 'react-router';
 
 function SignUpForm(): ReactElement {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useAppDispatch();
-  const signUp = useCallback(async () => {
-    console.log({ username, password });
+  const navigate = useNavigate();
 
+  const signUp = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/auth/signup', {
         method: 'POST',
@@ -26,11 +24,11 @@ function SignUpForm(): ReactElement {
       const user = decode(token) as JwtUser;
       console.log({ token, user });
       localStorage.setItem('token', token);
-      dispatch(updateUser(user));
+      navigate('/');
     } catch (err) {
       console.error(err);
     }
-  }, [username, password, dispatch]);
+  }, [username, password, navigate]);
 
   return (
     <form className="flex flex-col justify-center mx-auto gap-8">
