@@ -15,6 +15,7 @@ import NotFoundPage from './pages/notfoundpage.component';
 
 import { store } from './config/store';
 import { Provider } from 'react-redux';
+import TimetablePage from './pages/Timetable';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -28,6 +29,7 @@ root.render(
               <Route index element={<SearchPage />} />
               <Route path={ROUTES.AUTH} element={<AuthPage />} />
               <Route path={ROUTES.BUILDINGS} element={<BuildingPage />} />
+              <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
               <Route path={ROUTES.ADMIN} element={<AdminPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>

@@ -1,8 +1,5 @@
-import { useUser } from "../../mock/useUser";
-
 const Admin = () => {
-  const user = useUser();
-  return user.admin ? true : false;
+  return 'HELLO ADMIN';
 };
 
 export default Admin;

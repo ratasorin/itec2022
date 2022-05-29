@@ -25,17 +25,19 @@ const Board: FC<{ floor: Floor }> = ({ floor }) => {
     getSpacesOnLevel();
   }, []);
 
+  if (!spaces || !spaces.length) return <div>No spots found!</div>;
+
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       {spaces.map((space) => (
-        <Grid item key={space.id}>
+        <Grid item key={space.id} xs={3} className="w-4">
           <Button
             variant="contained"
             style={{
               background: space.book_until ? 'red' : 'green',
             }}
             onClick={() => {
-              navigation('');
+              navigation(`/timetable/${space.id}`);
             }}
           >
             {space.id}

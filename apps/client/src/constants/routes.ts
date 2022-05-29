@@ -11,3 +11,4 @@ export const ADMIN = '/admin';
 export const DASHBOARD = '/dashboard';
 
 export const AUTH = '/auth';
+export const TIMETABLE = '/timetable/:id';

@@ -82,7 +82,7 @@ export class BookingService {
   async availableTimeframes(space_id: number, end: Date) {
     const start = new Date();
 
-    const timeframes = await this.prisma.$queryRaw<Intervals>`
+    const bookedTimeframes = await this.prisma.$queryRaw<Intervals>`
       SELECT book_from, book_until FROM bookings
       WHERE space_id = ${space_id}
       AND book_until BETWEEN ${start} AND ${end}
@@ -90,7 +90,9 @@ export class BookingService {
       ORDER BY book_from;
     `;
 
-    const bookedIntervals = timeframes.map(
+    if (!bookedTimeframes.length) return [start, end];
+
+    const bookedIntervals = bookedTimeframes.map(
       ({ book_from, book_until }) =>
         [new Date(book_from), new Date(book_until)] as [Date, Date]
     );
@@ -112,6 +114,8 @@ export class BookingService {
       AND book_until BETWEEN ${start} AND ${end}
       OR book_from BETWEEN ${start} AND ${end}
     `;
+
+    if (!bookedTimeframes.length) return [start, end];
 
     const bookedIntervals = bookedTimeframes.map(
       ({ book_from, book_until }) =>
