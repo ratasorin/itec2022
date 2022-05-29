@@ -26,7 +26,6 @@ const findAvailableTimeframes = (
   bookedIntervals: [Date, Date][]
 ): [Date, Date][] => {
   if (!bookedIntervals.length) return [];
-  console.log({ limits }, { bookedIntervals });
   if (limits[0] < bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1]) {
     return [
       [limits[0], bookedIntervals[0][0]],
@@ -65,9 +64,12 @@ const allTimeframes = (
   if (limits[0] >= bookedIntervals[0][0] && limits[0] < bookedIntervals[0][1])
     return [
       sanitizeInterval(bookedIntervals[0], limits),
-      [bookedIntervals[0][1], limits[1]],
-      ...allTimeframes(
-        [bookedIntervals[0][1], limits[1]],
+      [
+        bookedIntervals[0][1],
+        bookedIntervals[1] ? bookedIntervals[1][0] : limits[1],
+      ],
+      ...findAvailableTimeframes(
+        [bookedIntervals[1] ? bookedIntervals[1][0] : limits[1], limits[1]],
         bookedIntervals.slice(1)
       ),
     ];
@@ -79,14 +81,14 @@ export class BookingService {
   constructor(private prisma: PrismaService) {}
 
   // TODO: If there are no bookins, return that the spots are available, not just empty []
-  async availableTimeframes(space_id: number, end: Date) {
+  async getAvailableTimeframes(space_id: number, end: Date) {
     const start = new Date();
 
     const bookedTimeframes = await this.prisma.$queryRaw<Intervals>`
       SELECT book_from, book_until FROM bookings
       WHERE space_id = ${space_id}
-      AND book_until BETWEEN ${start} AND ${end}
-      OR book_from BETWEEN ${start} AND ${end}
+      AND 
+      (book_until BETWEEN ${start} AND ${end} OR book_from BETWEEN ${start} AND ${end})
       ORDER BY book_from;
     `;
 
@@ -102,7 +104,6 @@ export class BookingService {
       bookedIntervals
     );
 
-    console.log({ availableTimeframes });
     return availableTimeframes;
   }
 
@@ -111,8 +112,8 @@ export class BookingService {
     const bookedTimeframes = await this.prisma.$queryRaw<Intervals>`
       SELECT book_from, book_until FROM bookings
       WHERE space_id = ${space_id}
-      AND book_until BETWEEN ${start} AND ${end}
-      OR book_from BETWEEN ${start} AND ${end}
+      AND (book_until BETWEEN ${start} AND ${end}
+      OR book_from BETWEEN ${start} AND ${end})
     `;
 
     if (!bookedTimeframes.length) return [start, end];
@@ -123,8 +124,6 @@ export class BookingService {
     );
     const timeframes = allTimeframes([start, end], bookedIntervals);
 
-    console.log({ timeframes });
-
     return timeframes;
   }
 
@@ -133,8 +132,8 @@ export class BookingService {
       const [{ overlaps }] = await this.prisma.$queryRaw<Overlaps>`
         SELECT COUNT(*) AS overlaps FROM bookings
         WHERE space_id = ${id} 
-        AND book_from BETWEEN ${start} AND ${end}
-        OR book_until BETWEEN ${start} AND ${end}
+        AND (book_from BETWEEN ${start} AND ${end}
+        OR book_until BETWEEN ${start} AND ${end})
         `;
       return !overlaps;
     } catch (err) {

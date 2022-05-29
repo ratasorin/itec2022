@@ -4,7 +4,6 @@ import Board from '../components/Board/Board';
 
 const CampusMenu = () => {
   const floors = useLocation().state as Floor[];
-  console.log({ floors });
   return (
     <div className="w-screen h-auto">
       {floors.map((floor) => (
