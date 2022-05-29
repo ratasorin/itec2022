@@ -8,7 +8,7 @@ const Board: FC<{ floor: Floor }> = ({ floor }) => {
   useEffect(() => {
     const getSpacesOnLevel = async () => {
       const response = await fetch(
-        url(`buildings:${floor.building_id}/floor/${floor.id}`)
+        url(`buildings/${floor.building_id}/floor/${floor.id}`)
       );
 
       const spaces = (await response.json()) as Space[] | undefined;
