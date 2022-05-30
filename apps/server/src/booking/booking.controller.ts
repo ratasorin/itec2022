@@ -10,38 +10,26 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BookingService } from './booking.service';
 import { Booking } from './interfaces';
-import { add } from 'date-fns';
 @Controller('booking')
 export class BookingController {
   constructor(private service: BookingService) {}
 
   // @UseGuards(JwtAuthGuard)
   @Post('available/:id')
-  async availableTimeframes(
+  async getAvailableTimeframes(
     @Param('id', ParseIntPipe) id: number,
     @Body('end') end: Date
   ) {
-    console.log({ id, end });
-    if (!end)
-      return await this.service.getAvailableTimeframes(
-        id,
-        add(new Date(), { hours: 12 })
-      );
+    return await this.service.getAvailableTimeframes(id, end);
   }
 
   // @UseGuards(JwtAuthGuard)
-  @Post('availability/:id')
-  async availability(
+  @Post('timetable/:id')
+  async getTimetable(
     @Param('id', ParseIntPipe) id: number,
     @Body('end') end: Date
   ) {
-    console.log({ end });
-    if (!end)
-      return await this.service.availability(
-        id,
-        add(new Date(), { hours: 12 })
-      );
-    return await this.service.availability(id, end);
+    return await this.service.getTimetable(id, end);
   }
 
   // @UseGuards(JwtAuthGuard)

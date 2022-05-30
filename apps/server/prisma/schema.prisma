@@ -27,8 +27,8 @@ model Booking {
   book_until DateTime
   space      Space    @relation(fields: [space_id], references: [id])
   space_id   Int
-  User       User?    @relation(fields: [user_id], references: [id])
-  user_id    Int?
+  User       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
 
   @@map("bookings")
 }
@@ -46,8 +46,8 @@ model Space {
   Bookings Booking[]
   x        Int       @default(0)
   y        Int       @default(0)
-  Floor    Floor?    @relation(fields: [floor_id], references: [id])
-  floor_id Int?
+  floor    Floor     @relation(fields: [floorId], references: [id])
+  floorId  Int
 
   @@map("spaces")
 }

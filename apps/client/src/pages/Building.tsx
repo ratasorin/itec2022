@@ -16,16 +16,12 @@ const BuildingMenu = () => {
 
   useEffect(() => {
     setFloor(floors.find((floor) => floor.id === selectedFloorID));
-  }, [selectedFloorID, setFloor]);
+  }, [selectedFloorID, setFloor, floors]);
 
   return (
-    <div className="w-screen h-auto flex flex-row">
-      <div className="flex-1">
-        <Grid>
-          <Sidebar floors={floors}></Sidebar>
-        </Grid>
-      </div>
-      <div className="w-5/6 h-screen flex justify-center items-center bg-amber-300">
+    <div className="flex h-auto w-screen flex-row bg-slate-500">
+      <Sidebar floors={floors}></Sidebar>
+      <div className="flex h-screen flex-1 items-center justify-center bg-amber-300">
         <Board floor={floor} />
       </div>
     </div>

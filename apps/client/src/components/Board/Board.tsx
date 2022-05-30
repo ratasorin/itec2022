@@ -1,18 +1,46 @@
 import { Floor } from '@prisma/client';
 import { RetrievedSpaces } from '@shared';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
 
+const bgColor = (book_until: Date | undefined) =>
+  book_until ? 'bg-red-400' : 'bg-green-400';
+
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<RetrievedSpaces[]>([]);
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const { x, y } = useMemo(
+    () =>
+      spaces.reduce(
+        (prev, curr) => {
+          if (curr.x + 1 > prev.x)
+            return {
+              x: curr.x + 1,
+              y: curr.y + 1,
+            };
+          if (curr.x + 1 > prev.x)
+            return {
+              x: curr.x + 1,
+              y: prev.y,
+            };
+          if (curr.y + 1 > prev.y)
+            return {
+              x: prev.x,
+              y: curr.y + 1,
+            };
+          return prev;
+        },
+        { x: 1, y: 1 }
+      ),
+    [spaces]
+  );
+
   useEffect(() => {
     const getSpacesOnLevel = async () => {
       const response = await fetch(
         url(`buildings/${floor?.building_id}/floor/${floor?.id}`)
       );
-
       const spaces = (await response.json()) as RetrievedSpaces[] | undefined;
 
       if (!spaces) return;
@@ -28,20 +56,25 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
 
   return (
     <div
-      className={`w-2/3 aspect-square bg-slate-500 rounded-2xl grid grid-cols-2 grid-rows-2 text-2xl bold`}
+      className={`grid aspect-square w-7/12 grid-cols-${y} grid-rows-${x} rounded-2xl bg-slate-500`}
     >
       {spaces.map(({ x, y, id, book_until }) => (
         <div
-          className={`rounded-2xl shadow-lg  shadow-slate-600 col-span-${
-            y + 1
-          } row-span-${
-            x + 1
-          }  justify-self-center items-center	content-center justify-items-center	self-center justify-center text-white w-1/2 h-1/2 ${
-            book_until ? 'bg-red-400' : 'bg-green-400'
-          } flex `}
+          onClick={() => {
+            navigate(
+              {
+                pathname: `/timetable/${id}`,
+              },
+              {
+                state: id,
+              }
+            );
+          }}
+          className={`
+          cursor-pointer rounded-2xl shadow-lg shadow-slate-600 col-span-[${y}] row-span-[${x}] h-1/2 w-1/2	content-center items-center	justify-center justify-items-center self-center justify-self-center text-white transition-all hover:scale-110 
+          ${bgColor(book_until)} bold flex text-3xl`}
         >
-          {' '}
-          {id}{' '}
+          {id}
         </div>
       ))}
     </div>

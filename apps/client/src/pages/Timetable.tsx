@@ -6,59 +6,78 @@ import Picker from '../components/Picker/Picker';
 
 const Timetable = () => {
   const id = useLocation().state as number;
-  const [timetable, setTimetable] = useState<[Date, Date][]>();
-  const [timeframes, setTimeframes] = useState<[Date, Date][]>();
+  const [timetable, setTimetable] = useState<[string, string][]>();
+  const [timeframes, setTimeframes] = useState<[string, string][]>();
   useEffect(() => {
-    const end = add(new Date(), { days: 1 });
-    console.log(JSON.stringify({ end }));
+    if (!id) return;
 
-    const getTimetableForSpace = async () => {
-      const response = await fetch(url(`booking/availability/${id}`), {
+    const end = add(new Date(), { days: 1 });
+
+    const getTimetable = async () => {
+      const response = await fetch(url(`booking/timetable/${id}`), {
         method: 'POST',
         body: JSON.stringify({ end }),
+        headers: [['Content-Type', 'application/json']],
       });
-      const timetable = (await response.json()) as [Date, Date][];
+      const timetable = await response.json();
       if (!timetable) return;
+      console.log(timetable);
       setTimetable(timetable);
     };
 
-    const getAvailableTimeframesForSpace = async () => {
+    const getAvailableTimeframes = async () => {
       const response = await fetch(url(`booking/available/${id} `), {
         method: 'POST',
         body: JSON.stringify({ end }),
+        headers: [['Content-Type', 'application/json']],
       });
-      const timeframes = (await response.json()) as [Date, Date][];
+
+      const timeframes = await response.json();
+
       if (!timeframes) return;
+
       setTimeframes(timeframes);
     };
 
-    getTimetableForSpace();
-    getAvailableTimeframesForSpace();
-    console.log({ id });
-  }, []);
+    getAvailableTimeframes();
+    getTimetable();
+  }, [id]);
   return (
     <>
       <div>
         THE TIMEFRAMES ARE
         {timeframes?.map(([begin, end]) => (
           <li>
-            THE AREA IS FREE FROM {new Date(begin).toLocaleTimeString()} TO{' '}
-            {new Date(end).toLocaleTimeString()}
+            THE AREA IS FREE FROM{' '}
+            {new Date(begin)
+              .toLocaleDateString()
+              .concat(' ')
+              .concat(new Date(begin).toLocaleTimeString())}{' '}
+            TO{' '}
+            {new Date(end)
+              .toLocaleDateString()
+              .concat(' ')
+              .concat(new Date(end).toLocaleTimeString())}
           </li>
         ))}
       </div>
-      ;
       <div>
-        THE TIMETABLE IS
+        THE TIMETABLE IS{' '}
         {timetable?.map(([begin, end], index) => (
           <li>
             THE AREA IS {index % 2 ? 'OCCUPIED' : 'FREE'} FROM{' '}
-            {new Date(begin).toLocaleTimeString()} TO{' '}
-            {new Date(end).toLocaleTimeString()}
+            {new Date(begin)
+              .toLocaleDateString()
+              .concat(' ')
+              .concat(new Date(begin).toLocaleTimeString())}{' '}
+            TO{' '}
+            {new Date(end)
+              .toLocaleDateString()
+              .concat(' ')
+              .concat(new Date(end).toLocaleTimeString())}
           </li>
         ))}
       </div>
-      );
       <Picker id={id} />
     </>
   );
