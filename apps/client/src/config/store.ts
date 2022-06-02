@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import floor from '../pages/slices/floor.slice';
+import widgets from '../widgets/store';
 export const store = configureStore({
-  reducer: { floor },
+  reducer: { floor, widgets },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

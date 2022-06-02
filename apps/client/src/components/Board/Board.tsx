@@ -3,12 +3,15 @@ import { RetrievedSpaces } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
+import { useOpenWidget } from '../../widgets/utils/open';
+import { Details } from '../../widgets/components/popup/Details/details.slice';
 
 const bgColor = (book_until: Date | undefined) =>
   book_until ? 'bg-red-400' : 'bg-green-400';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<RetrievedSpaces[]>([]);
+  const openPopup = useOpenWidget<Details>('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>
@@ -60,6 +63,16 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
     >
       {spaces.map(({ x, y, id, book_until }) => (
         <div
+          onMouseOver={() => {
+            openPopup({
+              space: {
+                book_until,
+                id,
+                x,
+                y,
+              },
+            });
+          }}
           onClick={() => {
             navigate(
               {

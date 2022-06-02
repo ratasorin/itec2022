@@ -39,6 +39,8 @@ model Floor {
   building    Building @relation(fields: [building_id], references: [id])
   building_id Int
   spaces      Space[]
+
+  @@map("floors")
 }
 
 model Space {
@@ -46,8 +48,8 @@ model Space {
   Bookings Booking[]
   x        Int       @default(0)
   y        Int       @default(0)
-  floor    Floor     @relation(fields: [floorId], references: [id])
-  floorId  Int
+  floor    Floor     @relation(fields: [floor_id], references: [id])
+  floor_id Int
 
   @@map("spaces")
 }

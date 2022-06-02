@@ -8,10 +8,12 @@ const Sidebar: FC<{
   const updateFloor = useUpdateFloor();
   const selectedFloor = useFloor();
   return (
-    <div className="flex w-auto flex-col py-5 font-mono font-bold text-white ">
+    <div className="flex w-auto flex-col justify-center font-mono font-bold text-white">
       {floors.map(({ id }) => (
         <button
-          className="w-auto border-l-8 px-10 py-5 text-2xl "
+          className={`w-auto border-l-8 transition-all ${
+            selectedFloor === id ? 'border-white' : 'border-gray-400'
+          } px-10 py-5 text-2xl`}
           onClick={() => {
             updateFloor(id);
           }}

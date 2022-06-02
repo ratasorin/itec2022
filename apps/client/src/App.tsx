@@ -1,11 +1,14 @@
 import { ReactElement } from 'react';
 import { Outlet } from 'react-router';
-
+import Widgets from './widgets/components';
 function App(): ReactElement {
   return (
-    <div className="grid place-items-center w-screen h-screen">
-      <Outlet />
-    </div>
+    <>
+      <Widgets />
+      <div className="grid h-screen w-screen place-items-center">
+        <Outlet />
+      </div>
+    </>
   );
 }
 
