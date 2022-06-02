@@ -31,51 +31,36 @@ export class BuildingsService {
     floor_id: number
   ): Promise<RetrievedSpaces[]> {
     try {
-      const result = await this.prisma.$queryRaw`
-      SELECT * FROM (
-      SELECT * FROM bookings  
-      FULL JOIN (
-        SELECT * FROM (
-            SELECT * FROM spaces
-            WHERE floor_id = (
-              SELECT id FROM floors
-              WHERE floors.building_id = ${building_id} and id = ${floor_id} 
-            )
-          ) AS booking_spaces
-      ) AS booking_spaces ON space_id = booking_spaces.id
-      ) AS booking_spaces
-      FULL JOIN users ON user_id = users.id 
+      const result = await this.prisma.$queryRaw`--sql
+        SELECT  id AS booking_id
+              ,book_from
+              ,book_until
+              ,spaces._id AS space_id
+              ,(
+        SELECT  name
+        FROM users
+        WHERE users.id = user_id
+        LIMIT 1), x, y, floor_id
+        FROM bookings AS bookings
+        FULL JOIN
+        (
+          SELECT  x
+                ,y
+                ,floor_id
+                ,id AS _id
+          FROM spaces
+          WHERE floor_id = (
+          SELECT  id AS floor_id
+          FROM floors
+          WHERE floors.building_id = ${building_id}
+          AND id = ${floor_id} ) 
+        ) AS spaces
+        ON bookings.space_id = spaces._id
       `;
 
-      // const spaces = floors[0].spaces.reduce((prev, curr) => {
-      //   const { book_until }: { book_until: Date | undefined } =
-      //     curr.Bookings.reduce(
-      //       (prev, curr) => {
-      //         const now = new Date();
-      //         console.log(curr.book_from, now, curr.book_until);
-      //         if (curr.book_from < now && now < curr.book_until)
-      //           return { book_until: curr.book_until, user: curr.id };
-
-      //         return prev;
-      //       },
-      //       {
-      //         book_until: undefined,
-      //         user: undefined,
-      //       }
-      //     );
-      //   return [
-      //     ...prev,
-      //     {
-      //       book_until,
-      //       id: curr.id,
-      //       x: curr.x,
-      //       y: curr.y,
-      //     },
-      //   ];
-      // }, [] as RetrievedSpaces[]);
       console.log({ result });
 
-      return [];
+      return result as unknown as RetrievedSpaces[];
     } catch (err) {
       console.error(err);
     }
