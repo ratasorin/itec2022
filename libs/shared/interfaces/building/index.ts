@@ -1,10 +1,11 @@
 import { Floor } from '@prisma/client';
 
-export interface RetrievedSpaces {
-  book_until: Date | undefined;
-  id: number;
+export interface SpacesOnLevel {
+  space_id: number | null;
   x: number;
   y: number;
+  name: string | null;
+  book_until: string | null;
 }
 
 export interface Building {
