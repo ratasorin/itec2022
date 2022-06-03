@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RetrievedSpaces } from '@shared';
+import { SpacesOnLevel } from '@shared';
 import { Omit } from '../../../../helpers/Omit';
 
 export interface Details {
   visible: boolean;
-  space: RetrievedSpaces;
+  boundingBox: DOMRect;
+  space: SpacesOnLevel;
 }
 
 const details = createSlice({
@@ -14,11 +15,17 @@ const details = createSlice({
   } as Details,
   name: 'details-popup',
   reducers: {
-    open: (_, action: PayloadAction<RetrievedSpaces>) => ({
+    open: (
+      _,
+      action: PayloadAction<{
+        space: SpacesOnLevel;
+        boundingBox: DOMRect;
+      }>
+    ) => ({
       visible: true,
-      space: action.payload,
+      ...action.payload,
     }),
-    close: () => ({ visible: false, space: {} as RetrievedSpaces }),
+    close: (payload) => ({ ...payload, visible: false }),
   },
 });
 
