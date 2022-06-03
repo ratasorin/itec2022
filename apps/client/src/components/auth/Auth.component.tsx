@@ -6,14 +6,14 @@ function AuthForm(): ReactElement {
   const [authType, setAuthType] = useState<'SIGN IN' | 'SIGN UP'>('SIGN UP');
 
   return (
-    <div className="flex flex-col justify-center items-center flex-1 gap-4 h-max m-auto">
+    <div className="m-auto flex h-max flex-1 flex-col items-center justify-center gap-4">
       {authType === 'SIGN UP' ? (
         <>
           <SignUpForm />
           <div className="max-w-fit text-xs">
             Do you have an account{' '}
             <p
-              className="hover:cursor-pointer hover:underline inline text-cyan-600"
+              className="inline text-cyan-600 hover:cursor-pointer hover:underline"
               onClick={() => setAuthType('SIGN IN')}
             >
               Login

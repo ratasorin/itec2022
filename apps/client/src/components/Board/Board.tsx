@@ -1,22 +1,22 @@
 import { Floor } from '@prisma/client';
-import { RetrievedSpaces } from '@shared';
+import { SpacesOnLevel } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
 import { useOpenWidget } from '../../widgets/utils/open';
 import { Details } from '../../widgets/components/popup/Details/details.slice';
-
-const bgColor = (book_until: Date | undefined) =>
-  book_until ? 'bg-red-400' : 'bg-green-400';
+import { useCloseWidget } from '../../widgets/utils/close';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
-  const [spaces, setSpaces] = useState<RetrievedSpaces[]>([]);
+  const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
   const openPopup = useOpenWidget<Details>('details-popup');
+  const closePopup = useCloseWidget('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>
       spaces.reduce(
         (prev, curr) => {
+          console.log({ prev });
           if (curr.x + 1 > prev.x)
             return {
               x: curr.x + 1,
@@ -41,14 +41,15 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
 
   useEffect(() => {
     const getSpacesOnLevel = async () => {
-      const response = await fetch(
-        url(`buildings/${floor?.building_id}/floor/${floor?.id}`)
-      );
-      const spaces = (await response.json()) as RetrievedSpaces[] | undefined;
-
-      if (!spaces) return;
-      setSpaces(spaces);
-      console.log({ spaces });
+      const response = await fetch(url(`floor/${floor?.id}`));
+      try {
+        const spaces = (await response.json()) as SpacesOnLevel[];
+        if (!spaces) return;
+        setSpaces(spaces);
+        console.log({ spaces });
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     getSpacesOnLevel();
@@ -59,35 +60,46 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
 
   return (
     <div
-      className={`grid aspect-square w-7/12 grid-cols-${y} grid-rows-${x} rounded-2xl bg-slate-500`}
+      className="grid aspect-square w-7/12 rounded-2xl bg-slate-500"
+      style={{
+        gridTemplateColumns: `repeat(${y}, 1fr)`,
+        gridTemplateRows: `repeat(${x}, 1fr)`,
+      }}
     >
-      {spaces.map(({ x, y, id, book_until }) => (
+      {spaces.map(({ x, y, book_until, name, space_id }) => (
         <div
-          onMouseOver={() => {
-            openPopup({
-              space: {
-                book_until,
-                id,
-                x,
-                y,
-              },
-            });
+          onMouseOver={({ currentTarget }) => {
+            if (book_until)
+              openPopup({
+                space: {
+                  name,
+                  book_until,
+                  space_id,
+                  x,
+                  y,
+                },
+                boundingBox: currentTarget.getBoundingClientRect(),
+              });
           }}
           onClick={() => {
+            closePopup();
             navigate(
               {
-                pathname: `/timetable/${id}`,
+                pathname: `/timetable/${space_id}`,
               },
               {
-                state: id,
+                state: space_id,
               }
             );
           }}
-          className={`
-          cursor-pointer rounded-2xl shadow-lg shadow-slate-600 col-span-[${y}] row-span-[${x}] h-1/2 w-1/2	content-center items-center	justify-center justify-items-center self-center justify-self-center text-white transition-all hover:scale-110 
-          ${bgColor(book_until)} bold flex text-3xl`}
+          style={{
+            backgroundColor: book_until ? 'red' : 'green',
+            gridColumn: y + 1,
+            gridRow: x + 1,
+          }}
+          className="bold flex h-1/2 w-1/2 cursor-pointer content-center items-center justify-center	justify-items-center self-center justify-self-center rounded-2xl text-3xl text-white shadow-lg shadow-slate-600 transition-all hover:scale-110"
         >
-          {id}
+          {space_id}
         </div>
       ))}
     </div>
