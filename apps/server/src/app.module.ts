@@ -7,10 +7,26 @@ import { UserModule } from './user/user.module';
 import { BookingService } from './booking/booking.service';
 import { BookingModule } from './booking/booking.module';
 import { AuthModule } from './auth/auth.module';
-import { BuildingsModule } from './buildings/buildings.module';
+import { BuildingModule } from './building/building.module';
+import { FloorService } from './floor/floor.service';
+import { FloorModule } from './floor/floor.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, UserModule, BookingModule, AuthModule, BuildingsModule],
-  providers: [AppService, PrismaService, UserService, BookingService],
+  imports: [
+    PrismaModule,
+    UserModule,
+    UserModule,
+    BookingModule,
+    AuthModule,
+    BuildingModule,
+    FloorModule,
+  ],
+  providers: [
+    AppService,
+    PrismaService,
+    UserService,
+    BookingService,
+    FloorService,
+  ],
 })
 export class AppModule {}

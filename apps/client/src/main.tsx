@@ -31,7 +31,7 @@ root.render(
             <Route path={ROUTES.DEFAULT} element={<App />}>
               <Route index element={<SearchPage />} />
               <Route path={ROUTES.AUTH} element={<AuthPage />} />
-              <Route path={ROUTES.BUILDINGS} element={<BuildingPage />} />
+              <Route path={ROUTES.BUILDING} element={<BuildingPage />} />
               <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
               <Route path={ROUTES.ADMIN} element={<AdminPage />} />
               <Route path="*" element={<NotFoundPage />} />
