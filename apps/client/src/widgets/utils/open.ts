@@ -1,4 +1,4 @@
-import { store } from '../../config/store';
+import { useAppDispatch } from '../../hooks/redux.hooks';
 import {
   AvailableWidgets,
   AvailableWidgetsStateAndProps,
@@ -9,8 +9,9 @@ export const useOpenWidget = <
 >(
   widget: AvailableWidgets
 ) => {
+  const dispatch = useAppDispatch();
   return (payload: Omit<T, 'visible'>) => {
-    store.dispatch({
+    dispatch({
       type: `${widget}/open`,
       payload: {
         ...payload,
