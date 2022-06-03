@@ -51,14 +51,14 @@ const main = async () => {
         },
         {
           id: 2,
-          x: 1,
-          y: 0,
+          x: 0,
+          y: 1,
           floor_id: 1,
         },
         {
           id: 3,
-          x: 0,
-          y: 1,
+          x: 1,
+          y: 0,
           floor_id: 1,
         },
         {
@@ -76,14 +76,14 @@ const main = async () => {
         },
         {
           id: 6,
-          x: 1,
-          y: 0,
+          x: 0,
+          y: 1,
           floor_id: 2,
         },
         {
           id: 7,
-          x: 0,
-          y: 1,
+          x: 1,
+          y: 0,
           floor_id: 2,
         },
         {
@@ -100,14 +100,14 @@ const main = async () => {
         },
         {
           id: 10,
-          x: 1,
-          y: 0,
+          x: 0,
+          y: 1,
           floor_id: 3,
         },
         {
           id: 11,
-          x: 0,
-          y: 1,
+          x: 1,
+          y: 0,
           floor_id: 3,
         },
         {
