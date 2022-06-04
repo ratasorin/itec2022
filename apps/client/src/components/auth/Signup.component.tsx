@@ -18,11 +18,6 @@ function SignUpForm(): ReactElement {
         headers: [['Content-Type', 'application/json']],
       });
       const { access_token: token } = await response.json();
-
-      console.log({ token });
-
-      const user = decode(token) as JwtUser;
-      console.log({ token, user });
       localStorage.setItem('token', token);
       navigate('/');
     } catch (err) {
@@ -31,7 +26,7 @@ function SignUpForm(): ReactElement {
   }, [username, password, navigate]);
 
   return (
-    <form className="flex flex-col justify-center mx-auto gap-8">
+    <form className="mx-auto flex flex-col justify-center gap-8">
       <div className="flex flex-col gap-2">
         <FormInput name="username" type="text" set={setUsername} />
         <FormInput name="password" type="password" set={setPassword} />

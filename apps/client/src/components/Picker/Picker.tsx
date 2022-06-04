@@ -31,7 +31,6 @@ const Picker: FC<{ id: number }> = ({ id }) => {
     });
 
     const msg = await response.json();
-    console.log({ msg });
   }, [bookFrom, bookUntil, id]);
   return (
     <div>

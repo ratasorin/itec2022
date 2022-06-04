@@ -22,7 +22,6 @@ const DetailsPopup = () => {
         y: containerTop - popupHeight - 20,
       };
 
-      console.log({ coordinates });
       return setCoordinates(coordinates);
     },
     [boundingBox]

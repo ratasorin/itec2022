@@ -17,17 +17,13 @@ function SearchPage(): ReactElement {
 
   useEffect(() => {
     const jwt = localStorage.getItem('token');
-    console.log({ jwt });
     if (!jwt) return;
-    const user = jwtDecode(jwt) as JwtUser;
-    console.log({ user });
   }, []);
 
   useEffect(() => {
     const getAllBuilding = async () => {
       const response = await fetch(url('Building'));
       const Building = (await response.json()) as Building[];
-      console.log({ Building });
       setBuilding(Building);
     };
 

@@ -3,20 +3,17 @@ import { SpacesOnLevel } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
-import { useOpenWidget } from '../../widgets/utils/open';
+import { useWidgets } from '../../widgets/utils/useWidgets';
 import { Details } from '../../widgets/components/popup/Details/details.slice';
-import { useCloseWidget } from '../../widgets/utils/close';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
-  const openPopup = useOpenWidget<Details>('details-popup');
-  const closePopup = useCloseWidget('details-popup');
+  const { open: openPopup } = useWidgets<Details>('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>
       spaces.reduce(
         (prev, curr) => {
-          console.log({ prev });
           if (curr.x + 1 > prev.x)
             return {
               x: curr.x + 1,
@@ -46,7 +43,6 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
         const spaces = (await response.json()) as SpacesOnLevel[];
         if (!spaces) return;
         setSpaces(spaces);
-        console.log({ spaces });
       } catch (err) {
         console.error(err);
       }
@@ -82,7 +78,6 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
               });
           }}
           onClick={() => {
-            closePopup();
             navigate(
               {
                 pathname: `/timetable/${space_id}`,
