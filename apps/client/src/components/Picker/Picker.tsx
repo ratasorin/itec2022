@@ -8,17 +8,22 @@ import Button from '@mui/material/Button';
 import { add } from 'date-fns';
 import getUser from '../../utils/user';
 import { url } from '../../constants/server';
-
+import { useWidgets } from '../../widgets/utils/useWidgets';
+import type { Notification } from '../../widgets/components/popup/Notification/notification.slice';
+import type { Error } from '@shared';
 const Picker: FC<{ id: number }> = ({ id }) => {
   const [bookFrom, setBookFrom] = useState<Date | null>(new Date());
   const [bookUntil, setBookUntil] = useState<Date | null>(
     add(new Date(), { hours: 1 })
   );
 
+  const { open: openNotification } =
+    useWidgets<Notification>('notification-popup');
+
   const bookSpace = useCallback(async () => {
     const user = getUser();
-
     if (!user) return;
+
     const response = await fetch(url('booking'), {
       method: 'POST',
       body: JSON.stringify({
@@ -30,8 +35,11 @@ const Picker: FC<{ id: number }> = ({ id }) => {
       headers: [['Content-Type', 'application/json']],
     });
 
-    const msg = await response.json();
-  }, [bookFrom, bookUntil, id]);
+    const payload = (await response.json()) as Error | string;
+    if (typeof payload === 'string') openNotification({ message: payload });
+    else openNotification({ message: payload.message });
+  }, [bookFrom, bookUntil, id, openNotification]);
+
   return (
     <div>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
