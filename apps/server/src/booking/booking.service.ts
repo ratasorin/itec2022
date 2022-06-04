@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import allTimeframes from '../utils/booking/findAllTimeframes';
 import findAvailableTimeframes from '../utils/booking/findAvailableTimeframes';
@@ -17,7 +17,6 @@ type Intervals = {
 export class BookingService {
   constructor(private prisma: PrismaService) {}
 
-  // TODO: If there are no bookins, return that the spots are available, not just empty []
   async getAvailableTimeframes(space_id: number, end: Date) {
     const start = new Date();
     const bookedTimeframes = await this.prisma.$queryRaw<Intervals>`
@@ -78,27 +77,26 @@ export class BookingService {
     }
   }
   async bookSpace({ book_from, space_id, book_until, user_id }: Booking) {
-    try {
-      const isAvailable = await this.isAvalibleSpace(
-        { start: book_from, end: book_until },
-        space_id
+    const isAvailable = await this.isAvalibleSpace(
+      { start: book_from, end: book_until },
+      space_id
+    );
+    if (!isAvailable)
+      throw new HttpException(
+        'SPACE ALREADY BOOKED',
+        HttpStatus.INTERNAL_SERVER_ERROR
       );
-      if (!isAvailable)
-        throw new Error(
-          `SPACE ${space_id} is booked from ${book_from} until ${book_until}`
-        );
-      return this.prisma.booking.create({
-        data: {
-          book_from,
-          book_until,
-          space_id,
-          user_id,
-        },
-      });
-    } catch (err) {
-      return {
-        err: `SPACE ${space_id} is booked from ${book_from.toLocaleTimeString()} until ${book_until.toLocaleTimeString()}`,
-      };
-    }
+
+    console.log('IM BOOKING', { book_from, book_until });
+    await this.prisma.booking.create({
+      data: {
+        book_from,
+        book_until,
+        space_id,
+        user_id,
+      },
+    });
+
+    return `Succesfully booked from ${book_from.toLocaleTimeString()} to ${book_until.toLocaleTimeString()}`;
   }
 }
