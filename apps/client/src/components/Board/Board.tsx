@@ -56,7 +56,7 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
 
   return (
     <div
-      className="grid aspect-square w-7/12 rounded-2xl bg-slate-500"
+      className="grid aspect-square w-7/12 max-w-md rounded-2xl bg-slate-500"
       style={{
         gridTemplateColumns: `repeat(${y}, 1fr)`,
         gridTemplateRows: `repeat(${x}, 1fr)`,
