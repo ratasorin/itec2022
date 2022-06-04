@@ -6,7 +6,7 @@ const NotificationPopup = () => {
     useSelectWidget<Notification>('notification-popup');
 
   if (!visible) return null;
-  return <div>{JSON.stringify(message)}</div>;
+  return <div>{message}</div>;
 };
 
 export default NotificationPopup;
