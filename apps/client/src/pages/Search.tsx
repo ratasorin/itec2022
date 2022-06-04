@@ -1,5 +1,3 @@
-import { JwtUser } from '@shared';
-import jwtDecode from 'jwt-decode';
 import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import getUser from '../utils/user';
