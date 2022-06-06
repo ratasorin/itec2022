@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useSelectWidget } from '../../../utils/select';
+import { useSelectWidget } from '../../../hooks/useSelectWidget';
 import { Details } from './details.slice';
 import { Button } from '@mui/material';
 const DetailsPopup = () => {

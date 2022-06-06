@@ -3,12 +3,12 @@ import { SpacesOnLevel } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
-import { useWidgets } from '../../widgets/utils/useWidgets';
+import { useWidgetActions } from '../../widgets/hooks/useWidgetActions';
 import { Details } from '../../widgets/components/popup/Details/details.slice';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
-  const { open: openPopup } = useWidgets<Details>('details-popup');
+  const { open: openPopup } = useWidgetActions<Details>('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>

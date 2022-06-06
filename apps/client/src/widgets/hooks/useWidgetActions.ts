@@ -5,7 +5,7 @@ import {
   AvailableWidgetsStateAndProps,
 } from '../store/available';
 
-export const useWidgets = <
+export const useWidgetActions = <
   T extends AvailableWidgetsStateAndProps[AvailableWidgets]
 >(
   widget: AvailableWidgets

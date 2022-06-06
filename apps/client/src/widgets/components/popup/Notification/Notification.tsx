@@ -1,4 +1,4 @@
-import { useSelectWidget } from '../../../utils/select';
+import { useSelectWidget } from '../../../hooks/useSelectWidget';
 import { Notification } from './notification.slice';
 
 const NotificationPopup = () => {
