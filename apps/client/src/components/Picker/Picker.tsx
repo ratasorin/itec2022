@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { add } from 'date-fns';
 import getUser from '../../utils/user';
 import { url } from '../../constants/server';
-import { useWidgets } from '../../widgets/utils/useWidgets';
+import { useWidgetActions } from '../../widgets/hooks/useWidgetActions';
 import type { Notification } from '../../widgets/components/popup/Notification/notification.slice';
 import type { Error } from '@shared';
 const Picker: FC<{ id: number }> = ({ id }) => {
@@ -18,7 +18,7 @@ const Picker: FC<{ id: number }> = ({ id }) => {
   );
 
   const { open: openNotification } =
-    useWidgets<Notification>('notification-popup');
+    useWidgetActions<Notification>('notification-popup');
 
   const bookSpace = useCallback(async () => {
     const user = getUser();
