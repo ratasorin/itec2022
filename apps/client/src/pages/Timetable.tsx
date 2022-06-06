@@ -3,11 +3,12 @@ import { useLocation } from 'react-router';
 import { url } from '../constants/server';
 import { add } from 'date-fns';
 import Picker from '../components/Picker/Picker';
+import Timeline from '../components/Timeline/Timeline';
+import { Interval } from '@shared';
 
 const Timetable = () => {
   const id = useLocation().state as number;
-  const [timetable, setTimetable] = useState<[string, string][]>();
-  const [timeframes, setTimeframes] = useState<[string, string][]>();
+  const [timetable, setTimetable] = useState<Interval[]>([]);
   useEffect(() => {
     if (!id) return;
 
@@ -21,65 +22,18 @@ const Timetable = () => {
       });
       const timetable = await response.json();
       if (!timetable) return;
-      console.log(timetable);
       setTimetable(timetable);
     };
 
-    const getAvailableTimeframes = async () => {
-      const response = await fetch(url(`booking/available/${id} `), {
-        method: 'POST',
-        body: JSON.stringify({ end }),
-        headers: [['Content-Type', 'application/json']],
-      });
-
-      const timeframes = await response.json();
-
-      if (!timeframes) return;
-
-      setTimeframes(timeframes);
-    };
-
-    getAvailableTimeframes();
     getTimetable();
   }, [id]);
+
   return (
-    <>
-      <div>
-        THE TIMEFRAMES ARE
-        {timeframes?.map(([begin, end]) => (
-          <li>
-            THE AREA IS FREE FROM{' '}
-            {new Date(begin)
-              .toLocaleDateString()
-              .concat(' ')
-              .concat(new Date(begin).toLocaleTimeString())}{' '}
-            TO{' '}
-            {new Date(end)
-              .toLocaleDateString()
-              .concat(' ')
-              .concat(new Date(end).toLocaleTimeString())}
-          </li>
-        ))}
-      </div>
-      <div>
-        THE TIMETABLE IS{' '}
-        {timetable?.map(([begin, end], index) => (
-          <li>
-            THE AREA IS {index % 2 ? 'OCCUPIED' : 'FREE'} FROM{' '}
-            {new Date(begin)
-              .toLocaleDateString()
-              .concat(' ')
-              .concat(new Date(begin).toLocaleTimeString())}{' '}
-            TO{' '}
-            {new Date(end)
-              .toLocaleDateString()
-              .concat(' ')
-              .concat(new Date(end).toLocaleTimeString())}
-          </li>
-        ))}
-      </div>
+    <div className="flex h-full w-full flex-col items-center justify-around p-10">
+      <div className="text-2xl">Office {id} 👨‍💼</div>
+      <Timeline intervals={timetable} />
       <Picker id={id} />
-    </>
+    </div>
   );
 };
 
