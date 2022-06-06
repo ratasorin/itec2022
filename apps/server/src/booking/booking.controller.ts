@@ -17,21 +17,9 @@ export class BookingController {
   constructor(private service: BookingService) {}
 
   // @UseGuards(JwtAuthGuard)
-  @Post('available/:id')
-  async getAvailableTimeframes(
-    @Param('id', ParseIntPipe) id: number,
-    @Body('end') end: Date
-  ) {
-    return await this.service.getAvailableTimeframes(id, end);
-  }
-
-  // @UseGuards(JwtAuthGuard)
   @Post('timetable/:id')
-  async getTimetable(
-    @Param('id', ParseIntPipe) id: number,
-    @Body('end') end: Date
-  ) {
-    return await this.service.getTimetable(id, end);
+  async getTimetable(@Param('id', ParseIntPipe) id: number) {
+    return await this.service.getTimetable(id);
   }
 
   // @UseGuards(JwtAuthGuard)
