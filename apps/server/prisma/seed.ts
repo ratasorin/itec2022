@@ -123,13 +123,13 @@ const main = async () => {
     const bu1 = moment().add(1, 'hours').toISOString();
 
     const bf2 = moment().add(2, 'hours').toISOString();
-    const bu2 = moment().add(3, 'hours').toISOString();
+    const bu2 = moment().add(5, 'hours').toISOString();
 
-    const bf3 = moment().add(4, 'hours').toISOString();
-    const bu3 = moment().add(5, 'hours').toISOString();
+    const bf3 = moment().add(7, 'hours').toISOString();
+    const bu3 = moment().add(21, 'hours').toISOString();
 
-    const bf4 = moment().add(8, 'hours').toISOString();
-    const bu4 = moment().add(9, 'hours').toISOString();
+    const bf4 = moment().add(23, 'hours').toISOString();
+    const bu4 = moment().add(33, 'hours').toISOString();
 
     await prisma.booking.createMany({
       data: [
