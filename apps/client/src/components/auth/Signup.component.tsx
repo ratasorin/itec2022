@@ -1,8 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
 import FormInput from '../chuncks/forminput.component';
-import decode from 'jwt-decode';
-import { JwtUser } from '@shared';
 import { useNavigate } from 'react-router';
 
 function SignUpForm(): ReactElement {
