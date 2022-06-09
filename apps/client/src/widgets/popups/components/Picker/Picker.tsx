@@ -60,23 +60,24 @@ const PickerPopup = () => {
         <br />
         until {payload.interval.end}
       </div>
-      <Button
-        onClick={() => {
-          close();
-          open({
-            payload: {
-              end: new Date(payload.interval.end),
-              occupantName: payload.interval.occupantName,
-              start: new Date(payload.interval.start),
-              id: payload.id,
-            },
-            specification: {},
-          });
-        }}
-      >
-        {' '}
-        Book Space{' '}
-      </Button>
+      {payload.interval.occupantName ? null : (
+        <Button
+          onClick={() => {
+            close();
+            open({
+              payload: {
+                end: new Date(payload.interval.end),
+                occupantName: payload.interval.occupantName,
+                start: new Date(payload.interval.start),
+                id: payload.id,
+              },
+              specification: {},
+            });
+          }}
+        >
+          Book Space
+        </Button>
+      )}
     </div>
   );
 };
