@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import * as ROUTES from './constants/routes';
 import AuthPage from './pages/Auth';
-import SearchPage from './pages/Search';
+import HomePage from './pages/Home';
 import BuildingPage from './pages/Building';
 import AdminPage from './pages/Admin';
 import NotFoundPage from './pages/NotFound';
@@ -29,7 +29,7 @@ root.render(
         <Router>
           <Routes>
             <Route path={ROUTES.DEFAULT} element={<App />}>
-              <Route index element={<SearchPage />} />
+              <Route index element={<HomePage />} />
               <Route path={ROUTES.AUTH} element={<AuthPage />} />
               <Route path={ROUTES.BUILDING} element={<BuildingPage />} />
               <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />

@@ -1,6 +1,6 @@
 import { Floor } from '@prisma/client';
 import { FC } from 'react';
-import { useFloor, useUpdateFloor } from '../../pages/slices/floor.slice';
+import { useFloor, useUpdateFloor } from '../../../pages/slices/floor.slice';
 
 const Sidebar: FC<{
   floors: Floor[];

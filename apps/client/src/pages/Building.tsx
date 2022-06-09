@@ -1,8 +1,8 @@
 import { Floor } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import Board from '../components/Board/Board';
-import Sidebar from '../components/Sidebar/Sidebar';
+import Board from '../components/Floor/Board/Board';
+import Sidebar from '../components/Floor/Sidebar/Sidebar';
 import { useFloor } from './slices/floor.slice';
 
 const BuildingMenu = () => {

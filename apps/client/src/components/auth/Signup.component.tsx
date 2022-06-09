@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
-import FormInput from '../chuncks/forminput.component';
+import Form from './Form/Form';
 import { useNavigate } from 'react-router';
 
 function SignUpForm(): ReactElement {
@@ -26,8 +26,8 @@ function SignUpForm(): ReactElement {
   return (
     <form className="mx-auto flex flex-col justify-center gap-8">
       <div className="flex flex-col gap-2">
-        <FormInput name="username" type="text" set={setUsername} />
-        <FormInput name="password" type="password" set={setPassword} />
+        <Form name="username" type="text" set={setUsername} />
+        <Form name="password" type="password" set={setPassword} />
       </div>
 
       <div className="flex flex-col">

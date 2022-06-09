@@ -4,7 +4,7 @@ import {
   UserDefinedOfficeTimeInterval,
 } from '@shared';
 import { useEffect, useState } from 'react';
-import { url } from '../../constants/server';
+import { url } from '../../../constants/server';
 import useDrawTimeline from './draw/timeline';
 
 interface TimelineProps {

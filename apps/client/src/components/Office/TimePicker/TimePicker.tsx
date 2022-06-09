@@ -1,4 +1,4 @@
-import getUser from '../../utils/user';
+import getUser from '../../../utils/user';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -7,9 +7,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
-import { url } from '../../constants/server';
-import { useWidgetActions } from '../../widgets/hooks/useWidgetActions';
-import { NotificationActionBlueprint } from '../../widgets/popups/components/Notification/notification.slice';
+import { url } from '../../../constants/server';
+import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
+import { NotificationActionBlueprint } from '../../../widgets/popups/components/Notification/notification.slice';
 import type { Error } from '@shared';
 
 const Picker: FC<{ id: number }> = ({ id }) => {

@@ -1,8 +1,8 @@
 import type { UserDefinedOfficeTimeInterval } from '@shared';
-import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
+import { useWidgetActions } from '../../../../widgets/hooks/useWidgetActions';
 import * as d3 from 'd3';
 import { add } from 'date-fns';
-import { PickerActionBlueprint } from '../../../widgets/popups/components/Picker/picker.slice';
+import { PickerActionBlueprint } from '../../../../widgets/popups/components/Picker/picker.slice';
 
 const useDrawTimeline = (id: number) => {
   const { open, close } =

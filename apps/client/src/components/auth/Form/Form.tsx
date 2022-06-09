@@ -7,7 +7,7 @@ interface InputProps {
   set?: Dispatch<SetStateAction<string>>;
 }
 
-function FormInput({ name, type, set }: InputProps): ReactElement {
+function Form({ name, type, set }: InputProps): ReactElement {
   return (
     <TextField
       label={name}
@@ -20,4 +20,4 @@ function FormInput({ name, type, set }: InputProps): ReactElement {
   );
 }
 
-export default FormInput;
+export default Form;

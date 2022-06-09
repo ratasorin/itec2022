@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router';
-import Timeline from '../components/Timeline/Timeline';
+import Timeline from '../components/Office/Timeline/Timeline';
 
 const Timetable = () => {
   const id = useLocation().state as number;

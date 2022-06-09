@@ -1,10 +1,10 @@
 import { Floor } from '@prisma/client';
 import { SpacesOnLevel } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { url } from '../../constants/server';
+import { url } from '../../../constants/server';
 import { useNavigate } from 'react-router';
-import { useWidgetActions } from '../../widgets/hooks/useWidgetActions';
-import { DetailsActionBlueprint } from '../../widgets/popups/components/Details/details.slice';
+import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
+import { DetailsActionBlueprint } from '../../../widgets/popups/components/Details/details.slice';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
