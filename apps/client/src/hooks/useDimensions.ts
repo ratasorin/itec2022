@@ -19,6 +19,10 @@ const useDimensions = <T extends HTMLElement | null>(element: T) => {
   );
 
   useEffect(() => {
+    if (!element) setDimensions(null);
+  }, [element]);
+
+  useEffect(() => {
     if (element) resizeObserver.observe(element);
 
     return () => {

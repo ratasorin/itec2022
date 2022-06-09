@@ -5,7 +5,8 @@ import { add } from 'date-fns';
 import { PickerActionBlueprint } from '../../../widgets/popups/components/Picker/picker.slice';
 
 const useDrawTimeline = (id: number) => {
-  const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
+  const { open, close } =
+    useWidgetActions<PickerActionBlueprint>('picker-popup');
   return (intervals: UserDefinedOfficeTimeInterval[], screenWidth: number) => {
     const dimensions = {
       width: screenWidth - 180,
@@ -64,25 +65,28 @@ const useDrawTimeline = (id: number) => {
           const { left, top, height, width } = (
             event.currentTarget as HTMLElement
           ).getBoundingClientRect();
-          open({
-            payload: {
-              id,
-              interval: {
-                end: end
-                  ? end.toLocaleString()
-                  : new Date(chartEndsAt).toLocaleString(),
-                occupantName,
-                start: start.toLocaleString(),
+          close();
+          setTimeout(() => {
+            open({
+              payload: {
+                id,
+                interval: {
+                  end: end
+                    ? end.toLocaleString()
+                    : new Date(chartEndsAt).toLocaleString(),
+                  occupantName,
+                  start: start.toLocaleString(),
+                },
               },
-            },
-            specification: {
-              box: {
-                height,
-                width,
-                left,
-                top,
+              specification: {
+                box: {
+                  height,
+                  width,
+                  left,
+                  top,
+                },
               },
-            },
+            });
           });
         });
     });

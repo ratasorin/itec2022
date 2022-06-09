@@ -14,7 +14,7 @@ export type PickerActionBlueprint = PickerBlueprint['Action'];
 const initialState = {
   specification: {
     render: false,
-    box: { height: 0, left: 0, top: 0, width: 0 },
+    box: null,
   },
   payload: {
     id: 0,

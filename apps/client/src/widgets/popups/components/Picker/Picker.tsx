@@ -10,11 +10,10 @@ import { BookingActionBlueprint } from '../../../modals/components/Booking/booki
 const PickerPopup = () => {
   const { payload, specification } =
     useWidgetBlueprint<PickerPopupBlueprint>('picker-popup');
-
-  const [popup, setPopup] = useState<HTMLDivElement | null>(null);
-
   const { close } = useWidgetActions('picker-popup');
   const { open } = useWidgetActions<BookingActionBlueprint>('booking-modal');
+
+  const [popup, setPopup] = useState<HTMLDivElement | null>(null);
 
   useOnClickOutside<HTMLDivElement | null>(popup, close);
 
@@ -28,9 +27,8 @@ const PickerPopup = () => {
     let left = leftBox + widthBox / 2 - popupWidth / 2;
     let top = topBox - popupHeight - 10;
 
-    console.log({ left, popupWidth });
-    if (left < 0) left = 1;
-    if (top < 0) top = 1;
+    if (left < 0) left = 0.1;
+    if (top < 0) top = 0.1;
     return {
       left,
       top,

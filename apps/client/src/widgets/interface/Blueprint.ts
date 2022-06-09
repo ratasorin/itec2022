@@ -5,7 +5,7 @@ interface Specification {
     height: number;
     left: number;
     top: number;
-  };
+  } | null;
 }
 
 type ActionSpecification = Omit<Specification, 'render'>;
