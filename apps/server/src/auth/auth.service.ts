@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/interfaces';
@@ -27,12 +27,17 @@ export class AuthService {
   }
 
   async signIn(user: User) {
-    console.log({ user });
-    const { name, id } = await this.userService.createUser(user);
+    const createdUser = await this.userService.createUser(user);
+    if (!createdUser)
+      throw new HttpException(
+        'FAILED TO CREATE USER',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+
     return {
       access_token: this.jwtService.sign({
-        name,
-        sub: id,
+        name: createdUser.name,
+        sub: createdUser.id,
       } as JwtUser),
     };
   }
