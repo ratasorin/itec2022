@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   ParseIntPipe,
   Post,
@@ -10,14 +11,14 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { HttpExceptionFilter } from '../error/http-exception.filter';
 import { BookingService } from './booking.service';
-import { Booking } from './interfaces';
+import { Booking } from './interfaces/booking';
 
 @Controller('booking')
 export class BookingController {
   constructor(private service: BookingService) {}
 
   // @UseGuards(JwtAuthGuard)
-  @Post('timetable/:id')
+  @Get('timetable/:id')
   async getTimetable(@Param('id', ParseIntPipe) id: number) {
     return await this.service.getTimetable(id);
   }
