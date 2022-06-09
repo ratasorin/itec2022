@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { BuildingModule } from './building/building.module';
 import { FloorService } from './floor/floor.service';
 import { FloorModule } from './floor/floor.module';
+import { DatabaseModule } from './database/database.module';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { FloorModule } from './floor/floor.module';
     AuthModule,
     BuildingModule,
     FloorModule,
+    DatabaseModule,
+    TestModule,
   ],
   providers: [
     AppService,
