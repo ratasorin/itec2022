@@ -6,8 +6,12 @@ import {
   UserDefinedOfficeTimeInterval,
 } from './interfaces';
 import { parseDBOfficeIntervals } from '@shared';
-import { TimeInterval } from './interfaces/timeframe';
 import { Booking } from './interfaces/booking';
+
+interface Interval {
+  start: Date;
+  end: Date;
+}
 
 type Overlaps = {
   overlaps: number;
@@ -81,13 +85,13 @@ export class BookingService {
     return timeIntervals;
   }
 
-  async isAvailableSpace({ start, end }: TimeInterval, id: number) {
+  async isAvailableSpace(interval: Interval, id: number) {
     try {
       const [{ overlaps }] = await this.prisma.$queryRaw<Overlaps>`--sql
         SELECT COUNT(*) AS overlaps FROM bookings
         WHERE space_id = ${id} 
         AND 
-        (book_from BETWEEN ${start} AND ${end} OR book_until BETWEEN ${start} AND ${end})
+        (book_from BETWEEN ${interval.start} AND ${interval.end} OR book_until BETWEEN ${interval.start} AND ${interval.end})
         `;
       return !overlaps;
     } catch (err) {
