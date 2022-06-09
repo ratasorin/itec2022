@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux.hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux/redux.hooks';
 
 const floorSlice = createSlice({
   initialState: 1,

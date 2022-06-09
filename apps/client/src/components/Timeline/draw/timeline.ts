@@ -1,18 +1,12 @@
-import type { Interval } from '@shared';
+import type { UserDefinedOfficeTimeInterval } from '@shared';
 import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
 import * as d3 from 'd3';
 import { add } from 'date-fns';
-import { Details } from '../../../widgets/components/popup/Details/details.slice';
+import { PickerActionBlueprint } from '../../../widgets/popups/components/Picker/picker.slice';
 
-type Time = {
-  time: number;
-  name: string | null;
-};
-
-const useDrawTimeline = (ID: number) => {
-  const { close, open } = useWidgetActions<Details>('details-popup');
-  return (intervals: Interval[], screenWidth: number) => {
-    //set dimensions
+const useDrawTimeline = (id: number) => {
+  const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
+  return (intervals: UserDefinedOfficeTimeInterval[], screenWidth: number) => {
     const dimensions = {
       width: screenWidth - 180,
       height: 150,
@@ -42,18 +36,11 @@ const useDrawTimeline = (ID: number) => {
     // prepare data
 
     const bookedArea = d3
-      .area<Time>()
-      .x((d) => xScale(d.time))
+      .area<number>()
+      .x((d) => xScale(d))
       .y0(dimensions.height)
       .y1(() => yScale(1))
       .curve(d3.curveStepAfter);
-    // prepare tooltip
-    const div = d3
-      .select('#timeline')
-      .append('div')
-      .attr('class', 'tooltip')
-      .style('opacity', 0.7)
-      .style('visibility', 'hidden');
 
     const timeScale = d3
       .scaleTime()
@@ -65,32 +52,38 @@ const useDrawTimeline = (ID: number) => {
       .attr('transform', 'translate(0,' + dimensions.height + ')')
       .call(d3.axisBottom(timeScale));
 
-    intervals.forEach(({ end, name, start }, index) => {
+    intervals.forEach(({ end, occupantName, start }) => {
       wrapper
         .append('path')
         .attr(
           'd',
-          bookedArea([
-            { name, time: new Date(start).getTime() },
-            { name, time: new Date(end || chartEndsAt).getTime() },
-          ])
+          bookedArea([start.getTime(), end ? end.getTime() : chartEndsAt])
         )
-        .attr('fill', name ? 'red' : 'green')
-        .on('mousemove', (event) => {
-          div
-            .html(
-              `The space is ${name ? 'booked' : 'free'} from <br/>` +
-                new Date(start).toLocaleString() +
-                `<br/> until </br />` +
-                new Date(end || chartEndsAt).toLocaleString()
-            )
-            .style('visibility', 'visible')
-            .style('top', event.pageY - 60 + 'px')
-            .style('left', event.pageX - 60 + 'px');
-        })
-        .on('mouseout', () => {
-          div.transition();
-          div.style('visibility', 'hidden');
+        .attr('fill', occupantName ? 'red' : 'green')
+        .on('mouseover', (event: MouseEvent) => {
+          const { left, top, height, width } = (
+            event.currentTarget as HTMLElement
+          ).getBoundingClientRect();
+          open({
+            payload: {
+              id,
+              interval: {
+                end: end
+                  ? end.toLocaleString()
+                  : new Date(chartEndsAt).toLocaleString(),
+                occupantName,
+                start: start.toLocaleString(),
+              },
+            },
+            specification: {
+              box: {
+                height,
+                width,
+                left,
+                top,
+              },
+            },
+          });
         });
     });
 

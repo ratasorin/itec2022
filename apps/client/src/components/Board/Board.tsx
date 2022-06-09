@@ -4,11 +4,12 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../constants/server';
 import { useNavigate } from 'react-router';
 import { useWidgetActions } from '../../widgets/hooks/useWidgetActions';
-import { Details } from '../../widgets/components/popup/Details/details.slice';
+import { DetailsActionBlueprint } from '../../widgets/popups/components/Details/details.slice';
 
 const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
-  const { open: openPopup } = useWidgetActions<Details>('details-popup');
+  const { open: openPopup } =
+    useWidgetActions<DetailsActionBlueprint>('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>
@@ -67,14 +68,16 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
           onMouseOver={({ currentTarget }) => {
             if (book_until)
               openPopup({
-                space: {
+                payload: {
                   name,
                   book_until,
                   space_id,
                   x,
                   y,
                 },
-                boundingBox: currentTarget.getBoundingClientRect(),
+                specification: {
+                  box: currentTarget.getBoundingClientRect(),
+                },
               });
           }}
           onClick={() => {
