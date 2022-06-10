@@ -1,69 +1,37 @@
--- CreateTable
-CREATE TABLE "users" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "admin" BOOLEAN NOT NULL DEFAULT false,
-
-    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT false,
 );
 
--- CreateTable
-CREATE TABLE "bookings" (
-    "id" SERIAL NOT NULL,
-    "book_from" TIMESTAMP(3) NOT NULL,
-    "book_until" TIMESTAMP(3) NOT NULL,
-    "space_id" INTEGER NOT NULL,
-    "user_id" INTEGER NOT NULL,
-
-    CONSTRAINT "bookings_pkey" PRIMARY KEY ("id")
+CREATE TABLE bookings (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    -- time range representing old [bookfrom, bookuntil)
+    interval TSRANGE NOT NULL
+    space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
+    -- do not allow overlapping time-ranges
+    EXCLUDE USING GIST (id WITH =, interval WITH &&),
 );
 
--- CreateTable
-CREATE TABLE "floors" (
-    "id" SERIAL NOT NULL,
-    "level" INTEGER NOT NULL,
-    "building_id" INTEGER NOT NULL,
-
-    CONSTRAINT "floors_pkey" PRIMARY KEY ("id")
+CREATE TABLE floors (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    level INTEGER NOT NULL,
+    building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE,
+    UNIQUE (level, building_id),
 );
 
--- CreateTable
-CREATE TABLE "spaces" (
-    "id" SERIAL NOT NULL,
-    "x" INTEGER NOT NULL DEFAULT 0,
-    "y" INTEGER NOT NULL DEFAULT 0,
-    "floor_id" INTEGER NOT NULL,
-
-    CONSTRAINT "spaces_pkey" PRIMARY KEY ("id")
+CREATE TABLE spaces (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) UNIQUE NOT NULL,
+    x INTEGER NOT NULL DEFAULT 0,
+    y INTEGER NOT NULL DEFAULT 0,
+    floor_id UUID NOT NULL REFERENCES floors ON DELETE CASCADE,
 );
 
--- CreateTable
-CREATE TABLE "buildings" (
-    "id" SERIAL NOT NULL,
-    "user_id" INTEGER NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "buildings_pkey" PRIMARY KEY ("id")
+CREATE TABLE buildings (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) UNIQUE NOT NULL,
+    user_id UUID NOT NULL REFERENCES users ON DELETE SET NULL,
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "users_name_key" ON "users"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "buildings_name_key" ON "buildings"("name");
-
--- AddForeignKey
-ALTER TABLE "bookings" ADD CONSTRAINT "bookings_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "bookings" ADD CONSTRAINT "bookings_space_id_fkey" FOREIGN KEY ("space_id") REFERENCES "spaces"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "floors" ADD CONSTRAINT "floors_building_id_fkey" FOREIGN KEY ("building_id") REFERENCES "buildings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "spaces" ADD CONSTRAINT "spaces_floor_id_fkey" FOREIGN KEY ("floor_id") REFERENCES "floors"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "buildings" ADD CONSTRAINT "buildings_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
