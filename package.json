@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "generate:date": "ts-node apps/server/src/utils/date.generate.ts",
-    "test": "nx test"
+    "test": "nx test",
+    "generate:database": "psql postgresql://postgres:postgres@localhost:5432 < apps/server/database/schema.sql"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
