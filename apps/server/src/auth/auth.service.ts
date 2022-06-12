@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../user/interfaces';
+import { User as UserDB } from '../../generated/schema';
+import { UserDTO } from '../user/interfaces';
 import { JwtUser } from './interface';
 
 @Injectable()
@@ -11,22 +12,25 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, password: string): Promise<User | null> {
-    const user = await this.userService.getUser(username);
+  async validateUser(
+    username: string,
+    password: string
+  ): Promise<UserDB | null> {
+    const user = await this.userService.getUserByName(username);
     if (user && user.password === password) {
       return user;
     }
     return null;
   }
 
-  async login(user: User) {
-    const payload = { name: user.name, sub: user.id } as JwtUser;
+  async login(user: UserDB) {
+    const payload: JwtUser = { name: user.name, id: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
 
-  async signIn(user: User) {
+  async signUp(user: UserDTO) {
     const createdUser = await this.userService.createUser(user);
     if (!createdUser)
       throw new HttpException(
@@ -37,8 +41,8 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign({
         name: createdUser.name,
-        sub: createdUser.id,
-      } as JwtUser),
+        id: createdUser.id,
+      }),
     };
   }
 }

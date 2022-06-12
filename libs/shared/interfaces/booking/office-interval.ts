@@ -1,18 +1,8 @@
 export interface OfficeTimeIntervalDB {
-  start: string;
-  end: string;
-  occupantName: string | null;
-}
-
-export interface OfficeTimeIntervalJSON {
-  start: string;
-  end: string | null;
-  occupantName: string | null;
-}
-
-export interface UserDefinedOfficeTimeInterval {
-  start: Date;
-  end: Date | null;
+  booked_from: string;
+  booked_until: string;
+  free_from: string;
+  free_until: string | null;
   occupantName: string | null;
 }
 

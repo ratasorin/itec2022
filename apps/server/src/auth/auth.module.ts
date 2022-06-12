@@ -8,9 +8,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { SECRET } from './constant/jwt';
 import { UserModule } from '../user/user.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   imports: [
+    DatabaseModule,
     UserModule,
     PassportModule,
     JwtModule.register({
