@@ -8,7 +8,7 @@ export type BookingModalBlueprint = BookingBlueprint['Component'];
 
 const initialState: BookingModalBlueprint = {
   specification: { render: false },
-  payload: { end: new Date(), occupantName: null, start: new Date(), id: -1 },
+  payload: { end: '', occupantName: null, start: '', id: -1 },
 };
 
 const booking = createSlice({

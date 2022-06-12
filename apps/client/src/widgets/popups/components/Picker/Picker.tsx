@@ -64,9 +64,9 @@ const PickerPopup = () => {
             close();
             open({
               payload: {
-                end: new Date(payload.interval.end),
+                end: payload.interval.end,
                 occupantName: payload.interval.occupantName,
-                start: new Date(payload.interval.start),
+                start: payload.interval.start,
                 id: payload.id,
               },
               specification: {},

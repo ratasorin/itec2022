@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfficeTimeIntervalDB } from '@shared';
+import { OfficeTimeInterval } from '@shared';
 import type { Blueprint } from '../../../interface/Blueprint';
 
 interface PickerPayload {
   id: number;
-  interval: OfficeTimeIntervalDB;
+  interval: OfficeTimeInterval;
 }
 
 type PickerBlueprint = Blueprint<PickerPayload>;
 export type PickerPopupBlueprint = PickerBlueprint['Component'];
 export type PickerActionBlueprint = PickerBlueprint['Action'];
 
-const initialState = {
+const initialState: PickerPopupBlueprint = {
   specification: {
     render: false,
     box: null,
@@ -24,7 +24,7 @@ const initialState = {
       start: '',
     },
   },
-} as PickerPopupBlueprint;
+};
 
 const picker = createSlice({
   initialState,

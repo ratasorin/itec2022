@@ -30,8 +30,8 @@ const Picker: FC<{ id: number }> = ({ id }) => {
       body: JSON.stringify({
         book_from: bookFrom,
         book_until: bookUntil,
-        space_id: Number(id),
-        user_id: Number(user.sub),
+        space_id: id,
+        user_id: user.id,
       }),
       headers: [['Content-Type', 'application/json']],
     });

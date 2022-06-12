@@ -37,7 +37,7 @@ const DetailsPopup = () => {
       className="absolute z-50 flex flex-col items-start justify-start rounded-md bg-white p-6 align-middle shadow-md"
     >
       <span className="pb-3">
-        Booked by {payload.name || ''}, until{' '}
+        Booked by {payload.occupantName || ''}, until{' '}
         {new Date(payload.book_until || '').toLocaleTimeString()}
       </span>
       <Button variant="outlined" className="w-auto">

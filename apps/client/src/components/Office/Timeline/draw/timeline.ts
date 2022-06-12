@@ -1,4 +1,4 @@
-import type { UserDefinedOfficeTimeInterval } from '@shared';
+import type { OfficeTimeIntervalDB } from '@shared';
 import { useWidgetActions } from '../../../../widgets/hooks/useWidgetActions';
 import * as d3 from 'd3';
 import { add } from 'date-fns';
@@ -7,7 +7,7 @@ import { PickerActionBlueprint } from '../../../../widgets/popups/components/Pic
 const useDrawTimeline = (id: number) => {
   const { open, close } =
     useWidgetActions<PickerActionBlueprint>('picker-popup');
-  return (intervals: UserDefinedOfficeTimeInterval[], screenWidth: number) => {
+  return (intervals: OfficeTimeIntervalDB[], screenWidth: number) => {
     const dimensions = {
       width: screenWidth - 180,
       height: 150,
@@ -53,43 +53,84 @@ const useDrawTimeline = (id: number) => {
       .attr('transform', 'translate(0,' + dimensions.height + ')')
       .call(d3.axisBottom(timeScale));
 
-    intervals.forEach(({ end, occupantName, start }) => {
-      wrapper
-        .append('path')
-        .attr(
-          'd',
-          bookedArea([start.getTime(), end ? end.getTime() : chartEndsAt])
-        )
-        .attr('fill', occupantName ? 'red' : 'green')
-        .on('mouseover', (event: MouseEvent) => {
-          const { left, top, height, width } = (
-            event.currentTarget as HTMLElement
-          ).getBoundingClientRect();
-          close();
-          setTimeout(() => {
-            open({
-              payload: {
-                id,
-                interval: {
-                  end: end
-                    ? end.toLocaleString()
-                    : new Date(chartEndsAt).toLocaleString(),
-                  occupantName,
-                  start: start.toLocaleString(),
+    intervals.forEach(
+      ({ booked_from, booked_until, free_from, free_until, occupantName }) => {
+        wrapper
+          .append('path')
+          .attr(
+            'd',
+            bookedArea([
+              new Date(booked_from).getTime(),
+              new Date(booked_until).getTime(),
+            ])
+          )
+          .attr('fill', 'red')
+          .on('mouseover', (event: MouseEvent) => {
+            const { left, top, height, width } = (
+              event.currentTarget as HTMLElement
+            ).getBoundingClientRect();
+            close();
+            setTimeout(() => {
+              open({
+                payload: {
+                  id,
+                  interval: {
+                    end: new Date(booked_until).toLocaleString(),
+                    occupantName,
+                    start: new Date(booked_from).toLocaleString(),
+                  },
                 },
-              },
-              specification: {
-                box: {
-                  height,
-                  width,
-                  left,
-                  top,
+                specification: {
+                  box: {
+                    height,
+                    width,
+                    left,
+                    top,
+                  },
                 },
-              },
+              });
             });
           });
-        });
-    });
+        wrapper
+          .append('path')
+          .attr(
+            'd',
+            bookedArea([
+              new Date(free_from).getTime(),
+              new Date(free_until || new Date(chartEndsAt)).getTime(),
+            ])
+          )
+          .attr('fill', 'green')
+          .on('mouseover', (event: MouseEvent) => {
+            const { left, top, height, width } = (
+              event.currentTarget as HTMLElement
+            ).getBoundingClientRect();
+            close();
+            setTimeout(() => {
+              open({
+                payload: {
+                  id,
+                  interval: {
+                    end: new Date(free_from).toLocaleString(),
+                    occupantName: null,
+                    start: new Date(
+                      free_until || new Date(chartEndsAt)
+                    ).toLocaleString(),
+                  },
+                },
+                specification: {
+                  box: {
+                    height,
+                    width,
+                    left,
+                    top,
+                  },
+                },
+              });
+            });
+          });
+      }
+    );
 
     // wrapper.append('path').attr('d', freeArea(intervals)).attr('fill', 'green');
   };

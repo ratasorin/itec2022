@@ -1,13 +1,13 @@
-import { Floor } from '@prisma/client';
-import { SpacesOnLevel } from '@shared';
+import { FloorDB } from '@shared';
+import { SpacesOnFloor } from '@shared';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { url } from '../../../constants/server';
 import { useNavigate } from 'react-router';
 import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
 import { DetailsActionBlueprint } from '../../../widgets/popups/components/Details/details.slice';
 
-const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
-  const [spaces, setSpaces] = useState<SpacesOnLevel[]>([]);
+const Board: FC<{ floor: FloorDB | undefined }> = ({ floor }) => {
+  const [spaces, setSpaces] = useState<SpacesOnFloor[]>([]);
   const { open: openPopup } =
     useWidgetActions<DetailsActionBlueprint>('details-popup');
   const navigate = useNavigate();
@@ -38,18 +38,14 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
   );
 
   useEffect(() => {
-    const getSpacesOnLevel = async () => {
-      const response = await fetch(url(`floor/${floor?.id}`));
-      try {
-        const spaces = (await response.json()) as SpacesOnLevel[];
-        if (!spaces) return;
-        setSpaces(spaces);
-      } catch (err) {
-        console.error(err);
-      }
+    const getSpacesWithBooking = async (floor: FloorDB) => {
+      const response = await fetch(url(`floor/${floor.id}/spaces`));
+      const spaces: SpacesOnFloor[] = await response.json();
+      console.log({ spaces });
+      setSpaces(spaces);
     };
 
-    getSpacesOnLevel();
+    if (floor) getSpacesWithBooking(floor);
   }, [floor]);
 
   if (!floor) return null;
@@ -63,43 +59,46 @@ const Board: FC<{ floor: Floor | undefined }> = ({ floor }) => {
         gridTemplateRows: `repeat(${x}, 1fr)`,
       }}
     >
-      {spaces.map(({ x, y, book_until, name, space_id }) => (
-        <div
-          onMouseOver={({ currentTarget }) => {
-            if (book_until)
-              openPopup({
-                payload: {
-                  name,
-                  book_until,
-                  space_id,
-                  x,
-                  y,
+      {spaces.map(
+        ({ x, y, book_until, occupantName, space_id, officeName }) => (
+          <div
+            onMouseOver={({ currentTarget }) => {
+              if (book_until)
+                openPopup({
+                  payload: {
+                    occupantName,
+                    officeName,
+                    book_until,
+                    space_id,
+                    x,
+                    y,
+                  },
+                  specification: {
+                    box: currentTarget.getBoundingClientRect(),
+                  },
+                });
+            }}
+            onClick={() => {
+              navigate(
+                {
+                  pathname: `/timetable/${space_id}`,
                 },
-                specification: {
-                  box: currentTarget.getBoundingClientRect(),
-                },
-              });
-          }}
-          onClick={() => {
-            navigate(
-              {
-                pathname: `/timetable/${space_id}`,
-              },
-              {
-                state: space_id,
-              }
-            );
-          }}
-          style={{
-            backgroundColor: book_until ? 'red' : 'green',
-            gridColumn: y + 1,
-            gridRow: x + 1,
-          }}
-          className="bold flex h-1/2 w-1/2 cursor-pointer content-center items-center justify-center	justify-items-center self-center justify-self-center rounded-2xl text-3xl text-white shadow-lg shadow-slate-600 transition-all hover:scale-110"
-        >
-          {space_id}
-        </div>
-      ))}
+                {
+                  state: space_id,
+                }
+              );
+            }}
+            style={{
+              backgroundColor: book_until ? 'red' : 'green',
+              gridColumn: y + 1,
+              gridRow: x + 1,
+            }}
+            className="bold flex h-1/2 w-1/2 cursor-pointer content-center items-center justify-center	justify-items-center self-center justify-self-center rounded-2xl text-3xl text-white shadow-lg shadow-slate-600 transition-all hover:scale-110"
+          >
+            {officeName}
+          </div>
+        )
+      )}
     </div>
   );
 };

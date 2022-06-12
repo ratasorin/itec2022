@@ -1,8 +1,4 @@
-import {
-  OfficeTimeIntervalJSON,
-  parseJSONOfficeIntervals,
-  UserDefinedOfficeTimeInterval,
-} from '@shared';
+import { OfficeTimeIntervalDB } from '@shared';
 import { useEffect, useState } from 'react';
 import { url } from '../../../constants/server';
 import useDrawTimeline from './draw/timeline';
@@ -13,9 +9,7 @@ interface TimelineProps {
 
 const Timeline = ({ id }: TimelineProps) => {
   const drawTimeline = useDrawTimeline(id);
-  const [timetable, setTimetable] = useState<UserDefinedOfficeTimeInterval[]>(
-    []
-  );
+  const [timetable, setTimetable] = useState<OfficeTimeIntervalDB[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -25,8 +19,7 @@ const Timeline = ({ id }: TimelineProps) => {
         method: 'GET',
         headers: [['Content-Type', 'application/json']],
       });
-      const JSONTimetable: OfficeTimeIntervalJSON[] = await response.json();
-      const timetable = parseJSONOfficeIntervals(JSONTimetable);
+      const timetable: OfficeTimeIntervalDB[] = await response.json();
       if (!timetable) return;
 
       setTimetable(timetable);

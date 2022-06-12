@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SpacesOnLevel } from '@shared';
+import { SpacesOnFloor } from '@shared';
 import type { Blueprint } from '../../../interface/Blueprint';
 
-type DetailsBlueprint = Blueprint<SpacesOnLevel>;
+type DetailsBlueprint = Blueprint<SpacesOnFloor>;
 export type DetailsPopupBlueprint = DetailsBlueprint['Component'];
 export type DetailsActionBlueprint = DetailsBlueprint['Action'];
 
 const initialState: DetailsPopupBlueprint = {
   payload: {
     book_until: null,
-    name: null,
-    space_id: -1,
+    occupantName: null,
+    officeName: '',
+    space_id: '',
     x: -1,
     y: -1,
   },
