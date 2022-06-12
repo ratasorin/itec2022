@@ -7,7 +7,7 @@ export interface OfficeTimeIntervalDB {
 }
 
 export interface OfficeTimeInterval {
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   occupantName: string | null;
 }
