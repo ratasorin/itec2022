@@ -1,10 +1,7 @@
-import { User as PrismaUser } from '@prisma/client';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { User as PGUser } from '../../../generated/schema';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
-export class User implements PrismaUser {
-  admin: boolean;
-  id: number;
-
+export class UserDTO implements Omit<PGUser, 'id'> {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -12,4 +9,8 @@ export class User implements PrismaUser {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  admin: boolean;
 }

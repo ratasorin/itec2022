@@ -1,124 +1,42 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import {
-  OfficeTimeInterval,
-  OfficeTimeIntervalDB,
-  UserDefinedOfficeTimeInterval,
-} from './interfaces';
-import { parseDBOfficeIntervals } from '@shared';
-import { Booking } from './interfaces/booking';
-
-interface Interval {
-  start: Date;
-  end: Date;
-}
-
-type Overlaps = {
-  overlaps: number;
-}[];
+import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
+import { OfficeTimeIntervalDB } from './interfaces';
+import { BookingDTO } from './interfaces/Booking';
+import { Pool } from 'pg';
 
 @Injectable()
 export class BookingService {
-  constructor(private prisma: PrismaService) {}
+  constructor(@Inject('CONNECTION') private pool: Pool) {}
 
-  async getTimetable(
-    space_id: number
-  ): Promise<UserDefinedOfficeTimeInterval[]> {
-    const now = new Date();
-    const bookedIntervalsDB = await this.prisma.$queryRaw<
-      OfficeTimeIntervalDB[]
-    >`--sql 
-      SELECT  GREATEST(book_from,${now}) AS start
-            ,book_until                  AS end
-            ,users.name                  AS "occupantName"
-      FROM bookings
+  async getTimetable(space_id: string) {
+    console.log({ space_id });
+    const response = await this.pool.query<OfficeTimeIntervalDB>(
+      `SELECT GREATEST(lower(interval), localtimestamp) AS booked_from, 
+      upper(interval) AS booked_until, 
+      upper(interval) AS free_from, 
+      lower(lead(interval) OVER (ORDER BY bookings.id)) AS free_until,
+      users.name AS "occupantName" 
+      FROM bookings 
+      LEFT JOIN spaces ON bookings.space_id = spaces.id
       LEFT JOIN users ON bookings.user_id = users.id
-      WHERE space_id = ${space_id}
-      AND book_until > ${now}
-    `;
-
-    const bookedIntervals = parseDBOfficeIntervals(bookedIntervalsDB);
-
-    if (!bookedIntervals.length)
-      return [
-        {
-          start: now,
-          end: null,
-          occupantName: null,
-        },
-      ];
-
-    const freeIntervals: UserDefinedOfficeTimeInterval[] = bookedIntervals.map(
-      ({ end }, index) => {
-        const nextBookedInterval: OfficeTimeInterval | undefined =
-          bookedIntervals[index + 1];
-
-        if (!nextBookedInterval)
-          return {
-            start: end,
-            end: null,
-            occupantName: null,
-          };
-
-        return {
-          start: end,
-          end: nextBookedInterval.start,
-          occupantName: null,
-        };
-      }
+      WHERE spaces.id = $1
+      `,
+      [space_id]
     );
+    const bookings = response.rows;
+    console.log({ bookings });
 
-    const timeIntervals = [...bookedIntervals, ...freeIntervals].sort((a, b) =>
-      a.start.getTime() > b.start.getTime() ? 1 : -1
-    );
-
-    if (now.getTime() !== timeIntervals[0].start.getTime())
-      return [
-        {
-          start: now,
-          end: new Date(timeIntervals[0].start),
-          occupantName: null,
-        },
-        ...timeIntervals,
-      ];
-
-    return timeIntervals;
+    return bookings;
   }
 
-  async isAvailableSpace(interval: Interval, id: number) {
-    try {
-      const [{ overlaps }] = await this.prisma.$queryRaw<Overlaps>`--sql
-        SELECT COUNT(*) AS overlaps FROM bookings
-        WHERE space_id = ${id} 
-        AND 
-        (book_from BETWEEN ${interval.start} AND ${interval.end} OR book_until BETWEEN ${interval.start} AND ${interval.end})
-        `;
-      return !overlaps;
-    } catch (err) {
-      console.error(err);
-      return err;
-    }
-  }
-  async bookSpace({ book_from, space_id, book_until, user_id }: Booking) {
-    const isAvailable = await this.isAvailableSpace(
-      { start: book_from, end: book_until },
-      space_id
+  async bookSpace({ book_from, space_id, book_until, user_id }: BookingDTO) {
+    const response = await this.pool.query<{ id: string }>(
+      `INSERT INTO bookings (id, interval, space_id, user_id) 
+      VALUES (DEFAULT, tsrange($1, $2), $3, $4) RETURNING id`,
+      [book_from, book_until, space_id, user_id]
     );
-    if (!isAvailable)
-      throw new HttpException(
-        'SPACE ALREADY BOOKED',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
 
-    await this.prisma.booking.create({
-      data: {
-        book_from,
-        book_until,
-        space_id,
-        user_id,
-      },
-    });
-
-    return `Successfully booked from ${book_from.toLocaleTimeString()} to ${book_until.toLocaleTimeString()}`;
+    const booking = response.rows[0];
+    console.log({ booking });
+    return booking;
   }
 }

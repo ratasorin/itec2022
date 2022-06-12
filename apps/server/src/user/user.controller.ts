@@ -7,9 +7,9 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private service: UserService) {}
 
-  @Get(':name')
-  async getUser(@Param('name') name: string) {
-    const user = await this.service.getUser(name);
+  @Get(':id')
+  async getUser(@Param('id') id: string) {
+    const user = await this.service.getUser(id);
     return user;
   }
 }

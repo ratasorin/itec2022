@@ -1,8 +1,7 @@
-import { Booking as PrismaBooking } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class Booking implements PrismaBooking {
+export class BookingDTO {
   @Type(() => Date)
   @IsDate()
   @IsNotEmpty()
@@ -13,13 +12,11 @@ export class Booking implements PrismaBooking {
   @IsNotEmpty()
   book_until: Date;
 
-  id: number;
-
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  space_id: number;
+  space_id: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  user_id: number;
+  user_id: string;
 }

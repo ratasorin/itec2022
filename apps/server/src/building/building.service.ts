@@ -1,28 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { Building } from './interfaces';
+import { Inject, Injectable } from '@nestjs/common';
+import { Building as BuildingDB } from '../../generated/schema';
+import { Pool } from 'pg';
 
 @Injectable()
 export class BuildingService {
-  constructor(private prisma: PrismaService) {}
+  constructor(@Inject('CONNECTION') private pool: Pool) {}
 
-  async getAllBuilding() {
-    try {
-      const Building: Building[] = await this.prisma.building.findMany({
-        select: {
-          name: true,
-          id: true,
-          floors: {
-            include: {
-              spaces: true,
-            },
-          },
-        },
-      });
+  async getBuildings() {
+    const result = await this.pool.query<BuildingDB>(`SELECT * FROM buildings`);
 
-      return Building;
-    } catch (err) {
-      console.error(err);
-    }
+    const buildings = result.rows;
+
+    return buildings;
   }
 }
