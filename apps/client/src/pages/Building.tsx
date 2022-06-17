@@ -16,7 +16,6 @@ const BuildingMenu = () => {
     const getFloors = async () => {
       const response = await fetch(url(`floor/all/${building_id}`));
       const floors: FloorDB[] = await response.json();
-      console.log({ floors });
       setFloors(floors);
     };
 

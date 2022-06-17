@@ -41,7 +41,6 @@ const Board: FC<{ floor: FloorDB | undefined }> = ({ floor }) => {
     const getSpacesWithBooking = async (floor: FloorDB) => {
       const response = await fetch(url(`floor/${floor.id}/spaces`));
       const spaces: SpacesOnFloor[] = await response.json();
-      console.log({ spaces });
       setSpaces(spaces);
     };
 

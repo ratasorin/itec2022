@@ -24,7 +24,6 @@ export class UserService {
 
     const user = response.rows[0];
 
-    console.log({ user });
     return user;
   }
 
@@ -34,7 +33,6 @@ export class UserService {
       [name, password, admin || false]
     );
     const user = response.rows[0];
-    console.log({ user });
     return user;
   }
 }
