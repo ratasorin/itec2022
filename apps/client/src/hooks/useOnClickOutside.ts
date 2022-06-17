@@ -6,7 +6,6 @@ const useOnClickOutside = <T extends Element | null>(
 ) => {
   const listener = useCallback(
     (event: MouseEvent | TouchEvent) => {
-      if (!ref) return;
       if (ref && ref.contains(event.target as Node)) return;
       handler(event);
     },
@@ -15,8 +14,12 @@ const useOnClickOutside = <T extends Element | null>(
 
   useEffect(() => {
     setTimeout(() => {
-      document.onclick = listener;
+      if (ref !== null) document.onclick = listener;
     });
-  }, [listener]);
+
+    return () => {
+      document.onclick = null;
+    };
+  }, [listener, ref]);
 };
 export default useOnClickOutside;

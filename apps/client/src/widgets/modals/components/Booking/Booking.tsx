@@ -11,6 +11,7 @@ const BookingModal = () => {
 
   const { close } = useWidgetActions('booking-modal');
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
+
   useOnClickOutside(ref, close);
 
   if (!specification.render) return null;

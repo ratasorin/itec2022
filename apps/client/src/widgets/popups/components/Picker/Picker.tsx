@@ -15,7 +15,7 @@ const PickerPopup = () => {
 
   const [popup, setPopup] = useState<HTMLDivElement | null>(null);
 
-  useOnClickOutside<HTMLDivElement | null>(popup, close);
+  useOnClickOutside(popup, close);
 
   const dimensions = useDimensions(popup);
   const { left, top } = useMemo(() => {
