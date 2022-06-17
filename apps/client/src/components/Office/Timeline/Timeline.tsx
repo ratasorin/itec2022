@@ -1,14 +1,14 @@
 import { OfficeTimeIntervalDB } from '@shared';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { url } from '../../../constants/server';
 import useDrawTimeline from './draw/timeline';
 
 interface TimelineProps {
-  id: number;
+  id: string;
 }
 
-const Timeline = ({ id }: TimelineProps) => {
-  const drawTimeline = useDrawTimeline(id);
+const Timeline: FC<TimelineProps> = ({ id }: TimelineProps) => {
+  const drawTimeline = useDrawTimeline(id, window.innerWidth);
   const [timetable, setTimetable] = useState<OfficeTimeIntervalDB[]>([]);
 
   useEffect(() => {
@@ -29,8 +29,7 @@ const Timeline = ({ id }: TimelineProps) => {
   }, [id]);
 
   useEffect(() => {
-    if (Array.isArray(timetable) && drawTimeline)
-      drawTimeline(timetable, window.innerWidth);
+    if (Array.isArray(timetable) && drawTimeline) drawTimeline(timetable);
   }, [timetable, drawTimeline]);
 
   return (

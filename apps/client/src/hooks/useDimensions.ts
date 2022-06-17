@@ -11,7 +11,6 @@ const useDimensions = <T extends HTMLElement | null>(element: T) => {
   const resizeObserver: ResizeObserver = useMemo(
     () =>
       new ResizeObserver((entries) => {
-        console.log({ entries });
         const { width, height } = entries[0].target.getBoundingClientRect();
         setDimensions({ width, height });
       }),

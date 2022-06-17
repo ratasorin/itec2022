@@ -3,7 +3,7 @@ import { OfficeTimeInterval } from '@shared';
 import type { Blueprint } from '../../../interface/Blueprint';
 
 interface PickerPayload {
-  id: number;
+  id: string;
   interval: OfficeTimeInterval;
 }
 
@@ -17,7 +17,7 @@ const initialState: PickerPopupBlueprint = {
     box: null,
   },
   payload: {
-    id: 0,
+    id: '',
     interval: {
       end: '',
       occupantName: null,
