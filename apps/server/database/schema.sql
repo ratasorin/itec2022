@@ -45,7 +45,7 @@ CREATE TABLE spaces (
 CREATE TABLE bookings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     -- time range representing old [bookfrom, bookuntil)
-    interval TSRANGE NOT NULL,
+    interval TSRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
     space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
     -- do not allow overlapping time-ranges
