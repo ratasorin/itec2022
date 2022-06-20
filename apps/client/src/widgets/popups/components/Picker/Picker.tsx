@@ -15,14 +15,8 @@ const PickerPopup = () => {
   const [[left, top], setDimensions] = useState<[number | null, number | null]>(
     [null, null]
   );
-  const [popup, setPopup] = useState<HTMLDivElement | null>(null);
-
-  useOnClickOutside(popup, close);
-
-  const dimensions = useDimensions(popup);
-  const { left, top } = useMemo(() => {
-    if (!dimensions || !specification.box) return { left: null, top: null };
-
+  useOnClickOutside('picker-popup', close);
+  const calculateDimensions = useCallback(
     (popup: HTMLDivElement | null) => {
       if (!popup || !specification.box) return setDimensions([null, null]);
       const dimensions = popup.getBoundingClientRect();
