@@ -1,9 +1,8 @@
 import useOnClickOutside from '../../../../hooks/useOnClickOutside';
-import { useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { PickerPopupBlueprint } from './picker.slice';
 import { useWidgetActions } from '../../../hooks/useWidgetActions';
-import useDimensions from '../../../../hooks/useDimensions';
 import Button from '@mui/material/Button';
 import { BookingActionBlueprint } from '../../../modals/components/Booking/booking.slice';
 
@@ -13,6 +12,9 @@ const PickerPopup = () => {
   const { close } = useWidgetActions('picker-popup');
   const { open } = useWidgetActions<BookingActionBlueprint>('booking-modal');
 
+  const [[left, top], setDimensions] = useState<[number | null, number | null]>(
+    [null, null]
+  );
   const [popup, setPopup] = useState<HTMLDivElement | null>(null);
 
   useOnClickOutside(popup, close);
@@ -21,24 +23,29 @@ const PickerPopup = () => {
   const { left, top } = useMemo(() => {
     if (!dimensions || !specification.box) return { left: null, top: null };
 
-    const { left: leftBox, top: topBox, width: widthBox } = specification.box;
-    const { height: popupHeight, width: popupWidth } = dimensions;
+    (popup: HTMLDivElement | null) => {
+      if (!popup || !specification.box) return setDimensions([null, null]);
+      const dimensions = popup.getBoundingClientRect();
+      console.log({ box: specification.box });
+      const { height: popupHeight, width: popupWidth } = dimensions;
+      const { left: leftBox, top: topBox, width: widthBox } = specification.box;
 
-    let left = leftBox + widthBox / 2 - popupWidth / 2;
-    let top = topBox - popupHeight - 10;
+      let left = leftBox + widthBox / 2 - popupWidth / 2;
+      let top = topBox - popupHeight - 10;
 
-    if (left < 0) left = 0.1;
-    if (top < 0) top = 0.1;
-    return {
-      left,
-      top,
-    };
-  }, [specification, dimensions]);
+      if (left < 0) left = 0.1;
+      if (top < 0) top = 0.1;
+
+      setDimensions([left, top]);
+    },
+    [specification]
+  );
 
   if (!specification.render) return null;
   return (
     <div
-      ref={setPopup}
+      id="picker-popup"
+      ref={calculateDimensions}
       style={{
         visibility: left && top ? 'visible' : 'hidden',
         top: top || 0,

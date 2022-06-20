@@ -35,25 +35,22 @@ export const prepareDrawInterval =
           event.currentTarget as HTMLElement
         ).getBoundingClientRect();
 
-        closePreviousPopups();
-        setTimeout(() => {
-          openCurrentPopup({
-            payload: {
-              id,
-              interval: {
-                end,
-                occupantName: null,
-                start,
-              },
+        openCurrentPopup({
+          payload: {
+            id,
+            interval: {
+              end,
+              occupantName: name,
+              start,
             },
-            specification: {
-              box: {
-                height,
-                width,
-                left,
-                top,
-              },
+          },
+          specification: {
+            box: {
+              height,
+              width,
+              left,
+              top,
             },
-          });
+          },
         });
       });

@@ -25,11 +25,6 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
 
   const yScale = d3.scaleLinear().range([dimensions.height, 0]);
 
-  const timeScale = d3
-    .scaleTime()
-    .domain([chartStartsAt, chartEndsAt])
-    .range([0, dimensions.width]);
-
   d3.select('.timetable').remove();
   const wrapper = d3
     .select('#timeline')
@@ -37,12 +32,13 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
     .attr('class', 'timetable')
     .attr('width', dimensions.width)
     .attr('height', dimensions.height + 100)
+    .attr('fill', 'red')
     .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`);
 
   wrapper
     .append('g')
     .attr('transform', 'translate(0,' + dimensions.height + ')')
-    .call(d3.axisBottom(timeScale));
+    .call(d3.axisBottom(xScale));
 
   // prepare data
 
@@ -51,7 +47,7 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
     .x((d) => xScale(d))
     .y0(dimensions.height)
     .y1(() => yScale(1))
-    .curve(d3.curveStepAfter);
+    .curve(d3.curveStepBefore);
 
   const drawInterval = prepareDrawInterval({
     closePreviousPopups: close,
@@ -70,21 +66,32 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
         name: null,
         start: new Date().toISOString(),
       });
+
+    drawInterval({
+      end: new Date(chartEndsAt).toISOString(),
+      id,
+      name: '-',
+      start: new Date().toISOString(),
+    });
+
     return intervals.forEach(
       ({ booked_from, booked_until, free_from, free_until, occupantName }) => {
         drawInterval({
-          end: new Date(booked_from).toISOString(),
+          end: new Date(booked_until).toISOString(),
           id,
           name: occupantName,
-          start: new Date(booked_until).toISOString(),
+          start: new Date(booked_from).toISOString(),
         });
-
-        drawInterval({
-          end: new Date(free_from).toISOString(),
-          id,
-          name: null,
-          start: new Date(free_until || chartEndsAt).toISOString(),
-        });
+        if (
+          new Date(free_from).getDate() -
+          new Date(free_until || chartEndsAt).getDate()
+        )
+          drawInterval({
+            end: new Date(free_until || chartEndsAt).toISOString(),
+            id,
+            name: null,
+            start: new Date(free_from).toISOString(),
+          });
       }
     );
   };
