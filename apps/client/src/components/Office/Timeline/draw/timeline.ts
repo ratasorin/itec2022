@@ -11,8 +11,7 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
     height: 150,
   };
 
-  const { open, close } =
-    useWidgetActions<PickerActionBlueprint>('picker-popup');
+  const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
 
   //set scales
   const chartStartsAt = new Date().getTime();
@@ -50,7 +49,6 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
     .curve(d3.curveStepBefore);
 
   const drawInterval = prepareDrawInterval({
-    closePreviousPopups: close,
     findBookedArea: bookedArea,
     openCurrentPopup: open,
     wrapper,

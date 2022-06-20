@@ -4,7 +4,6 @@ import { Selection, Area } from 'd3';
 interface Dependencies {
   wrapper: Selection<SVGSVGElement, unknown, HTMLElement, any>;
   findBookedArea: Area<number>;
-  closePreviousPopups: () => void;
   openCurrentPopup: (props: PickerActionBlueprint) => void;
 }
 
@@ -16,12 +15,7 @@ export interface IntervalProps {
 }
 
 export const prepareDrawInterval =
-  ({
-    closePreviousPopups,
-    findBookedArea,
-    openCurrentPopup,
-    wrapper,
-  }: Dependencies) =>
+  ({ findBookedArea, openCurrentPopup, wrapper }: Dependencies) =>
   ({ end, id, name, start }: IntervalProps) =>
     wrapper
       .append('path')
