@@ -30,7 +30,7 @@ export class BookingService {
   async bookSpace({ book_from, space_id, book_until, user_id }: BookingDTO) {
     const response = await this.pool.query<{ id: string }>(
       `INSERT INTO bookings (id, interval, space_id, user_id) 
-      VALUES (DEFAULT, tsrange($1, $2), $3, $4) RETURNING id`,
+      VALUES (DEFAULT, tsrange(date_bin('30 minutes', date_trunc("minute", $1), CAST(TO_TIMESTAMP(0) AS timestamp)), date_bin('30 minutes', date_trunc("minute", $2), CAST(TO_TIMESTAMP(0) AS timestamp))), $3, $4) RETURNING id`,
       [book_from, book_until, space_id, user_id]
     );
 

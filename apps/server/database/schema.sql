@@ -44,12 +44,13 @@ CREATE TABLE spaces (
 
 CREATE TABLE bookings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    -- time range representing old [bookfrom, bookuntil)
+    -- time range representing [bookfrom, bookuntil)
     interval TSRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
     space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
     -- do not allow overlapping time-ranges
     EXCLUDE USING GIST (space_id WITH =, interval WITH &&)
+
 );
 
 INSERT INTO users (id, name, password, admin) VALUES (DEFAULT, 'Sorin', 'Sorin', DEFAULT);
@@ -71,8 +72,9 @@ INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 11', 1, 0
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 12', 1, 1, (SELECT id FROM floors WHERE level = 3));
 INSERT INTO bookings (id, interval, space_id, user_id) 
        VALUES (
+         
        DEFAULT, 
-       tsrange(localtimestamp, localtimestamp + interval '2 hours'), 
+       tsrange(date_bin('30 minutes', date_trunc('minute', localtimestamp), CAST(TO_TIMESTAMP(0) AS timestamp)), date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '3 hours'), TIMESTAMP '2000-01-01')), 
        (SELECT id FROM spaces 
        WHERE name = 'Office 1'), 
        (SELECT id FROM users 
@@ -81,7 +83,7 @@ INSERT INTO bookings (id, interval, space_id, user_id)
 INSERT INTO bookings (id, interval, space_id, user_id) 
        VALUES (
        DEFAULT, 
-       tsrange(localtimestamp, localtimestamp + interval '1 hours'), 
+        tsrange(date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '3 hours'), TIMESTAMP '2000-01-01'),date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '7 hours'), TIMESTAMP '2000-01-01')), 
        (SELECT id FROM spaces 
        WHERE name = 'Office 1'), 
        (SELECT id FROM users 
