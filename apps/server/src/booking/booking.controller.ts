@@ -17,9 +17,9 @@ export class BookingController {
   constructor(private service: BookingService) {}
 
   // @UseGuards(JwtAuthGuard)
-  @Get('timetable/:id')
-  async getTimetable(@Param('id') id: string) {
-    return await this.service.getTimetable(id);
+  @Get('timetable/:space_id')
+  async getTimetable(@Param('space_id') space_id: string) {
+    return await this.service.getTimetable(space_id);
   }
 
   // @UseGuards(JwtAuthGuard)
