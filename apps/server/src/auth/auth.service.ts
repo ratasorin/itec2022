@@ -16,11 +16,8 @@ export class AuthService {
     username: string,
     password: string
   ): Promise<UserDB | null> {
-    const user = await this.userService.getUserByName(username);
-    if (user && user.password === password) {
-      return user;
-    }
-    return null;
+    const user = await this.userService.authenticate(username, password);
+    return user;
   }
 
   async login(user: UserDB) {

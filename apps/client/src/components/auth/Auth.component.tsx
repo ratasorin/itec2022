@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import SignInForm from './Signin.component';
+import SignInForm from './Login.component';
 import SignUpForm from './Signup.component';
 
 function AuthForm(): ReactElement {

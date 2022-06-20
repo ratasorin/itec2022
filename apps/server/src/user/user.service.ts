@@ -7,12 +7,12 @@ import { User as UserDB } from '../../generated/schema';
 export class UserService {
   constructor(@Inject('CONNECTION') private pool: Pool) {}
 
-  async getUserByName(name: string): Promise<UserDB | null> {
+  async authenticate(name: string, password: string): Promise<UserDB | null> {
     const response = await this.pool.query<UserDB>(
-      `SELECT id, name, password FROM users WHERE name = $1`,
-      [name]
+      `SELECT id, name FROM users WHERE name = $1 AND password = $2`,
+      [name, password]
     );
-    const user = response[0];
+    const user = response.rows[0];
     return user;
   }
 

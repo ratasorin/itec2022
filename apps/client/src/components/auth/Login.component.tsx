@@ -3,15 +3,15 @@ import { Button } from '@mui/material';
 import Form from './Form/Form';
 import { useNavigate } from 'react-router';
 
-function SignInForm(): ReactElement {
+function LoginForm(): ReactElement {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const signIn = useCallback(async () => {
+  const login = useCallback(async () => {
     const response = await fetch('http://localhost:3000/auth/login', {
       body: JSON.stringify({ username, password }),
       method: 'POST',
-      headers: [['Content-Type', 'application/json']],
+      headers: { 'Content-Type': 'application/json' },
     });
     const { access_token: token } = await response.json();
     localStorage.setItem('token', token);
@@ -25,12 +25,12 @@ function SignInForm(): ReactElement {
       </div>
 
       <div className="flex flex-col">
-        <Button variant="outlined" onClick={signIn}>
-          Sign In
+        <Button variant="outlined" onClick={login}>
+          Login
         </Button>
       </div>
     </form>
   );
 }
 
-export default SignInForm;
+export default LoginForm;
