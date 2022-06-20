@@ -37,7 +37,16 @@ const picker = createSlice({
         return state;
 
       return {
-        ...action.payload,
+        payload: {
+          id: action.payload.payload.id,
+          interval: {
+            end: new Date(action.payload.payload.interval.end).toLocaleString(),
+            start: new Date(
+              action.payload.payload.interval.start
+            ).toLocaleString(),
+            occupantName: action.payload.payload.interval.occupantName,
+          },
+        },
         specification: {
           render: true,
           ...action.payload.specification,

@@ -21,7 +21,7 @@ const BookingModal = () => {
         ref={setRef}
         className="absolute top-2/4 left-2/4 z-50 translate-x-[-50%] translate-y-[-50%] bg-white p-10"
       >
-        <PickerComponent id={payload.id} />
+        <PickerComponent id={payload.id} start={payload.start} />
       </div>
     </div>
   );

@@ -12,10 +12,10 @@ import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
 import { NotificationActionBlueprint } from '../../../widgets/popups/components/Notification/notification.slice';
 import type { Error } from '@shared';
 
-const Picker: FC<{ id: string }> = ({ id }) => {
-  const [bookFrom, setBookFrom] = useState<Date | null>(new Date());
+const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
+  const [bookFrom, setBookFrom] = useState<Date | null>(new Date(start));
   const [bookUntil, setBookUntil] = useState<Date | null>(
-    add(new Date(), { hours: 1 })
+    add(new Date(start), { hours: 2 })
   );
 
   const { open: openNotification } =
@@ -24,6 +24,7 @@ const Picker: FC<{ id: string }> = ({ id }) => {
   const bookSpace = useCallback(async () => {
     const user = getUser();
     if (!user) return;
+    console.log(user);
 
     const response = await fetch(url('booking'), {
       method: 'POST',
