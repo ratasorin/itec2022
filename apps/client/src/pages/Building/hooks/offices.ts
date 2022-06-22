@@ -25,22 +25,24 @@ const getOfficeByFloorID = async (floor_id: string) => {
   return offices;
 };
 
-export const useOffices = (params: FetchOfficesBy) => {
+export const useOffices = (
+  building_id?: string,
+  level?: string | number,
+  floor_id?: string
+) => {
   const [offices, setOffices] = useState<SpacesOnFloor[]>([]);
 
-  const fetchOffices = useCallback(
-    async ({ building_id, floor_id, level }: FetchOfficesBy) => {
-      let offices: SpacesOnFloor[] = [];
-      if (building_id && level)
-        offices = await getOfficesByBuildingAndLevel(building_id, level);
-      if (floor_id) offices = await getOfficeByFloorID(floor_id);
-      setOffices(offices);
-    },
-    []
-  );
+  const fetchOffices = useCallback(async () => {
+    let offices: SpacesOnFloor[] = [];
+    if (building_id && level)
+      offices = await getOfficesByBuildingAndLevel(building_id, level);
+    if (floor_id) offices = await getOfficeByFloorID(floor_id);
+    setOffices(offices);
+  }, [building_id, level, floor_id]);
+
   useEffect(() => {
-    fetchOffices(params);
-  }, [params, fetchOffices]);
+    fetchOffices();
+  }, [fetchOffices]);
 
   return offices;
 };
