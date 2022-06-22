@@ -1,4 +1,4 @@
-import useOnClickOutside from '../../../../hooks/click-outside';
+import useHandleClickOutside from '../../../../hooks/click-outside';
 import { useCallback, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { PickerPopupBlueprint } from './picker.slice';
@@ -15,7 +15,7 @@ const PickerPopup = () => {
   const [[left, top], setDimensions] = useState<[number | null, number | null]>(
     [null, null]
   );
-  useOnClickOutside('picker-popup', close);
+  useHandleClickOutside('picker-popup', close);
   const calculateDimensions = useCallback(
     (popup: HTMLDivElement | null) => {
       if (!popup || !specification.box) return setDimensions([null, null]);

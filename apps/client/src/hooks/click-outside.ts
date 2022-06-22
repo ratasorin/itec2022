@@ -1,21 +1,51 @@
 import { useCallback, useEffect } from 'react';
 
-const useOnClickOutside = <T extends Element | null>(
+const getWhitelistedElements = (whitelist: string[]): HTMLElement[] => {
+  return whitelist
+    .map((id) => document.getElementById(id))
+    .filter((element) => element) as HTMLElement[];
+};
+
+const getDOMElement = (ref: Element | null | string) => {
+  if (typeof ref === 'string') {
+    return document.getElementById(`#${ref}`);
+  }
+
+  return ref;
+};
+
+const isClickInsideWhitelistedElements = (
+  event: MouseEvent | TouchEvent,
+  whitelist: string[]
+) => {
+  const whitelistedElements = getWhitelistedElements(whitelist);
+  const target = event.target as HTMLElement;
+  return (
+    whitelistedElements.reduce(
+      (prev, curr) => prev + Number(curr.contains(target)),
+      0
+    ) > 0
+  );
+};
+
+const useHandleClickOutside = <T extends Element | null>(
   ref: T | string,
-  handler: (event: MouseEvent | TouchEvent) => void
+  handler: (event: MouseEvent | TouchEvent) => void,
+  whitelist: string[] = []
 ) => {
   const listener = useCallback(
     (event: MouseEvent | TouchEvent) => {
-      if (typeof ref === 'string') {
-        const DOMElement = document.querySelector(`#${ref}`) as T;
-        if (DOMElement && DOMElement.contains(event.target as Node)) return;
-        return handler(event);
-      }
-
-      if (ref && ref.contains(event.target as Node)) return;
+      const DOMElement = getDOMElement(ref);
+      console.log(isClickInsideWhitelistedElements(event, whitelist));
+      if (
+        DOMElement &&
+        (DOMElement.contains(event.target as Node) ||
+          isClickInsideWhitelistedElements(event, whitelist))
+      )
+        return;
       handler(event);
     },
-    [ref, handler]
+    [ref, handler, whitelist]
   );
 
   useEffect(() => {
@@ -28,4 +58,4 @@ const useOnClickOutside = <T extends Element | null>(
     };
   }, [listener, ref]);
 };
-export default useOnClickOutside;
+export default useHandleClickOutside;
