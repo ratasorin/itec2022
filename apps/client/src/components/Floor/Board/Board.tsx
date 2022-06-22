@@ -1,19 +1,16 @@
-import { FloorDB } from '@shared';
 import { SpacesOnFloor } from '@shared';
-import { FC, useEffect, useMemo, useState } from 'react';
-import { url } from '../../../constants/server';
+import { FC, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
 import { DetailsActionBlueprint } from '../../../widgets/popups/components/Details/details.slice';
 
-const Board: FC<{ floor: FloorDB | undefined }> = ({ floor }) => {
-  const [spaces, setSpaces] = useState<SpacesOnFloor[]>([]);
+const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
   const { open: openPopup } =
     useWidgetActions<DetailsActionBlueprint>('details-popup');
   const navigate = useNavigate();
   const { x, y } = useMemo(
     () =>
-      spaces.reduce(
+      offices.reduce(
         (prev, curr) => {
           if (curr.x + 1 > prev.x)
             return {
@@ -34,21 +31,10 @@ const Board: FC<{ floor: FloorDB | undefined }> = ({ floor }) => {
         },
         { x: 1, y: 1 }
       ),
-    [spaces]
+    [offices]
   );
 
-  useEffect(() => {
-    const getSpacesWithBooking = async (floor: FloorDB) => {
-      const response = await fetch(url(`floor/${floor.id}/spaces`));
-      const spaces: SpacesOnFloor[] = await response.json();
-      setSpaces(spaces);
-    };
-
-    if (floor) getSpacesWithBooking(floor);
-  }, [floor]);
-
-  if (!floor) return null;
-  if (!spaces || !spaces.length) return <div>No spots found!</div>;
+  if (!offices.length) return <div>No spots found!</div>;
 
   return (
     <div
@@ -58,7 +44,7 @@ const Board: FC<{ floor: FloorDB | undefined }> = ({ floor }) => {
         gridTemplateRows: `repeat(${x}, 1fr)`,
       }}
     >
-      {spaces.map(
+      {offices.map(
         ({ x, y, book_until, occupantName, space_id, officeName }) => (
           <div
             onMouseOver={({ currentTarget }) => {

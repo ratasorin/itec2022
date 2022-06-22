@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
 import { OfficeTimeIntervalDB } from './interfaces';
-import { BookingDTO } from './interfaces/Booking';
+import { BookingDTO } from './interfaces/booking';
 import { Pool } from 'pg';
 
 @Injectable()
