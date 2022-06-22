@@ -1,4 +1,4 @@
-import useOnClickOutside from '../../../../hooks/useOnClickOutside';
+import useOnClickOutside from '../../../../hooks/click-outside';
 import PickerComponent from '../../../../components/Office/TimePicker/TimePicker';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { BookingModalBlueprint } from './booking.slice';

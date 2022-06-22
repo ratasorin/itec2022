@@ -1,4 +1,4 @@
-import useOnClickOutside from '../../../../hooks/useOnClickOutside';
+import useOnClickOutside from '../../../../hooks/click-outside';
 import { useCallback, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { PickerPopupBlueprint } from './picker.slice';

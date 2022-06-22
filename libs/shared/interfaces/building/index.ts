@@ -4,6 +4,5 @@ export interface SpacesOnFloor {
   y: number;
   occupantName: string | null;
   officeName: string;
-  book_until: string | null;
+  booked_until: string | null;
 }
-
