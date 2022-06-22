@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { DetailsPopupBlueprint } from './details.slice';
 import { Button } from '@mui/material';
-import useDimensions from '../../../../hooks/dimennsions';
+import useDimensions from '../../../../hooks/dimensions';
 
 const DetailsPopup = () => {
   const { payload, specification } =
