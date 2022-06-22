@@ -80,16 +80,12 @@ const useDrawTimeline = (id: string, screenWidth: number) => {
           name: occupantName,
           start: new Date(booked_from).toISOString(),
         });
-        if (
-          new Date(free_from).getDate() -
-          new Date(free_until || chartEndsAt).getDate()
-        )
-          drawInterval({
-            end: new Date(free_until || chartEndsAt).toISOString(),
-            id,
-            name: null,
-            start: new Date(free_from).toISOString(),
-          });
+        drawInterval({
+          end: new Date(free_until || chartEndsAt).toISOString(),
+          id,
+          name: null,
+          start: new Date(free_from).toISOString(),
+        });
       }
     );
   };
