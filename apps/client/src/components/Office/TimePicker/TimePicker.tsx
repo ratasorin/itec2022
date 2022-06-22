@@ -55,7 +55,7 @@ const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
             ampm={false}
             className="text-white"
             openTo="hours"
-            views={['hours', 'minutes', 'seconds']}
+            views={['hours', 'minutes']}
             inputFormat="HH:mm:ss"
             mask="__:__:__"
             label={`Book space ${id} from`}
@@ -63,16 +63,32 @@ const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
             onChange={(newDate) => {
               setBookFrom(newDate);
             }}
+            PopperProps={{ id: 'time-picker' }}
+            shouldDisableTime={(timeValue, clockType) => {
+              if (clockType === 'minutes' && timeValue % 30) {
+                return true;
+              }
+
+              return false;
+            }}
             renderInput={(params) => <TextField {...params} />}
           />
           <TimePicker
             ampm={false}
             openTo="hours"
-            views={['hours', 'minutes', 'seconds']}
+            views={['hours', 'minutes']}
             inputFormat="HH:mm:ss"
             mask="__:__:__"
             label={`Until`}
             value={bookUntil}
+            shouldDisableTime={(timeValue, clockType) => {
+              if (clockType === 'minutes' && timeValue % 30) {
+                return true;
+              }
+
+              return false;
+            }}
+            PopperProps={{ id: 'time-picker' }}
             onChange={(newDate) => {
               setBookUntil(newDate);
             }}
