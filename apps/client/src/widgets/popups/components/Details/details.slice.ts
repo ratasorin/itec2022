@@ -8,7 +8,7 @@ export type DetailsActionBlueprint = DetailsBlueprint['Action'];
 
 const initialState: DetailsPopupBlueprint = {
   payload: {
-    book_until: null,
+    booked_until: null,
     occupantName: null,
     officeName: '',
     space_id: '',

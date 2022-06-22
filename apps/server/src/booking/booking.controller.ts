@@ -10,7 +10,7 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { HttpExceptionFilter } from '../error/http-exception.filter';
 import { BookingService } from './booking.service';
-import { BookingDTO } from './interfaces/Booking';
+import { BookingDTO } from './interfaces/booking';
 
 @Controller('booking')
 export class BookingController {

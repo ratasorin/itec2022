@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { DetailsPopupBlueprint } from './details.slice';
 import { Button } from '@mui/material';
-import useDimensions from '../../../../hooks/useDimensions';
+import useDimensions from '../../../../hooks/dimensions';
 
 const DetailsPopup = () => {
   const { payload, specification } =
@@ -38,7 +38,7 @@ const DetailsPopup = () => {
     >
       <span className="pb-3">
         Booked by {payload.occupantName || ''}, until{' '}
-        {new Date(payload.book_until || '').toLocaleTimeString()}
+        {new Date(payload.booked_until || '').toLocaleTimeString()}
       </span>
       <Button variant="outlined" className="w-auto">
         BOOK NEXT

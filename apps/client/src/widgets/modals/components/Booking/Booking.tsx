@@ -1,4 +1,4 @@
-import useOnClickOutside from '../../../../hooks/useOnClickOutside';
+import useHandleClickOutside from '../../../../hooks/click-outside';
 import PickerComponent from '../../../../components/Office/TimePicker/TimePicker';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { BookingModalBlueprint } from './booking.slice';
@@ -12,7 +12,7 @@ const BookingModal = () => {
   const { close } = useWidgetActions('booking-modal');
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
-  useOnClickOutside(ref, close);
+  useHandleClickOutside(ref, close, ['time-picker']);
 
   if (!specification.render) return null;
   return (
