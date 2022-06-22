@@ -1,12 +1,17 @@
 import { useMemo, useState } from 'react';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
-import { DetailsPopupBlueprint } from './details.slice';
+import { DetailsActionBlueprint, DetailsPopupBlueprint } from './details.slice';
 import { Button } from '@mui/material';
 import useDimensions from '../../../../hooks/dimensions';
+import useHandleClickOutside from '../../../../hooks/click-outside';
+import { useWidgetActions } from '../../../hooks/useWidgetActions';
 
 const DetailsPopup = () => {
   const { payload, specification } =
     useWidgetBlueprint<DetailsPopupBlueprint>('details-popup');
+  const { close } = useWidgetActions<DetailsActionBlueprint>('details-popup');
+
+  useHandleClickOutside('details-popup', close);
 
   const [popup, setPopup] = useState<HTMLDivElement | null>(null);
   const dimensions = useDimensions(popup);
@@ -28,6 +33,7 @@ const DetailsPopup = () => {
   if (!specification.render) return null;
   return (
     <div
+      id="details-popup"
       ref={setPopup}
       style={{
         visibility: top && left ? 'visible' : 'hidden',

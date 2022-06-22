@@ -8,7 +8,7 @@ const getWhitelistedElements = (whitelist: string[]): HTMLElement[] => {
 
 const getDOMElement = (ref: Element | null | string) => {
   if (typeof ref === 'string') {
-    return document.getElementById(`#${ref}`);
+    return document.getElementById(ref);
   }
 
   return ref;
@@ -36,11 +36,11 @@ const useHandleClickOutside = <T extends Element | null>(
   const listener = useCallback(
     (event: MouseEvent | TouchEvent) => {
       const DOMElement = getDOMElement(ref);
-      console.log(isClickInsideWhitelistedElements(event, whitelist));
+      if (!DOMElement) return;
+
       if (
-        DOMElement &&
-        (DOMElement.contains(event.target as Node) ||
-          isClickInsideWhitelistedElements(event, whitelist))
+        DOMElement.contains(event.target as Node) ||
+        isClickInsideWhitelistedElements(event, whitelist)
       )
         return;
       handler(event);
