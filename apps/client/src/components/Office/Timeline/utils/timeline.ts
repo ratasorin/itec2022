@@ -3,8 +3,13 @@ import { useWidgetActions } from '../../../../widgets/hooks/useWidgetActions';
 import * as d3 from 'd3';
 import { PickerActionBlueprint } from '../../../../widgets/popups/components/Picker/picker.slice';
 import { prepareDrawInterval } from './interval';
-import { useAppSelector } from '../../../../hooks/redux/redux.hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../hooks/redux/redux.hooks';
 import { useCallback, useMemo } from 'react';
+import { D3BrushEvent } from 'd3';
+import { alterBounds } from '../timeline.slice';
 
 const PADDING = 90;
 const HEIGHT = 150;
@@ -15,12 +20,14 @@ const useDrawTimeline = (id: string, width: number) => {
       width: width - 2 * PADDING,
       height: HEIGHT,
     });
+
     return {
       width: width - 2 * PADDING,
       height: HEIGHT,
     };
   }, [width]);
 
+  const dispatch = useAppDispatch();
   const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
 
   //set scales
@@ -64,14 +71,35 @@ const useDrawTimeline = (id: string, width: number) => {
         .attr('height', DIMENSIONS.height + 100)
         .attr('fill', 'red')
         .attr('viewBox', `0 0 ${DIMENSIONS.width} ${DIMENSIONS.height}`);
+
+      const brush = d3
+        .brushX()
+        .extent([
+          [0, 0],
+          [DIMENSIONS.width, DIMENSIONS.height],
+        ])
+        .on('end', (event: D3BrushEvent<unknown>, data) => {
+          if (!event.selection) return;
+          const [x1, x2] = event.selection as [number, number];
+          const start = xScale.invert(x1);
+          const end = xScale.invert(x2);
+          dispatch(
+            alterBounds({ interval: { end, start }, update: 'selectedRange' })
+          );
+          console.log({ start, end });
+        });
+
       const scale = wrapper
         .append('g')
         .attr('transform', 'translate(0,' + DIMENSIONS.height + ')')
         .call(d3.axisBottom(xScale));
+
+      const container = wrapper.append('g');
+      wrapper.append('g').call(brush);
       const drawInterval = prepareDrawInterval({
         area: bookedArea,
         openPopup: open,
-        wrapper,
+        container,
       });
 
       if (!intervals.length)

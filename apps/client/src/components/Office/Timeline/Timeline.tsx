@@ -38,7 +38,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   const drawTimeline = useDrawTimeline(id, window.innerWidth);
   const timetable = useTimetable(id);
   const dispatch = useAppDispatch();
-  const { bounds } = useAppSelector(({ timeline }) => timeline);
+  const { bounds, selectedRange } = useAppSelector(({ timeline }) => timeline);
   useEffect(() => {
     if (Array.isArray(timetable) && drawTimeline) drawTimeline(timetable);
   }, [timetable, drawTimeline]);
@@ -51,12 +51,16 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
     bounds.end.getTime(),
   ]);
 
+  useEffect(() => {
+    setInterval([selectedRange.start.getTime(), selectedRange.end.getTime()]);
+  }, [selectedRange]);
+
   return (
     <div className="mt-10 flex h-full w-auto flex-col items-start justify-center">
       <div className="text-xl">Check the next available hours</div>
       <div className="flex w-full flex-row items-center">
         <div>
-          <div id="timeline"></div>
+          <div id="timeline" className="my-10"></div>
           <Slider
             value={interval}
             min={bounds.start.getTime()}
@@ -94,7 +98,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
                 );
               }
             }}
-            valueLabelDisplay="auto"
+            valueLabelDisplay="on"
           />
         </div>
         <Tooltip title="Expand timetable" placement="top">

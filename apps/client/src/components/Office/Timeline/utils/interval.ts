@@ -2,7 +2,7 @@ import { PickerActionBlueprint } from '../../../../widgets/popups/components/Pic
 import { Selection, Area } from 'd3';
 
 interface Dependencies {
-  wrapper: Selection<SVGSVGElement, unknown, HTMLElement, any>;
+  container: d3.Selection<SVGGElement, unknown, HTMLElement, any>;
   area: Area<number>;
   openPopup: (props: PickerActionBlueprint) => void;
 }
@@ -15,9 +15,9 @@ export interface IntervalProps {
 }
 
 export const prepareDrawInterval =
-  ({ area, openPopup, wrapper }: Dependencies) =>
+  ({ area, openPopup, container }: Dependencies) =>
   ({ end, id, name, start }: IntervalProps) => {
-    return wrapper
+    return container
       .append('path')
       .attr('d', area([new Date(start).getTime(), new Date(end).getTime()]))
       .attr('fill', name ? 'red' : 'green')
