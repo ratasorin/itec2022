@@ -3,8 +3,8 @@ import { Selection, Area } from 'd3';
 
 interface Dependencies {
   wrapper: Selection<SVGSVGElement, unknown, HTMLElement, any>;
-  findBookedArea: Area<number>;
-  openCurrentPopup: (props: PickerActionBlueprint) => void;
+  area: Area<number>;
+  openPopup: (props: PickerActionBlueprint) => void;
 }
 
 export interface IntervalProps {
@@ -15,21 +15,18 @@ export interface IntervalProps {
 }
 
 export const prepareDrawInterval =
-  ({ findBookedArea, openCurrentPopup, wrapper }: Dependencies) =>
-  ({ end, id, name, start }: IntervalProps) =>
-    wrapper
+  ({ area, openPopup, wrapper }: Dependencies) =>
+  ({ end, id, name, start }: IntervalProps) => {
+    return wrapper
       .append('path')
-      .attr(
-        'd',
-        findBookedArea([new Date(start).getTime(), new Date(end).getTime()])
-      )
+      .attr('d', area([new Date(start).getTime(), new Date(end).getTime()]))
       .attr('fill', name ? 'red' : 'green')
       .on('mouseover', (event: MouseEvent) => {
         const { left, top, height, width } = (
           event.currentTarget as HTMLElement
         ).getBoundingClientRect();
 
-        openCurrentPopup({
+        openPopup({
           payload: {
             id,
             interval: {
@@ -48,3 +45,4 @@ export const prepareDrawInterval =
           },
         });
       });
+  };
