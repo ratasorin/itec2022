@@ -1,8 +1,9 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import getUser from '../utils/user';
-import { url } from '../constants/server';
 import { BuildingDB } from '@shared';
+import getUser from '../../utils/user';
+import { url } from '../../constants/server';
+import Navbar from '../Navbar';
 
 function Home(): ReactElement {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Home(): ReactElement {
 
   useEffect(() => {
     const getAllBuilding = async () => {
-      const response = await fetch(url('Building'));
+      const response = await fetch(url('building'));
       const buildings: BuildingDB[] = await response.json();
       setBuilding(buildings);
     };
@@ -29,7 +30,7 @@ function Home(): ReactElement {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center p-10">
+    <div className="flex h-screen w-screen flex-col items-center">
       <div className="pb-5 font-mono text-3xl font-light">
         Find a free office
       </div>

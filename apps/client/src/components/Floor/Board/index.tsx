@@ -27,7 +27,7 @@ const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
             gridColumn: office.y + 1,
             gridRow: office.x + 1,
           }}
-          className="bold flex h-1/2 w-1/2 cursor-pointer content-center items-center justify-center	justify-items-center self-center justify-self-center rounded-2xl text-3xl text-white shadow-lg shadow-slate-600 transition-all hover:scale-110"
+          className="bold flex h-1/2 w-1/2 cursor-pointer content-center items-center justify-center justify-items-center self-center justify-self-center rounded-2xl text-3xl text-white shadow-lg shadow-slate-600 transition-all hover:scale-110"
         >
           {office.officeName}
         </div>
