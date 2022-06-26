@@ -9,6 +9,8 @@ import { BuildingModule } from './building/building.module';
 import { FloorService } from './floor/floor.service';
 import { FloorModule } from './floor/floor.module';
 import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -19,6 +21,11 @@ import { DatabaseModule } from './database/database.module';
     BuildingModule,
     FloorModule,
     DatabaseModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: './apps/server/.env',
+    }),
+    MailModule,
   ],
   providers: [AppService, UserService, BookingService, FloorService],
 })
