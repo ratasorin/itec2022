@@ -7,20 +7,22 @@ import { ConfigService } from '@nestjs/config';
   providers: [MailService],
   imports: [
     MailerModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        transport: {
-          host: 'smtp.gmail.com',
-          secure: true,
-          port: 465,
-          auth: {
-            user: 'ratasorin0@gmail.com',
-            pass: 'iyllcwkrtqglaoqb',
+      useFactory: (configService: ConfigService) => {
+        return {
+          transport: {
+            host: 'smtp.gmail.com',
+            secure: true,
+            port: 465,
+            auth: {
+              user: configService.get('MAIL_USER'),
+              pass: configService.get('MAIL_PASSWORD'),
+            },
           },
-        },
-        defaults: {
-          from: '"No Reply" <no-reply@localhost>',
-        },
-      }),
+          defaults: {
+            from: '"Office booker 3000" <office@booker.com>',
+          },
+        };
+      },
       inject: [ConfigService],
     }),
   ],
