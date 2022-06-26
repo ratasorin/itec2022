@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { BookingService } from './booking/booking.service';
@@ -23,10 +22,10 @@ import { MailModule } from './mail/mail.module';
     DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: './apps/server/.env',
+      envFilePath: '.env',
     }),
     MailModule,
   ],
-  providers: [AppService, UserService, BookingService, FloorService],
+  providers: [UserService, BookingService, FloorService],
 })
 export class AppModule {}
