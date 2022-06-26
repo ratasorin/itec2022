@@ -9,6 +9,7 @@ export interface Booking {
   space_id: string;
   user_id: string;
 }
+
 export interface Space {
   id: string;
   name: string;
@@ -24,6 +25,7 @@ export interface Floor {
 export interface User {
   id: string;
   name: string;
+  email: string;
   password: string;
   admin: boolean;
 }

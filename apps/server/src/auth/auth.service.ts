@@ -12,16 +12,18 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(
-    username: string,
-    password: string
-  ): Promise<UserDB | null> {
-    const user = await this.userService.authenticate(username, password);
+  async validateUser(email: string, password: string): Promise<UserDB | null> {
+    const user = await this.userService.authenticate(email, password);
     return user;
   }
 
   async login(user: UserDB) {
-    const payload: JwtUser = { name: user.name, id: user.id };
+    const payload: JwtUser = {
+      email: user.email,
+      name: user.name,
+      id: user.id,
+    };
+    console.log({ payload });
     return {
       access_token: this.jwtService.sign(payload),
     };
@@ -38,8 +40,9 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign({
         name: createdUser.name,
+        email: createdUser.email,
         id: createdUser.id,
-      }),
+      } as JwtUser),
     };
   }
 }

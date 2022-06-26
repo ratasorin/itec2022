@@ -1,4 +1,1 @@
-export class JwtUser {
-  name: string;
-  id: string;
-}
+export { JwtUser } from '@shared';

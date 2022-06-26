@@ -7,6 +7,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "btree_gist";
 
 DROP TABLE IF EXISTS bookings CASCADE;
+DROP TABLE IF EXISTS unverified_bookings CASCADE;
 DROP TABLE IF EXISTS spaces CASCADE;
 DROP TABLE IF EXISTS floors CASCADE;
 DROP TABLE IF EXISTS buildings CASCADE;
@@ -15,6 +16,7 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
     admin BOOLEAN NOT NULL DEFAULT false
 );
@@ -50,10 +52,17 @@ CREATE TABLE bookings (
     user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
     -- do not allow overlapping time-ranges
     EXCLUDE USING GIST (space_id WITH =, interval WITH &&)
-
 );
 
-INSERT INTO users (id, name, password, admin) VALUES (DEFAULT, 'Sorin', 'Sorin', DEFAULT);
+CREATE TABLE unverified_bookings (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    -- time range representing [bookfrom, bookuntil)
+    interval TSRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
+    space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE
+);
+
+INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com',  'Sorin', DEFAULT);
 INSERT INTO buildings (id, name, user_id) VALUES (DEFAULT, 'AMDARIS HQ', (SELECT id FROM users));
 INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, 1, (SELECT id FROM buildings));
 INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, 2, (SELECT id FROM buildings));
