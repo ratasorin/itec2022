@@ -7,7 +7,10 @@ import { User as UserDB } from '../../generated/schema';
 export class UserService {
   constructor(@Inject('CONNECTION') private pool: Pool) {}
 
-  async authenticate(email: string, password: string): Promise<UserDB | null> {
+  async authenticateUser(
+    email: string,
+    password: string
+  ): Promise<UserDB | null> {
     const response = await this.pool.query<UserDB>(
       `SELECT id, name, email FROM users WHERE email = $1 AND password = $2`,
       [email, password]
@@ -16,14 +19,12 @@ export class UserService {
     return user;
   }
 
-  async getUser(id: string): Promise<UserDB | null> {
+  async getUserBy(id: string): Promise<UserDB | null> {
     const response = await this.pool.query<UserDB>(
       `SELECT id, name FROM users WHERE id = $1`,
       [id]
     );
-
     const user = response.rows[0];
-
     return user;
   }
 
