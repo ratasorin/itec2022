@@ -27,12 +27,26 @@ export class BookingService {
     return bookings;
   }
 
-  async bookSpace({ book_from, space_id, book_until, user_id }: BookingDTO) {
-    console.log({ book_from, book_until, space_id, user_id });
+  async unverifiedBookSpace(
+    { book_from, book_until, space_id }: BookingDTO,
+    user_id: string
+  ) {
     const response = await this.pool.query<{ id: string }>(
-      `INSERT INTO bookings (id, interval, space_id, user_id) 
+      `INSERT INTO unverified_bookings (id, interval, space_id, user_id) 
       VALUES (DEFAULT, tsrange(date_bin('30 minutes', date_trunc('minute', CAST($1 AS timestamp)), CAST(TO_TIMESTAMP(0) AS timestamp)), date_bin('30 minutes', date_trunc('minute', CAST($2 AS timestamp)), CAST(TO_TIMESTAMP(0) AS timestamp))), $3, $4) RETURNING id`,
       [book_from, book_until, space_id, user_id]
+    );
+
+    const { id } = response.rows[0];
+    return id;
+  }
+
+  async bookSpace(unverified_id: string) {
+    const response = await this.pool.query<{ id: string }>(
+      `INSERT INTO bookings (interval, space_id, user_id)
+      SELECT interval, space_id, user_id FROM unverified_bookings
+      WHERE unverified_bookings.id = $1`,
+      [unverified_id]
     );
 
     const booking = response.rows[0];

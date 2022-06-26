@@ -4,28 +4,44 @@ import {
   Get,
   Param,
   Post,
+  Request,
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { HttpExceptionFilter } from '../error/http-exception.filter';
+import { MailService } from '../mail/mail.service';
 import { BookingService } from './booking.service';
+import { JwtUser } from './interfaces';
 import { BookingDTO } from './interfaces/booking';
 
 @Controller('booking')
 export class BookingController {
-  constructor(private service: BookingService) {}
+  constructor(
+    private service: BookingService,
+    private mailService: MailService
+  ) {}
 
-  // @UseGuards(JwtAuthGuard)
   @Get('timetable/:space_id')
   async getTimetable(@Param('space_id') space_id: string) {
     return await this.service.getTimetable(space_id);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  @UseFilters(HttpExceptionFilter)
   @Post()
-  async bookSpace(@Body() input: BookingDTO) {
-    return await this.service.bookSpace(input);
+  @UseFilters(HttpExceptionFilter)
+  @UseGuards(JwtAuthGuard)
+  async unverifiedBookSpace(@Body() input: BookingDTO, @Request() req) {
+    console.log(req.user);
+
+    const user: JwtUser = req.user;
+    if (!user.id) return 'NO USER PROVIDED';
+    const id = await this.service.unverifiedBookSpace(input, user.id);
+    await this.mailService.sendMailTo(user.email, id);
+  }
+
+  @Get('/:unverified_id')
+  @UseFilters(HttpExceptionFilter)
+  async bookSpace(@Param('unverified_id') unverified_id: string) {
+    return this.service.bookSpace(unverified_id);
   }
 }

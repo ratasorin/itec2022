@@ -15,8 +15,4 @@ export class BookingDTO {
   @IsString()
   @IsNotEmpty()
   space_id: string;
-
-  @IsString()
-  @IsNotEmpty()
-  user_id: string;
 }
