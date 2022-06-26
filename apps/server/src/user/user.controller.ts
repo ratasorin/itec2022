@@ -1,15 +1,16 @@
-import { Controller, Get, Param } from '@nestjs/common';
-// import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
-// import { User } from './interfaces';
+import { Body, Controller, Get, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtUser } from '../booking/interfaces';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private service: UserService) {}
 
-  @Get(':id')
-  async getUser(@Param('id') id: string) {
-    const user = await this.service.getUser(id);
+  @Get('')
+  @UseGuards(JwtAuthGuard)
+  async getUser(@Body() attachedUser: JwtUser) {
+    const user = await this.service.getUserBy(attachedUser.id);
     return user;
   }
 }
