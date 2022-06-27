@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<UserDB | null> {
-    const user = await this.userService.authenticate(email, password);
+    const user = await this.userService.authenticateUser(email, password);
     return user;
   }
 
@@ -23,7 +23,6 @@ export class AuthService {
       name: user.name,
       id: user.id,
     };
-    console.log({ payload });
     return {
       access_token: this.jwtService.sign(payload),
     };
