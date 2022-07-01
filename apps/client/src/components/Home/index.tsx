@@ -1,13 +1,18 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { BuildingDB } from '@shared';
+import { BuildingStats } from '@shared';
 import getUser from '../../utils/user';
 import { url } from '../../constants/server';
-import Navbar from '../Navbar';
+import { Button, Rating } from '@mui/material';
+
+function percentageToColor(percentage: number, maxHue = 120, minHue = 0) {
+  const hue = percentage * (maxHue - minHue) + minHue;
+  return `hsl(${hue}, 100%, 50%)`;
+}
 
 function Home(): ReactElement {
   const navigate = useNavigate();
-  const [Building, setBuilding] = useState<BuildingDB[]>([]);
+  const [Building, setBuilding] = useState<BuildingStats[]>([]);
 
   useEffect(() => {
     const user = getUser();
@@ -22,7 +27,7 @@ function Home(): ReactElement {
   useEffect(() => {
     const getAllBuilding = async () => {
       const response = await fetch(url('building'));
-      const buildings: BuildingDB[] = await response.json();
+      const buildings: BuildingStats[] = await response.json();
       setBuilding(buildings);
     };
 
@@ -30,21 +35,36 @@ function Home(): ReactElement {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center">
-      <div className="pb-5 font-mono text-3xl font-light">
-        Find a free office
-      </div>
-      <div className="flex w-3/5 flex-col items-center">
-        {Building.map(({ name, id }) => (
-          <button
-            key={name}
-            className="mt-5 rounded py-2 px-5 shadow-md transition-all hover:shadow"
-            onClick={() =>
-              navigate({ pathname: `building/${id}` }, { state: id })
-            }
-          >
-            {name}
-          </button>
+    <div className="flex h-screen w-screen flex-col items-center font-mono">
+      <div className="pb-5 text-3xl font-light">Find a free office</div>
+      <div className="flex flex-col">
+        {Building.map(({ name, id, availability_rate, stars }) => (
+          <div className="my-3 grid grid-cols-3 grid-rows-2 gap-x-8 rounded bg-white p-6 shadow-md">
+            <div className="row-start-1">Building</div>
+            <div className="row-start-1">Availability</div>
+            <div className="row-start-1">Ratings</div>
+            <Button
+              variant="outlined"
+              key={name}
+              className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
+              onClick={() =>
+                navigate({ pathname: `building/${id}` }, { state: id })
+              }
+            >
+              {name}
+            </Button>
+            <div
+              className="row-start-2 flex items-center border-l-8 pl-3"
+              style={{
+                borderColor: percentageToColor(availability_rate),
+              }}
+            >
+              {availability_rate.toFixed(1)}%
+            </div>
+            <div className="row-start-2">
+              {<Rating name="rating" value={stars || 0} readOnly />}
+            </div>
+          </div>
         ))}
       </div>
     </div>

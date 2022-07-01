@@ -6,3 +6,10 @@ export interface SpacesOnFloor {
   officeName: string;
   booked_until: string | null;
 }
+
+export interface BuildingStats {
+  id: string;
+  name: string;
+  availability_rate: number;
+  stars: number | null;
+}
