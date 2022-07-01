@@ -1,7 +1,8 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
+import { UserDB } from '../../booking/interfaces';
 
 // Passport's local authentication strategy
 @Injectable()
@@ -12,8 +13,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   // For the local-strategy Passports expects a username and a password
   // The user is returned so Passport can create the user property on Request
-  async validate(email: string, password: string): Promise<boolean> {
+  async validate(email: string, password: string): Promise<UserDB> {
     const user = await this.authService.validateUser(email, password);
-    return !!user;
+    if (!user)
+      throw new HttpException('Login failed', HttpStatus.INTERNAL_SERVER_ERROR);
+    return user;
   }
 }
