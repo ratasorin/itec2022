@@ -2,9 +2,13 @@ import Button from '@mui/material/Button';
 
 const index = () => {
   return (
-    <div className="mb-6 flex h-auto w-full flex-row p-6">
-      <Button className="mr-6">Find offices</Button>
-      <Button>Account</Button>
+      <Button
+        variant="outlined"
+        endIcon={<AccountCircleIcon />}
+        onClick={() => navigate(`/my-account`)}
+      >
+        My Account
+      </Button>
     </div>
   );
 };

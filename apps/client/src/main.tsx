@@ -14,6 +14,7 @@ import BuildingPage from './pages/Building';
 import AdminPage from './pages/Admin';
 import NotFoundPage from './pages/NotFound';
 import TimetablePage from './pages/Timetable';
+import AccountPage from './pages/Account';
 
 import { store } from './config/store';
 import { Provider } from 'react-redux';
@@ -34,6 +35,7 @@ root.render(
               <Route path={ROUTES.BUILDING} element={<BuildingPage />} />
               <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
               <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+              <Route path={ROUTES.ACCOUNT} element={<AccountPage />}></Route>
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
