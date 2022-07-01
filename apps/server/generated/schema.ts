@@ -19,7 +19,7 @@ export interface Space {
 }
 export interface Floor {
   id: string;
-  level: number;
+  previous_floor_id: string;
   building_id: string;
 }
 export interface User {
