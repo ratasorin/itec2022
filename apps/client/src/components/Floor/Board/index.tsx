@@ -21,7 +21,9 @@ const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
       {offices.map((office) => (
         <div
           onMouseOver={(event) => openDetailsPopup(event, office)}
-          onClick={() => navigateToOfficeTimetable(office.space_id)}
+          onClick={() =>
+            navigateToOfficeTimetable(office.space_id, office.officeName)
+          }
           style={{
             backgroundColor: office.booked_until ? 'red' : 'green',
             gridColumn: office.y + 1,
