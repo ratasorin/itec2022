@@ -7,11 +7,11 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Modal,
   Radio,
   RadioGroup,
   Slider,
+  Switch,
   TextField,
   Tooltip,
 } from '@mui/material';
@@ -20,22 +20,15 @@ import {
   useAppSelector,
 } from '../../../hooks/redux/redux.hooks';
 import { alterBounds } from './timeline.slice';
-import {
-  add,
-  getDate,
-  getDay,
-  getDaysInMonth,
-  getISODay,
-  getMonth,
-  getYear,
-} from 'date-fns';
+import { add, getDate, getDay, getMonth, getYear } from 'date-fns';
 import { DAYS, MONTHS } from '../../../constants/dates';
 interface TimelineProps {
   id: string;
 }
 
 const Timeline: FC<TimelineProps> = ({ id }) => {
-  const drawTimeline = useDrawTimeline(id, window.innerWidth);
+  const [brushing, setBrushing] = useState(false);
+  const drawTimeline = useDrawTimeline(id, window.innerWidth, brushing);
   const timetable = useTimetable(id);
   const dispatch = useAppDispatch();
   const { bounds, selectedRange } = useAppSelector(({ timeline }) => timeline);
@@ -56,8 +49,12 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   }, [selectedRange]);
 
   return (
-    <div className="mt-10 flex h-full w-auto flex-col items-start justify-center">
+    <div className="mt-10 flex h-full w-auto flex-col items-start justify-center font-mono">
       <div className="text-xl">Check the next available hours</div>
+      <FormControlLabel
+        control={<Switch onChange={(_, checked) => setBrushing(checked)} />}
+        label={<div className="!font-mono !text-xl">Zoom on timeline</div>}
+      />
       <div className="flex w-full flex-row items-center">
         <div>
           <div id="timeline" className="my-10"></div>
@@ -65,7 +62,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
             value={interval}
             min={bounds.start.getTime()}
             max={bounds.end.getTime()}
-            onChange={(event, timestamps) => {
+            onChange={(_, timestamps) => {
               setInterval(timestamps as number[]);
             }}
             valueLabelFormat={(unixTS: number) => {
@@ -169,7 +166,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
                 </FormControl>
               </div>
               <div className="ml-6 flex flex-col">
-                The new timetable will show you bookings from
+                The timetable will show you bookings from
                 <span>{bounds.start.toLocaleString()}</span>
                 until
                 <span>

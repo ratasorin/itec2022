@@ -14,7 +14,7 @@ import { alterBounds } from '../timeline.slice';
 const PADDING = 90;
 const HEIGHT = 150;
 
-const useDrawTimeline = (id: string, width: number) => {
+const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
   const DIMENSIONS = useMemo(() => {
     console.log({
       width: width - 2 * PADDING,
@@ -95,7 +95,8 @@ const useDrawTimeline = (id: string, width: number) => {
         .call(d3.axisBottom(xScale));
 
       const container = wrapper.append('g');
-      wrapper.append('g').call(brush);
+      if (brushing) wrapper.append('g').call(brush);
+
       const drawInterval = prepareDrawInterval({
         area: bookedArea,
         openPopup: open,
@@ -140,7 +141,7 @@ const useDrawTimeline = (id: string, width: number) => {
         }
       );
     },
-    [chartEndsAt, id]
+    [chartEndsAt, id, brushing]
   );
 
   return cb;
