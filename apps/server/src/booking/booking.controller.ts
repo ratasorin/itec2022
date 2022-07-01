@@ -9,7 +9,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { HttpExceptionFilter } from '../error/http-exception.filter';
 import { MailService } from '../mail/mail.service';
 import { BookingService } from './booking.service';
 import { JwtUser } from './interfaces';
@@ -28,7 +27,6 @@ export class BookingController {
   }
 
   @Post()
-  @UseFilters(HttpExceptionFilter)
   @UseGuards(JwtAuthGuard)
   async unverifiedBookSpace(@Body() input: BookingDTO, @Request() req) {
     console.log(req.user);
@@ -40,7 +38,6 @@ export class BookingController {
   }
 
   @Get('/:unverified_id')
-  @UseFilters(HttpExceptionFilter)
   async bookSpace(@Param('unverified_id') unverified_id: string) {
     return this.service.bookSpace(unverified_id);
   }
