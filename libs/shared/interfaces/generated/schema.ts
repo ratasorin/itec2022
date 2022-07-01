@@ -18,11 +18,12 @@ export interface SpaceDB {
 }
 export interface FloorDB {
   id: string;
-  level: number;
+  previous_floor_id: string;
   building_id: string;
 }
 export interface UserDB {
   id: string;
+  email: string;
   name: string;
   password: string;
   admin: boolean;

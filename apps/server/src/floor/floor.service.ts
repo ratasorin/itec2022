@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
-import format from 'pg-format';
 import { SpacesOnFloor } from '@shared';
-import { Floor } from '../../generated/schema';
+import { FloorDB } from '@shared';
 
 @Injectable()
 export class FloorService {
@@ -41,7 +40,7 @@ export class FloorService {
   }
 
   async createFloor(previous_floor_id: string | null, building_id: string) {
-    const response = await this.pool.query<Floor>(
+    const response = await this.pool.query<FloorDB>(
       `--sql
         WITH inserted AS (
           INSERT INTO floors (id, previous_floor_id, building_id)
@@ -60,7 +59,7 @@ export class FloorService {
   }
 
   async deleteFloor(floor_id: string) {
-    const response = await this.pool.query<Floor>(
+    const response = await this.pool.query<FloorDB>(
       `--sql
       WITH deleted AS (
         DELETE FROM floors WHERE floors.id = $1 RETURNING previous_floor_id
@@ -74,9 +73,9 @@ export class FloorService {
     return floor;
   }
 
-  async updateFloor(floor_id: string, previous_floor_id: string) {
+  async updateFloor(floor_id: string, previous_floor_id: string | null) {
     console.log({ previous_floor_id });
-    const response = await this.pool.query<Floor>(
+    const response = await this.pool.query<FloorDB>(
       `--sql
         UPDATE floors SET previous_floor_id = f.id 
         FROM (

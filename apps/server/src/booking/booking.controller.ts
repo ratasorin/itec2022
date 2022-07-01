@@ -5,14 +5,13 @@ import {
   Param,
   Post,
   Request,
-  UseFilters,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { MailService } from '../mail/mail.service';
 import { BookingService } from './booking.service';
-import { JwtUser } from './interfaces';
-import { BookingDTO } from './interfaces/booking';
+import { JwtUser } from '@shared';
+import { BookingDTO } from './DTO';
 
 @Controller('booking')
 export class BookingController {

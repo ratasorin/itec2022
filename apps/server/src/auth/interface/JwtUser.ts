@@ -1,1 +1,0 @@
-export { JwtUser } from '@shared';

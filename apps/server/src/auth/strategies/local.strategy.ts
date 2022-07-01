@@ -2,7 +2,7 @@ import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
-import { UserDB } from '../../booking/interfaces';
+import { UserDB } from '@shared';
 
 // Passport's local authentication strategy
 @Injectable()

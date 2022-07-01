@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
-import { UserDTO } from './interfaces';
-import { User as UserDB } from '../../generated/schema';
+import { UserDTO } from './DTO';
+import { UserDB } from '@shared';
 
 @Injectable()
 export class UserService {

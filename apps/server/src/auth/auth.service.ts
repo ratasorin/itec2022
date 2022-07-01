@@ -1,9 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { User as UserDB } from '../../generated/schema';
-import { UserDTO } from '../user/interfaces';
-import { JwtUser } from './interface';
+import { UserDB, JwtUser } from '@shared';
+import { UserDTO } from '../user/DTO';
 
 @Injectable()
 export class AuthService {

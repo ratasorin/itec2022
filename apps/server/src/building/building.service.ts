@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
-import { BuildingStats, FloorDB } from './interfaces';
+import { BuildingStats, FloorDB } from '@shared';
 
 @Injectable()
 export class BuildingService {

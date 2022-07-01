@@ -1,7 +1,7 @@
-import { User } from '../../../generated/schema';
+import { UserDB } from '@shared';
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class UserDTO implements Omit<User, 'id'> {
+export class UserDTO implements Omit<UserDB, 'id'> {
   @IsNotEmpty()
   @IsString()
   name: string;

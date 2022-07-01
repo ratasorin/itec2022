@@ -1,6 +1,6 @@
 import { Body, Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { JwtUser } from '../booking/interfaces';
+import { JwtUser } from '@shared';
 import { UserService } from './user.service';
 
 @Controller('user')
