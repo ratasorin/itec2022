@@ -1,7 +1,6 @@
-DROP DATABASE IF EXISTS itec;
-CREATE DATABASE itec;
-
-\c itec;
+DROP DATABASE IF EXISTS 'desk-booking';
+CREATE DATABASE 'desk-booking';
+\c 'desk-booking';
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "btree_gist";
@@ -45,7 +44,7 @@ CREATE TABLE spaces (
 
 CREATE TABLE bookings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    -- time range representing [bookfrom, bookuntil)
+    -- time range representing [book-from, book-until)
     interval TSRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
     space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
@@ -69,7 +68,7 @@ CREATE TABLE space_ratings (
     space_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE
 ) INHERITS (ratings);
 
-INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com',  'Sorin', DEFAULT);
+INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com', 'Sorin', DEFAULT);
 INSERT INTO buildings (id, name, user_id) VALUES (DEFAULT, 'AMDARIS HQ', (SELECT id FROM users));
 INSERT INTO floors (id, previous_floor_id, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 1', 0, 0, (SELECT id FROM floors));

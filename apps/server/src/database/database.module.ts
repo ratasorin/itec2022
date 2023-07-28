@@ -7,11 +7,11 @@ import { Pool } from 'pg';
       provide: 'CONNECTION',
       useFactory: async () =>
         new Pool({
-          user: 'postgres',
-          host: 'localhost',
-          database: 'itec',
-          password: 'postgres',
-          port: 5432,
+          user: process.env.DATABASE_USER as string,
+          host: process.env.DATABASE_HOST as string,
+          database: process.env.DATABASE as string,
+          password: process.env.DATABASE_PASSWORD as string,
+          port: Number(process.env.DATABASE_PORT as string),
           connectionTimeoutMillis: 10000,
         }),
     },
