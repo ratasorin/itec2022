@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react';
-import AuthForm from '../components/Auth/Auth.component';
+import AuthForm from '../components/auth/auth.component';
 import { useNavigate } from 'react-router';
 import AuthIllustration from '../assets/photo/auth-illustration.jpg';
 import getUser from '../utils/user';

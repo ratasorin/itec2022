@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router';
-import Board from '../../components/Floor/Board';
-import Sidebar from '../../components/Floor/Sidebar/Sidebar';
+import Board from '../../components/floor/board';
+import Sidebar from '../../components/floor/sidebar';
 import { useFloor } from '../slices/floor.slice';
 import { useOffices } from './hooks/offices';
 import { useFloors } from './hooks/floors';

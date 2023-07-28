@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router';
-import { OfficeFromNavigation } from '../../components/Floor/Board/hooks/navigate-office-timetable';
-import Timeline from '../../components/Office/Timeline/Timeline';
+import { OfficeFromNavigation } from '../../components/floor/board/hooks/navigate-office-timetable';
+import Timeline from '../../components/office/timeline';
 import { useUser } from '../../hooks/user';
 
 const Timetable = () => {

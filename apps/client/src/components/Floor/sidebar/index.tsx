@@ -9,7 +9,7 @@ const Sidebar: FC<{
   const selectedFloor = useFloor();
   return (
     <div className="flex w-auto flex-col justify-center font-mono font-bold text-white">
-      {floors.map(({ level }) => (
+      {floors.map((_, level) => (
         <button
           className={`w-auto border-l-8 transition-all ${
             selectedFloor === level ? 'border-white' : 'border-gray-400'

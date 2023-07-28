@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
-import Form from './Form/Form';
+import Form from './form/form';
 import { useNavigate } from 'react-router';
 
 function LoginForm(): ReactElement {
@@ -13,9 +13,12 @@ function LoginForm(): ReactElement {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     });
-    const { access_token: token } = await response.json();
-    localStorage.setItem('token', token);
-    navigate('/');
+    const token: string | undefined = (await response.json())?.access_token;
+    console.log({ token });
+    if (token) {
+      localStorage.setItem('token', token);
+      navigate('/');
+    }
   }, [username, password, navigate]);
   return (
     <form className="mx-auto flex flex-col justify-center gap-8">

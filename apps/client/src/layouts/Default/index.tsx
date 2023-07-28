@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/navbar';
 
 interface DefaultLayout {
   Section: ReactNode;

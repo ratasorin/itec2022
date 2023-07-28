@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
-import SignInForm from './Login.component';
-import SignUpForm from './Signup.component';
+import SignInForm from './login.component';
+import SignUpForm from './signup.component';
 
 function AuthForm(): ReactElement {
   const [authType, setAuthType] = useState<'SIGN IN' | 'SIGN UP'>('SIGN UP');

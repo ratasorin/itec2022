@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
-import Form from './Form/Form';
+import Form from './form/form';
 import { useNavigate } from 'react-router';
 
 function SignUpForm(): ReactElement {

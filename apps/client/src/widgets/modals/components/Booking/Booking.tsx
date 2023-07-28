@@ -1,5 +1,5 @@
 import useHandleClickOutside from '../../../../hooks/click-outside';
-import PickerComponent from '../../../../components/Office/TimePicker/TimePicker';
+import PickerComponent from '../../../../components/office/time-picker';
 import { useWidgetBlueprint } from '../../../hooks/useWidgetBlueprints';
 import { BookingModalBlueprint } from './booking.slice';
 import { useState } from 'react';
