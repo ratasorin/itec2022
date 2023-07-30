@@ -20,5 +20,10 @@
       "@shared": ["libs/shared/src/index.ts"]
     }
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
   "exclude": ["node_modules", "tmp"]
 }
