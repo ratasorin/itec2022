@@ -1,5 +1,4 @@
-import { MailerModule } from '@nestjs-modules/mailer';
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { MailService } from './mail.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
@@ -7,30 +6,11 @@ describe('Email Service', () => {
   let mailService: MailService;
   let configService: ConfigService;
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
           isGlobal: true,
           envFilePath: '.env',
-        }),
-        MailerModule.forRootAsync({
-          useFactory: (configService: ConfigService) => {
-            return {
-              transport: {
-                host: 'smtp.gmail.com',
-                secure: true,
-                port: 465,
-                auth: {
-                  user: configService.get('MAIL_USER'),
-                  pass: configService.get('MAIL_PASSWORD'),
-                },
-              },
-              defaults: {
-                from: '"Office booker 3000" <office@booker.com>',
-              },
-            };
-          },
-          inject: [ConfigService],
         }),
       ],
       providers: [MailService, ConfigService],
