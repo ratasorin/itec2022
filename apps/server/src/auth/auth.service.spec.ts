@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { User as UserDB } from '../../generated/schema';
+// import { User as UserDB } from '../../generated/schema';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -44,7 +44,7 @@ describe('Auth Service', () => {
                 id: '123456789',
                 name: 'Mock',
                 password: 'Mock',
-              } as UserDB),
+              } as any),
           },
         },
       ],
