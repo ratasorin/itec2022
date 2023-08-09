@@ -1,1 +1,2 @@
-To correctly update all dependencies without causing npm peer dependencies issues run: `nx migrate`. Also to make sure the code is updated in the workspace in accordance with the implementation of the various migrations which ran, use `nx migrate --run-migrations`
+To correctly update all dependencies without causing npm peer dependencies issues run: `nx migrate`.
+To make sure all the code is correctly updated in the workspace in conformity with the changes, use `nx migrate --run-migrations`
