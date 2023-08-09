@@ -4,26 +4,29 @@ import Form from './form/form';
 import { useNavigate } from 'react-router';
 
 function LoginForm(): ReactElement {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
+
   const login = useCallback(async () => {
     const response = await fetch('http://localhost:3000/auth/login', {
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-    });
-    const token: string | undefined = (await response.json())?.access_token;
-    console.log({ token });
+    }).then(async (r) => await r.json());
+
+    const token: string | undefined = response?.access_token;
     if (token) {
       localStorage.setItem('token', token);
       navigate('/');
     }
-  }, [username, password, navigate]);
+  }, [email, password, navigate]);
+
   return (
     <form className="mx-auto flex flex-col justify-center gap-8">
       <div className="flex flex-col gap-4">
-        <Form name="username" type="text" set={setUsername} />
+        <Form name="email" type="text" set={setEmail} />
         <Form name="password" type="password" set={setPassword} />
       </div>
 
