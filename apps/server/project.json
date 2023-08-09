@@ -5,14 +5,16 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/server",
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "apps/server/dist",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
-        "compiler": "tsc",
-        "target": "node"
+        "isolatedConfig": true,
+        "webpackConfig": "apps/server/webpack.config.js"
       },
       "configurations": {
         "production": {
