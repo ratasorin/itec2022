@@ -74,7 +74,7 @@ export class FloorService {
     );
 
     const floor = response.rows;
-    console.log({ floor });
+
     return floor;
   }
 

@@ -22,7 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // and decodes the JSON. It invokes validate() passing the
   // decoded JSON as the payload.
   async validate(payload: JwtUser) {
-    console.log({ payload });
     const { email } = payload;
     const response = await this.pool.query<UserDB>(
       `SELECT * FROM users WHERE email = $1`,

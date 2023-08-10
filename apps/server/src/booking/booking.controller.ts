@@ -28,8 +28,6 @@ export class BookingController {
   @Post()
   @UseGuards(JwtAuthGuard)
   async unverifiedBookSpace(@Body() input: BookingDTO, @Request() req) {
-    console.log(req.user);
-
     const user: JwtUser = req.user;
     if (!user.id) return 'NO USER PROVIDED';
     const id = await this.service.unverifiedBookSpace(input, user.id);

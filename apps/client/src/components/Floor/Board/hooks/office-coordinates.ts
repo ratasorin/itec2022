@@ -28,7 +28,5 @@ export const useOfficeCoordinates = (offices: SpacesOnFloor[]) => {
     [offices]
   );
 
-  console.log({ x, y });
-
   return { x, y };
 };

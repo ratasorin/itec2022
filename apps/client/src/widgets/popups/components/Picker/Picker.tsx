@@ -20,7 +20,7 @@ const PickerPopup = () => {
     (popup: HTMLDivElement | null) => {
       if (!popup || !specification.box) return setDimensions([null, null]);
       const dimensions = popup.getBoundingClientRect();
-      console.log({ box: specification.box });
+
       const { height: popupHeight, width: popupWidth } = dimensions;
       const { left: leftBox, top: topBox, width: widthBox } = specification.box;
 

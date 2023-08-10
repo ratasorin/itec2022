@@ -24,7 +24,6 @@ const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
   const bookSpace = useCallback(async () => {
     const user = getUser();
     if (!user) return;
-    console.log(user);
 
     const response = await fetch(url('booking'), {
       method: 'POST',

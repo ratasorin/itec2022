@@ -21,7 +21,6 @@ describe('Auth Service', () => {
         }),
         JwtModule.registerAsync({
           useFactory: (configService: ConfigService) => {
-            console.log(configService.get('JWT_SECRET'));
             return {
               secretOrPrivateKey: configService.get<string>('JWT_SECRET'),
               signOptions: { expiresIn: '3600s' },

@@ -5,7 +5,6 @@ export const useLocalStorage = (key: string) => {
   const localStorageValue = useMemo(() => localStorage.getItem(key), [key]);
 
   useEffect(() => {
-    console.log(localStorageValue);
     if (localStorageValue) {
       setState(localStorageValue);
     }

@@ -11,8 +11,6 @@ const BuildingMenu = () => {
   const floors = useFloors(building_id);
   const offices = useOffices(building_id, selectedFloorLevel, undefined);
 
-  console.log({ offices, building_id, selectedFloorLevel });
-
   return (
     <div className="flex h-auto w-screen flex-row bg-slate-500">
       <Sidebar floors={floors}></Sidebar>
