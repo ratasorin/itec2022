@@ -7,30 +7,23 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../hooks/redux/redux.hooks';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { D3BrushEvent } from 'd3';
 import { alterBounds } from '../timeline.slice';
 
-const PADDING = 90;
 const HEIGHT = 150;
 
-const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
-  const DIMENSIONS = useMemo(() => {
-    console.log({
-      width: width - 2 * PADDING,
-      height: HEIGHT,
-    });
+const useDrawTimeline = (id: string, brushing: boolean) => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: HEIGHT });
 
-    return {
-      width: width - 2 * PADDING,
-      height: HEIGHT,
-    };
-  }, [width]);
+  useEffect(() => {
+    const width = document.getElementById('timeline-parent')?.clientWidth || 0;
+    setDimensions({ width, height: HEIGHT });
+  }, []);
 
   const dispatch = useAppDispatch();
   const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
 
-  //set scales
   const { selectedRange } = useAppSelector(({ timeline }) => timeline);
 
   const { end: chartEndsAt, start: chartStartsAt } = selectedRange;
@@ -40,12 +33,12 @@ const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
     return d3
       .scaleTime()
       .domain([chartStartsAt, chartEndsAt])
-      .range([0, DIMENSIONS.width]);
-  }, [DIMENSIONS, chartEndsAt, chartStartsAt]);
+      .range([0, dimensions.width]);
+  }, [dimensions, chartEndsAt, chartStartsAt]);
 
   const yScale = useMemo(
-    () => d3.scaleLinear().range([DIMENSIONS.height, 0]),
-    [DIMENSIONS]
+    () => d3.scaleLinear().range([dimensions.height, 0]),
+    [dimensions]
   );
 
   // const wrapper = useMemo(() => {}, [DIMENSIONS]);
@@ -54,10 +47,10 @@ const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
       d3
         .area<number>()
         .x((d) => xScale(d))
-        .y0(DIMENSIONS.height)
+        .y0(dimensions.height)
         .y1(() => yScale(1))
         .curve(d3.curveStepBefore),
-    [DIMENSIONS, xScale, yScale]
+    [dimensions, xScale, yScale]
   );
 
   const cb = useCallback(
@@ -67,16 +60,16 @@ const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
         .select('#timeline')
         .append('svg')
         .attr('class', 'timetable')
-        .attr('width', DIMENSIONS.width)
-        .attr('height', DIMENSIONS.height + 100)
+        .attr('width', dimensions.width)
+        .attr('height', dimensions.height + 100)
         .attr('fill', 'red')
-        .attr('viewBox', `0 0 ${DIMENSIONS.width} ${DIMENSIONS.height}`);
+        .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`);
 
       const brush = d3
         .brushX()
         .extent([
           [0, 0],
-          [DIMENSIONS.width, DIMENSIONS.height],
+          [dimensions.width, dimensions.height],
         ])
         .on('end', (event: D3BrushEvent<unknown>, data) => {
           if (!event.selection) return;
@@ -91,7 +84,7 @@ const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
 
       const scale = wrapper
         .append('g')
-        .attr('transform', 'translate(0,' + DIMENSIONS.height + ')')
+        .attr('transform', 'translate(0,' + dimensions.height + ')')
         .call(d3.axisBottom(xScale));
 
       const container = wrapper.append('g');
@@ -141,7 +134,7 @@ const useDrawTimeline = (id: string, width: number, brushing: boolean) => {
         }
       );
     },
-    [chartEndsAt, id, brushing]
+    [chartEndsAt, id, brushing, dimensions]
   );
 
   return cb;

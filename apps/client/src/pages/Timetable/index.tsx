@@ -9,7 +9,7 @@ const Timetable = () => {
   const user = useUser();
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-around p-10">
+    <div className="m-auto flex h-screen w-3/4 flex-col items-center justify-around">
       <div className="text-center text-2xl">
         Welcome to {office_name}
         <br />

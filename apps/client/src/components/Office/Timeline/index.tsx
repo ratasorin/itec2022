@@ -1,7 +1,7 @@
 import useDrawTimeline from './utils/timeline';
 import AddIcon from '@mui/icons-material/Add';
 import useTimetable from './hooks/timetable';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useReducer, useRef, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -28,13 +28,15 @@ interface TimelineProps {
 
 const Timeline: FC<TimelineProps> = ({ id }) => {
   const [brushing, setBrushing] = useState(false);
-  const drawTimeline = useDrawTimeline(id, window.innerWidth, brushing);
   const timetable = useTimetable(id);
   const dispatch = useAppDispatch();
   const { bounds, selectedRange } = useAppSelector(({ timeline }) => timeline);
+
+  const drawTimeline = useDrawTimeline(id, brushing);
+
   useEffect(() => {
     if (Array.isArray(timetable) && drawTimeline) drawTimeline(timetable);
-  }, [timetable, drawTimeline]);
+  }, [timetable]);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
@@ -49,7 +51,10 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   }, [selectedRange]);
 
   return (
-    <div className="mt-10 flex h-full w-auto flex-col items-start justify-center font-mono">
+    <div
+      className="mt-10 flex w-full flex-col items-start justify-center font-mono"
+      id="timeline-parent"
+    >
       <div className="text-xl">Check the next available hours</div>
       <FormControlLabel
         control={<Switch onChange={(_, checked) => setBrushing(checked)} />}
@@ -72,7 +77,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
               const year = getYear(date);
               const day = getDate(date);
               return (
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center">
                   <span>
                     {day} {month} {year} : {dayOfTheWeek}
                   </span>

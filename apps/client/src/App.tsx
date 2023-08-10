@@ -5,9 +5,7 @@ function App(): ReactElement {
   return (
     <>
       <Widgets />
-      <div className="grid h-screen w-screen place-items-center">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }
