@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { FloorDTO } from './DTO';
+import { FloorDTO, FloorUpdateDTO } from './DTO';
 import { FloorService } from './floor.service';
 
 @Controller('floor')
@@ -38,10 +38,7 @@ export class FloorController {
     @Param('building_id') building_id: string,
     @Body() floor: FloorDTO
   ) {
-    return await this.floorService.createFloor(
-      floor.previous_floor_id,
-      building_id
-    );
+    return await this.floorService.createFloor(building_id);
   }
 
   @Delete('/:floor_id')
@@ -50,20 +47,14 @@ export class FloorController {
     return await this.floorService.deleteFloor(floor_id);
   }
 
-  @Delete('all/:building_id')
+  @Delete('/all/:building_id')
   async deleteAllFLoors(@Param('building_id') building_id: string) {
     return await this.floorService.deleteAllFloors(building_id);
   }
 
-  @Put('/:floor_id')
+  @Put('/update')
   // @UseGuards(JwtAuthGuard)
-  async updateFloor(
-    @Param('floor_id') floor_id: string,
-    @Body() floor: FloorDTO
-  ) {
-    return await this.floorService.updateFloor(
-      floor_id,
-      floor.previous_floor_id
-    );
+  async updateFloors(@Body() floors: FloorUpdateDTO[]) {
+    return await this.floorService.updateFloors(floors);
   }
 }

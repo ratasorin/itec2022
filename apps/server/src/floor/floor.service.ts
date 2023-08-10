@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
 import { SpacesOnFloor } from '@shared';
 import { FloorDB } from '@shared';
+import { FloorUpdateDTO } from './DTO';
 
 @Injectable()
 export class FloorService {
@@ -39,56 +40,37 @@ export class FloorService {
     return bookingsForFloor;
   }
 
-  async createFloor(previous_floor_id: string | null, building_id: string) {
-    const response = await this.pool.query<FloorDB>(
+  async createFloor(building_id: string) {
+    const response = await this.pool.query<{ id: string }>(
       `--sql
-        WITH inserted AS (
-          INSERT INTO floors (id, previous_floor_id, building_id)
-          VALUES 
-          (DEFAULT, $1, $2) RETURNING id, building_id
-        )
-        INSERT into floors SELECT floors.id ,inserted.id, $2 FROM inserted LEFT JOIN floors ON floors.previous_floor_id IS NOT DISTINCT FROM $1 WHERE floors.id IS NOT NULL
-        ON CONFLICT (id) DO UPDATE SET previous_floor_id = EXCLUDED.previous_floor_id
-        RETURNING *
+        INSERT INTO floors(building_id) VALUES ($1) RETURNING floors.id;
       `,
-      [previous_floor_id, building_id]
+      [building_id]
+    );
+
+    const { id } = response.rows[0];
+    return id;
+  }
+
+  async deleteFloor(floor_id: string) {
+    const response = await this.pool.query<FloorDB>(
+      `--sql DELETE FROM floors WHERE id = $1 RETURNING *;`,
+      [floor_id]
     );
 
     const floor = response.rows[0];
     return floor;
   }
 
-  async deleteFloor(floor_id: string) {
+  async updateFloors(floors: FloorUpdateDTO[]) {
     const response = await this.pool.query<FloorDB>(
       `--sql
-      WITH deleted AS (
-        DELETE FROM floors WHERE floors.id = $1 RETURNING previous_floor_id
-      )
-      UPDATE floors SET previous_floor_id = deleted.previous_floor_id FROM deleted WHERE floors.previous_floor_id = $1  
-    `,
-      [floor_id]
-    );
-
-    const floor = await response.rows[0];
-    return floor;
-  }
-
-  async updateFloor(floor_id: string, previous_floor_id: string | null) {
-    console.log({ previous_floor_id });
-    const response = await this.pool.query<FloorDB>(
-      `--sql
-        UPDATE floors SET previous_floor_id = f.id 
-        FROM (
-          VALUES 
-            ($1, (SELECT id FROM floors WHERE previous_floor_id IS NOT DISTINCT FROM $2)),
-            ($2, $1),
-            ((SELECT previous_floor_id FROM floors WHERE id = $1), (SELECT id FROM floors WHERE previous_floor_id = $1))
-        )
-        AS f (id, condition)
-        WHERE f.condition IS NOT NULL AND floors.id = f.condition 
+        UPDATE floors SET level = updated_floors.level 
+        FROM $1 as updated_floors
+        WHERE floors.id = updated_floors.id;
       `,
 
-      [floor_id, previous_floor_id]
+      [floors]
     );
 
     const floor = response.rows;
