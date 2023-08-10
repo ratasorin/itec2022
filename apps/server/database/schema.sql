@@ -27,7 +27,7 @@ CREATE TABLE buildings (
 
 CREATE TABLE floors (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    previous_floor_id UUID REFERENCES floors DEFAULT NULL,
+    level SERIAL NOT NULL,
     building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE space_ratings (
 
 INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com', 'Sorin', DEFAULT);
 INSERT INTO buildings (id, name, user_id) VALUES (DEFAULT, 'AMDARIS HQ', (SELECT id FROM users));
-INSERT INTO floors (id, previous_floor_id, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
+INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 1', 0, 0, (SELECT id FROM floors));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 2', 0, 1, (SELECT id FROM floors));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 3', 1, 0, (SELECT id FROM floors));
