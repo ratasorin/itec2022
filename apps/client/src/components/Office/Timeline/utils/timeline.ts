@@ -24,12 +24,11 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
   const dispatch = useAppDispatch();
   const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
 
-  const { selectedRange } = useAppSelector(({ timeline }) => timeline);
-
-  const { end: chartEndsAt, start: chartStartsAt } = selectedRange;
+  const { end: chartEndsAt, start: chartStartsAt } = useAppSelector(
+    ({ timeline }) => timeline
+  ).selectedRange;
 
   const xScale = useMemo(() => {
-    console.log(chartEndsAt);
     return d3
       .scaleTime()
       .domain([chartStartsAt, chartEndsAt])
@@ -41,7 +40,6 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
     [dimensions]
   );
 
-  // const wrapper = useMemo(() => {}, [DIMENSIONS]);
   const bookedArea = useMemo(
     () =>
       d3
@@ -53,7 +51,7 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
     [dimensions, xScale, yScale]
   );
 
-  const cb = useCallback(
+  const draw = useCallback(
     (intervals: OfficeTimeIntervalDB[]) => {
       d3.select('.timetable').remove();
       const wrapper = d3
@@ -71,18 +69,20 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
           [0, 0],
           [dimensions.width, dimensions.height],
         ])
-        .on('end', (event: D3BrushEvent<unknown>, data) => {
+        .on('end', (event: D3BrushEvent<unknown>) => {
           if (!event.selection) return;
           const [x1, x2] = event.selection as [number, number];
           const start = xScale.invert(x1);
           const end = xScale.invert(x2);
           dispatch(
-            alterBounds({ interval: { end, start }, update: 'selectedRange' })
+            alterBounds({
+              interval: { end: end.getTime(), start: start.getTime() },
+              update: 'selectedRange',
+            })
           );
-          console.log({ start, end });
         });
 
-      const scale = wrapper
+      wrapper
         .append('g')
         .attr('transform', 'translate(0,' + dimensions.height + ')')
         .call(d3.axisBottom(xScale));
@@ -134,10 +134,10 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
         }
       );
     },
-    [chartEndsAt, id, brushing, dimensions]
+    [id, brushing, dimensions, xScale]
   );
 
-  return cb;
+  return draw;
 };
 
 export default useDrawTimeline;

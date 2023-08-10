@@ -36,18 +36,15 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
 
   useEffect(() => {
     if (Array.isArray(timetable) && drawTimeline) drawTimeline(timetable);
-  }, [timetable]);
+  }, [timetable, selectedRange]);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   const [valueType, setValueType] = useState('days');
-  const [interval, setInterval] = useState([
-    bounds.start.getTime(),
-    bounds.end.getTime(),
-  ]);
+  const [interval, setInterval] = useState([bounds.start, bounds.end]);
 
   useEffect(() => {
-    setInterval([selectedRange.start.getTime(), selectedRange.end.getTime()]);
+    setInterval([selectedRange.start, selectedRange.end]);
   }, [selectedRange]);
 
   return (
@@ -65,8 +62,8 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
           <div id="timeline" className="my-10"></div>
           <Slider
             value={interval}
-            min={bounds.start.getTime()}
-            max={bounds.end.getTime()}
+            min={bounds.start}
+            max={bounds.end}
             onChange={(_, timestamps) => {
               setInterval(timestamps as number[]);
             }}
@@ -88,12 +85,11 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
             onChangeCommitted={(_, timestamps) => {
               if (Array.isArray(timestamps)) {
                 const [startTS, endTS] = timestamps;
-                console.log(new Date(startTS).toLocaleTimeString());
                 dispatch(
                   alterBounds({
                     interval: {
-                      start: new Date(startTS),
-                      end: new Date(endTS),
+                      start: startTS,
+                      end: endTS,
                     },
                     update: 'selectedRange',
                   })
@@ -126,7 +122,9 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
                     dispatch(
                       alterBounds({
                         interval: {
-                          end: add(bounds.end, { [valueType]: value }),
+                          end: add(bounds.end, {
+                            [valueType]: value,
+                          }).getTime(),
                         },
                         update: 'bounds',
                       })
@@ -153,7 +151,6 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
                     aria-labelledby="radio-group-input-type-selection"
                     defaultValue={valueType}
                     onChange={(event) => {
-                      console.log(event.currentTarget.value);
                       setValueType(event.currentTarget.value);
                     }}
                   >

@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { add } from 'date-fns';
 
+export type UnixTimestamp = number;
+
 export interface Interval {
-  start: Date;
-  end: Date;
+  start: UnixTimestamp;
+  end: UnixTimestamp;
 }
 
 export interface Timeline {
@@ -13,12 +15,12 @@ export interface Timeline {
 
 const initialState: Timeline = {
   bounds: {
-    end: add(new Date(), { days: 1 }),
-    start: new Date(),
+    end: add(new Date(), { days: 1 }).getTime(),
+    start: new Date().getTime(),
   },
   selectedRange: {
-    end: add(new Date(), { days: 1 }),
-    start: new Date(),
+    end: add(new Date(), { days: 1 }).getTime(),
+    start: new Date().getTime(),
   },
 };
 
@@ -29,7 +31,7 @@ const timeline = createSlice({
     alterBounds: (
       state,
       action: PayloadAction<{
-        interval: { start?: Date; end?: Date };
+        interval: Partial<Interval>;
         update: 'bounds' | 'selectedRange';
       }>
     ) => {
