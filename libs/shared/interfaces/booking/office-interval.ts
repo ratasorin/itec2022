@@ -1,8 +1,14 @@
 export interface OfficeTimeIntervalDB {
   booked_from: string;
   booked_until: string;
-  free_from: string;
-  free_until: string | null;
+  occupant_name: string;
+}
+
+export interface OfficeTimeIntervalAPI {
+  booked_from: string | null;
+  booked_until: string | null;
+  free_from: null | string;
+  free_until: null | string;
   occupantName: string | null;
 }
 
