@@ -1,19 +1,19 @@
-import type { OfficeTimeIntervalDB } from '@shared';
+import type { OfficeTimeIntervalAPI, OfficeTimeIntervalDB } from '@shared';
 import { useWidgetActions } from '../../../../widgets/hooks/useWidgetActions';
 import * as d3 from 'd3';
 import { PickerActionBlueprint } from '../../../../widgets/popups/components/Picker/picker.slice';
-import { prepareDrawInterval } from './interval';
+import { drawInterval } from './interval';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../hooks/redux/redux.hooks';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { D3BrushEvent } from 'd3';
 import { alterBounds } from '../timeline.slice';
 
 const HEIGHT = 150;
 
-const useDrawTimeline = (id: string, brushing: boolean) => {
+const useDrawTimeline = (id: string) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: HEIGHT });
 
   useEffect(() => {
@@ -23,6 +23,9 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
 
   const dispatch = useAppDispatch();
   const { open } = useWidgetActions<PickerActionBlueprint>('picker-popup');
+  const { end: selectedEnd, start: selectedStart } = useAppSelector(
+    ({ timeline }) => timeline.selectedRange
+  );
 
   const { end: chartEndsAt, start: chartStartsAt } = useAppSelector(
     ({ timeline }) => timeline
@@ -52,7 +55,7 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
   );
 
   const draw = useCallback(
-    (intervals: OfficeTimeIntervalDB[]) => {
+    (intervals: OfficeTimeIntervalAPI[], brushing: boolean) => {
       d3.select('.timetable').remove();
       const wrapper = d3
         .select('#timeline')
@@ -90,26 +93,20 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
       const container = wrapper.append('g');
       if (brushing) wrapper.append('g').call(brush);
 
-      const drawInterval = prepareDrawInterval({
-        area: bookedArea,
-        openPopup: open,
-        container,
-      });
-
       if (!intervals.length)
         return drawInterval({
+          area: bookedArea,
+          openPopup: open,
+          container,
+          xScale,
+          selectedEnd,
+          selectedStart,
+          width: dimensions.width,
           end: new Date(chartEndsAt).toISOString(),
           id,
           name: null,
           start: new Date().toISOString(),
         });
-
-      drawInterval({
-        end: new Date(chartEndsAt).toISOString(),
-        id,
-        name: '-',
-        start: new Date().toISOString(),
-      });
 
       return intervals.forEach(
         ({
@@ -119,22 +116,49 @@ const useDrawTimeline = (id: string, brushing: boolean) => {
           free_until,
           occupantName,
         }) => {
-          drawInterval({
-            end: new Date(booked_until).toISOString(),
-            id,
-            name: occupantName,
-            start: new Date(booked_from).toISOString(),
-          });
-          drawInterval({
-            end: new Date(free_until || chartEndsAt).toISOString(),
-            id,
-            name: null,
-            start: new Date(free_from).toISOString(),
-          });
+          if (booked_from !== null && booked_until !== null)
+            drawInterval({
+              area: bookedArea,
+              openPopup: open,
+              container,
+              xScale,
+              selectedEnd,
+              selectedStart,
+              width: dimensions.width,
+              end: new Date(booked_until).toISOString(),
+              id,
+              name: occupantName,
+              start: new Date(booked_from).toISOString(),
+            });
+          if (free_from !== null && free_until !== null)
+            drawInterval({
+              area: bookedArea,
+              openPopup: open,
+              container,
+              xScale,
+              selectedEnd,
+              selectedStart,
+              width: dimensions.width,
+              end:
+                free_until !== ''
+                  ? new Date(free_until).toISOString()
+                  : new Date(chartEndsAt).toISOString(),
+              id,
+              name: null,
+              start: new Date(free_from).toISOString(),
+            });
         }
       );
     },
-    [id, brushing, dimensions, xScale]
+    [
+      id,
+      dimensions,
+      xScale,
+      chartEndsAt,
+      chartStartsAt,
+      selectedEnd,
+      selectedStart,
+    ]
   );
 
   return draw;
