@@ -68,7 +68,9 @@ CREATE TABLE space_ratings (
 ) INHERITS (ratings);
 
 INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com', 'Sorin', DEFAULT);
+
 INSERT INTO buildings (id, name, user_id) VALUES (DEFAULT, 'AMDARIS HQ', (SELECT id FROM users));
+
 INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 1', 0, 0, (SELECT id FROM floors));
 INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 2', 0, 1, (SELECT id FROM floors));

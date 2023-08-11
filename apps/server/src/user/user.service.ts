@@ -28,10 +28,10 @@ export class UserService {
     return user;
   }
 
-  async createUser({ admin, name, password }: UserDTO): Promise<UserDB> {
+  async createUser({ name, password, email }: UserDTO): Promise<UserDB> {
     const response = await this.pool.query<UserDB>(
-      `INSERT INTO users (id, name, password, admin) VALUES (DEFAULT, $1, $2, $3) RETURNING *`,
-      [name, password, admin || false]
+      `INSERT INTO users (name, password, email) VALUES ($1, $2, $3) RETURNING *`,
+      [name, password, email]
     );
     const user = response.rows[0];
     return user;

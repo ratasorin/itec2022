@@ -6,7 +6,7 @@ function AuthForm(): ReactElement {
   const [authType, setAuthType] = useState<'SIGN IN' | 'SIGN UP'>('SIGN UP');
 
   return (
-    <div className="m-auto flex h-max flex-1 flex-col items-center justify-center gap-4">
+    <div className="m-auto flex h-screen flex-1 flex-col items-center justify-center gap-4">
       {authType === 'SIGN UP' ? (
         <>
           <SignUpForm />
