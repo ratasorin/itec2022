@@ -32,11 +32,12 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   const dispatch = useAppDispatch();
   const { bounds, selectedRange } = useAppSelector(({ timeline }) => timeline);
 
-  const drawTimeline = useDrawTimeline(id, brushing);
+  const drawTimeline = useDrawTimeline(id);
 
   useEffect(() => {
-    if (Array.isArray(timetable) && drawTimeline) drawTimeline(timetable);
-  }, [timetable, selectedRange]);
+    if (Array.isArray(timetable) && drawTimeline)
+      drawTimeline(timetable, brushing);
+  }, [timetable, selectedRange, brushing]);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
@@ -54,7 +55,13 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
     >
       <div className="text-xl">Check the next available hours</div>
       <FormControlLabel
-        control={<Switch onChange={(_, checked) => setBrushing(checked)} />}
+        control={
+          <Switch
+            onChange={(_, checked) => {
+              setBrushing(checked);
+            }}
+          />
+        }
         label={<div className="!font-mono !text-xl">Zoom on timeline</div>}
       />
       <div className="flex w-full flex-row items-center">
