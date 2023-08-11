@@ -11,7 +11,7 @@ export class BuildingService {
       SELECT buildings.name, buildings.id,  100 - ((COUNT(bookings.interval) / COUNT(*)::float) * 100) AS availability_rate, AVG(building_ratings.stars) AS stars FROM buildings 
       LEFT JOIN floors ON floors.building_id = buildings.id 
       LEFT JOIN spaces ON spaces.floor_id = floors.id
-      LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> localtimestamp
+      LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> current_timestamp
       LEFT JOIN building_ratings ON building_ratings.building_id = buildings.id
       GROUP BY buildings.name, buildings.id
     `);

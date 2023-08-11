@@ -44,7 +44,7 @@ CREATE TABLE spaces (
 CREATE TABLE bookings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     -- time range representing [book-from, book-until)
-    interval TSRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
+    interval TSTZRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
     space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
     -- do not allow overlapping time-ranges
@@ -84,18 +84,40 @@ INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 4', 1, 1,
 -- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 12', 1, 1, (SELECT id FROM floors WHERE level = 3));
 INSERT INTO bookings (id, interval, space_id, user_id) 
        VALUES (
-         
        DEFAULT, 
-       tsrange(date_bin('30 minutes', date_trunc('minute', localtimestamp), CAST(TO_TIMESTAMP(0) AS timestamp)), date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '3 hours'), TIMESTAMP '2000-01-01')), 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '5 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
        (SELECT id FROM spaces 
        WHERE name = 'Office 1'), 
        (SELECT id FROM users 
        WHERE name = 'Sorin')
        );
+
 INSERT INTO bookings (id, interval, space_id, user_id) 
        VALUES (
        DEFAULT, 
-        tsrange(date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '3 hours'), TIMESTAMP '2000-01-01'),date_bin('30 minutes', date_trunc('minute', localtimestamp  + interval '7 hours'), TIMESTAMP '2000-01-01')), 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '7 hours' ), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '9 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
        (SELECT id FROM spaces 
        WHERE name = 'Office 1'), 
        (SELECT id FROM users 

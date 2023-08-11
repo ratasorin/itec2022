@@ -12,7 +12,7 @@ export class FloorService {
       `--sql
         SELECT spaces.id AS space_id, x, y, users.name AS "occupantName", upper(interval) AS booked_until, spaces.name AS "officeName" FROM spaces
         LEFT JOIN floors ON floors.id = spaces.floor_id
-        LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> localtimestamp
+        LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> current_timestamp
         LEFT JOIN users ON bookings.user_id = users.id
         WHERE floors.id = $1
         ORDER BY space_id;
@@ -28,7 +28,7 @@ export class FloorService {
       `--sql
         SELECT spaces.id AS space_id, x, y, users.name AS "occupantName", upper(interval) AS booked_until, spaces.name AS "officeName" FROM spaces
         LEFT JOIN floors ON floors.id = spaces.floor_id
-        LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> localtimestamp
+        LEFT JOIN bookings ON bookings.space_id = spaces.id AND bookings.interval @> current_timestamp
         LEFT JOIN users ON bookings.user_id = users.id
         WHERE floors.building_id = $1 AND floors.level = $2
         ORDER BY space_id;
