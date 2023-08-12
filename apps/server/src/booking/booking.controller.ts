@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
   Param,
   Post,
   Request,
@@ -20,7 +21,7 @@ export class BookingController {
     private mailService: MailService
   ) {}
 
-  @Get('timetable/:space_id')
+  @Get('/timetable/:space_id')
   async getTimetable(@Param('space_id') space_id: string) {
     return await this.service.getTimetable(space_id);
   }
@@ -29,12 +30,16 @@ export class BookingController {
   @UseGuards(JwtAuthGuard)
   async unverifiedBookSpace(@Body() input: BookingDTO, @Request() req) {
     const user: JwtUser = req.user;
-    if (!user.id) return 'NO USER PROVIDED';
-    const id = await this.service.unverifiedBookSpace(input, user.id);
-    await this.mailService.sendMailTo(user.email, id);
+    if (!user.id)
+      throw new HttpException(
+        "The JWT doesn't contain a user, please log out and try again",
+        500
+      );
+
+    return await this.service.unverifiedBookSpace(input, user.id);
   }
 
-  @Get('/:unverified_id')
+  @Get('/verify/:unverified_id')
   async bookSpace(@Param('unverified_id') unverified_id: string) {
     return this.service.bookSpace(unverified_id);
   }
