@@ -13,7 +13,7 @@ function SignUpForm(): ReactElement {
   const signUp = useCallback(async () => {
     try {
       const user: UserDTO = { name: username, password, email };
-      console.log({ user });
+
       const response = await fetch('http://localhost:3000/auth/signup', {
         method: 'POST',
         body: JSON.stringify(user),

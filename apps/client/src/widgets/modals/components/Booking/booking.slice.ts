@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfficeTimeInterval } from '@shared';
 import { Blueprint } from '../../../interface/Blueprint';
+import { OfficeTimeInterval } from '@shared';
 
 type BookingBlueprint = Blueprint<OfficeTimeInterval & { id: string }>;
 export type BookingActionBlueprint = BookingBlueprint['Action'];
@@ -8,7 +8,7 @@ export type BookingModalBlueprint = BookingBlueprint['Component'];
 
 const initialState: BookingModalBlueprint = {
   specification: { render: false },
-  payload: { end: '', occupantName: null, start: '', id: '' },
+  payload: { end: 0, occupantName: null, start: 0, id: '' },
 };
 
 const booking = createSlice({

@@ -102,10 +102,10 @@ const useDrawTimeline = (id: string) => {
           selectedEnd,
           selectedStart,
           width: dimensions.width,
-          end: new Date(chartEndsAt).toISOString(),
+          end: chartEndsAt,
           id,
           name: null,
-          start: new Date().toISOString(),
+          start: new Date().getTime(),
         });
 
       return intervals.forEach(
@@ -125,10 +125,10 @@ const useDrawTimeline = (id: string) => {
               selectedEnd,
               selectedStart,
               width: dimensions.width,
-              end: new Date(booked_until).toISOString(),
+              end: new Date(booked_until).getTime(),
               id,
               name: occupantName,
-              start: new Date(booked_from).toISOString(),
+              start: new Date(booked_from).getTime(),
             });
           if (free_from !== null && free_until !== null)
             drawInterval({
@@ -141,11 +141,11 @@ const useDrawTimeline = (id: string) => {
               width: dimensions.width,
               end:
                 free_until !== ''
-                  ? new Date(free_until).toISOString()
-                  : new Date(chartEndsAt).toISOString(),
+                  ? new Date(free_until).getTime()
+                  : chartEndsAt,
               id,
               name: null,
-              start: new Date(free_from).toISOString(),
+              start: new Date(free_from).getTime(),
             });
         }
       );

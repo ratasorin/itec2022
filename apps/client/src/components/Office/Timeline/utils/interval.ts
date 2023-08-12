@@ -10,8 +10,8 @@ export interface IntervalProps {
   selectedEnd: number;
   width: number;
   id: string;
-  start: string;
-  end: string;
+  start: number;
+  end: number;
   name: string | null;
 }
 
@@ -30,30 +30,22 @@ export const drawInterval = ({
 }: IntervalProps) => {
   return container
     .append('path')
-    .attr('d', area([new Date(start).getTime(), new Date(end).getTime()]))
+    .attr('d', area([start, end]))
     .attr('fill', name ? 'red' : 'green')
     .on('mouseover', (event: MouseEvent) => {
       let { left, top, height, width } = (
         event.currentTarget as HTMLElement
       ).getBoundingClientRect();
 
-      if (
-        selectedStart >= new Date(start).getTime() &&
-        selectedEnd <= new Date(end).getTime()
-      ) {
-        console.log('CASE <>');
+      if (selectedStart >= start && selectedEnd <= end) {
         const padding = -xScale(new Date(start)) + left;
         left = padding;
         width = containerWidth;
-      } else if (new Date(start).getTime() < selectedStart) {
-        console.log('CASE <');
+      } else if (start < selectedStart) {
         const padding = -xScale(new Date(start)) + left;
         left = padding;
         width = xScale(new Date(end)) - xScale(new Date(selectedStart));
-
-        console.log(width);
-      } else if (new Date(end).getTime() > selectedEnd) {
-        console.log('CASE >');
+      } else if (end > selectedEnd) {
         const padding = -xScale(new Date(start)) + left;
         left = padding;
         width = xScale(new Date(start)) + containerWidth;

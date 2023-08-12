@@ -55,9 +55,9 @@ const PickerPopup = () => {
       </div>
       <hr />
       <div className="py-1">
-        from {payload.interval.start}
+        from {new Date(payload.interval.start).toLocaleString()}
         <br />
-        until {payload.interval.end}
+        until {new Date(payload.interval.end).toLocaleString()}
       </div>
       {payload.interval.occupantName ? null : (
         <Button

@@ -176,7 +176,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
               </div>
               <div className="ml-6 flex flex-col">
                 The timetable will show you bookings from
-                <span>{bounds.start.toLocaleString()}</span>
+                <span>{new Date(bounds.start).toLocaleString()}</span>
                 until
                 <span>
                   {add(bounds.end, { [valueType]: value }).toLocaleString()}

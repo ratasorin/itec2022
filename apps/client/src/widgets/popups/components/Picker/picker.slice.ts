@@ -19,9 +19,9 @@ const initialState: PickerPopupBlueprint = {
   payload: {
     id: '',
     interval: {
-      end: '',
+      end: 0,
       occupantName: null,
-      start: '',
+      start: 0,
     },
   },
 };
@@ -40,10 +40,8 @@ const picker = createSlice({
         payload: {
           id: action.payload.payload.id,
           interval: {
-            end: new Date(action.payload.payload.interval.end).toLocaleString(),
-            start: new Date(
-              action.payload.payload.interval.start
-            ).toLocaleString(),
+            end: action.payload.payload.interval.end,
+            start: action.payload.payload.interval.start,
             occupantName: action.payload.payload.interval.occupantName,
           },
         },

@@ -13,7 +13,7 @@ export interface OfficeTimeIntervalAPI {
 }
 
 export interface OfficeTimeInterval {
-  start: string;
-  end: string;
+  start: number;
+  end: number;
   occupantName: string | null;
 }
