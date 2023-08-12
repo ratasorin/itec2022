@@ -41,17 +41,18 @@ CREATE TABLE spaces (
     UNIQUE(x, y, floor_id)
 );
 
-CREATE TABLE bookings (
+CREATE TABLE unverified_bookings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     -- time range representing [book-from, book-until)
     interval TSTZRANGE NOT NULL CHECK (upper(interval) - lower(interval) >= interval '2 hours'),
     space_id UUID NOT NULL REFERENCES spaces ON DELETE CASCADE,
-    user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
-    -- do not allow overlapping time-ranges
-    EXCLUDE USING GIST (space_id WITH =, interval WITH &&)
+    user_id UUID NOT NULL REFERENCES users ON DELETE CASCADE
 );
 
-CREATE TABLE unverified_bookings () INHERITS (bookings);
+CREATE TABLE bookings (
+    -- do not allow overlapping time-ranges
+    EXCLUDE USING GIST (space_id WITH =, interval WITH &&)
+) INHERITS(unverified_bookings);
 
 CREATE TABLE ratings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

@@ -11,8 +11,9 @@ import { url } from '../../../constants/server';
 import { useWidgetActions } from '../../../widgets/hooks/useWidgetActions';
 import { NotificationActionBlueprint } from '../../../widgets/popups/components/Notification/notification.slice';
 import type { Error } from '@shared';
+import { fetchProtected } from 'apps/client/src/api/protected';
 
-const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
+const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   const [bookFrom, setBookFrom] = useState<Date | null>(new Date(start));
   const [bookUntil, setBookUntil] = useState<Date | null>(
     add(new Date(start), { hours: 2 })
@@ -25,23 +26,21 @@ const Picker: FC<{ id: string; start: string }> = ({ id, start }) => {
     const user = getUser();
     if (!user) return;
 
-    const response = await fetch(url('booking'), {
+    const response = await fetchProtected('booking', {
       method: 'POST',
       body: JSON.stringify({
-        book_from: bookFrom,
+        book_from: bookFrom?.getTime(),
         book_until: bookUntil,
         space_id: id,
-        user_id: user.id,
       }),
-      headers: [['Content-Type', 'application/json']],
-    });
+      headers: { 'Content-Type': 'application/json' },
+    }).then(async (r) => await r.json());
 
-    const payload: string | Error = await response.json();
-    if (typeof payload === 'string')
-      openNotification({ payload: { message: payload }, specification: {} });
+    if (typeof response === 'string')
+      openNotification({ payload: { message: response }, specification: {} });
     else
       openNotification({
-        payload: { message: payload.message },
+        payload: { message: response.message },
         specification: {},
       });
   }, [bookFrom, bookUntil, id, openNotification]);
