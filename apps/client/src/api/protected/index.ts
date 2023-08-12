@@ -1,6 +1,6 @@
-export const accessProtectedRoute = (route: string, settings: RequestInit) => {
+export const fetchProtected = (route: string, settings: RequestInit) => {
   const token = localStorage.getItem('token');
-  if (!token) return 'You are not authorized to use this app !';
+  if (!token) throw new Error('NOT AUTHORIZED');
   try {
     const response = fetch(`http://localhost:3000/${route}`, {
       ...settings,
@@ -11,7 +11,7 @@ export const accessProtectedRoute = (route: string, settings: RequestInit) => {
     });
     return response;
   } catch (err) {
-    console.error(err);
-    return 'An error has ocurred !';
+    console.error('THERE WAS AN ERROR FETCHING THE ROUTE:', route, err);
+    throw new Error(String(err));
   }
 };
