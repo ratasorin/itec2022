@@ -24,16 +24,20 @@ describe('Email Service', () => {
   });
 
   it('should find username and password for sending emails', () => {
-    const user = configService.get('MAIL_USER');
-    const pass = configService.get('MAIL_PASSWORD');
+    const user = configService.get('SMTP_NAME');
+    const pass = configService.get('SMTP_PASSWORD');
+
     expect(user).toBeTruthy();
     expect(pass).toBeTruthy();
   });
 
   it('should send email to a user', async () => {
-    const email = configService.get('MAIL_USER');
     await expect(
-      mailService.sendMailTo(email, '123456789')
+      mailService.sendMailTo(
+        'ratasorin0@gmail.com',
+        'Test message',
+        '<p>This is a test message sent from <i>mail.service.spec.ts</i></p>'
+      )
     ).resolves.not.toThrowError();
   });
 });
