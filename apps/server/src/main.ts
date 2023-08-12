@@ -8,7 +8,7 @@ async function bootstrap() {
   });
   app.enableCors({
     origin: '*',
-    allowedHeaders: 'Content-Type',
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   app.useGlobalPipes(
