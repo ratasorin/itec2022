@@ -12,26 +12,30 @@ import { Transporter, createTransport } from 'nodemailer';
 
 @Injectable()
 export class MailService {
-  transporter: Transporter;
+  private transporter: Transporter;
   constructor() {
     this.transporter = createTransport({
-      host: 'email-smtp.us-east-1.amazonaws.com',
+      host: 'email-smtp.eu-central-1.amazonaws.com',
       secure: true,
-      port: 25,
+      port: 465,
       auth: {
         user: process.env.SMTP_NAME as string,
         pass: process.env.SMTP_PASSWORD as string,
       },
-      from: "'Office booker 3000' <office@booker.com>",
+      from: 'ratasorinwork@gmail.com',
     });
   }
 
-  public async sendMailTo(user_email: string, unverified_id: string) {
+  public async sendMailTo(
+    recipient_email: string,
+    subject: string,
+    htmlPayload: string
+  ) {
     return await this.transporter.sendMail({
-      to: user_email,
-      from: 'booking-master-3000@gmail.com',
-      subject: 'Confirm booking',
-      html: `<h1>Please confirm your booking by accessing</h1> <a href = "http://localhost:3000/booking/${unverified_id}"> this link </a>`, // HTML body content
+      to: recipient_email,
+      from: 'ratasorinwork@gmail.com',
+      subject,
+      html: htmlPayload,
     });
   }
 }
