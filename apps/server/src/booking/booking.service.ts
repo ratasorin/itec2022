@@ -31,6 +31,9 @@ export class BookingService {
     const bookings = response.rows;
 
     const firstBooking = bookings[0];
+
+    if (!firstBooking) return [];
+
     const currentTimestamp = new Date();
     let firstIntervalBooked =
       currentTimestamp >= new Date(firstBooking.booked_from) &&
