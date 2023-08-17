@@ -55,6 +55,31 @@ const useHandleClickOutside = (
   ref: string,
   handler: Handler,
   whitelist: string[] = [],
+  /**
+   * `render` ensures that the handler's order in the `listeners` array matches the widget's order in the UI.
+   *
+   * *Context*: widgets have a different rendering strategy: they are mounted on page load, but displayed only when `render` is ***true***.
+   *
+   * *Problem*: if we push a widget's handler when the widget is mounted, then the order of handlers in the `listeners` array will be
+   * the order in which the widgets were instantiated in the code.
+   * E.g:
+   * ```
+   * <>
+   *  <WidgetA />
+   *  <WidgetB />
+   *  <WidgetC />
+   * </>
+   * ```
+   *
+   * will lead to
+   * ```
+   *  [WidgetA-Handler, WidgetB-Handler, WidgetC-Handler]
+   * ```
+   *
+   * even if the widgets were ***rendered*** differently, causing unexpected UI behavior.
+   *
+   * *Solution*: Use the `render` parameter to account for the rendering strategy of widgets. For regular components use `null`.
+   */
   render: boolean | null
 ) => {
   const add = useListenerStore((state) => state.add);
@@ -79,10 +104,16 @@ const useHandleClickOutside = (
   );
 
   useEffect(() => {
+    // When a widget is rendered add the handler to the `listeners` array
     if (render) add(listener, ref);
 
+    // When a regular component is mounted add the handler to the `listeners` array
+    if (render === null) add(listener, ref);
+
     return () => {
+      // cleanup both widgets and regular components
       if (render) remove(ref);
+      if (render === null) remove(ref);
     };
   }, [listener, render]);
 

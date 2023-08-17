@@ -1,7 +1,7 @@
 import useDrawTimeline from './utils/timeline';
 import AddIcon from '@mui/icons-material/Add';
 import useTimetable from './hooks/timetable';
-import { FC, useEffect, useReducer, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -18,8 +18,6 @@ import {
 import { add, getDate, getDay, getMonth, getYear } from 'date-fns';
 import { useTimeline } from './hooks/timeline.slice';
 import { DAYS, MONTHS } from 'apps/client/src/constants/dates';
-import PickerPopup from '../../widgets/picker-popup';
-import { usePickerPopup } from '../../widgets/picker-popup/picker.slice';
 
 interface TimelineProps {
   id: string;
