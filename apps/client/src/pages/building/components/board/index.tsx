@@ -2,18 +2,18 @@ import { SpacesOnFloor } from '@shared';
 import { FC } from 'react';
 import { useNavigateOfficeTimetable } from './hooks/navigate-office-timetable';
 import { useOfficeCoordinates } from './hooks/office-coordinates';
-import { useOpenDetailsPopup } from './offcie-details-popup/open-details';
-import DetailsPopup from './offcie-details-popup';
+import DetailsPopup from '../../widgets/office-details-popup';
+import { useDetailsPopup } from '../../widgets/office-details-popup/details.slice';
 
 const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
   const { x, y } = useOfficeCoordinates(offices);
-  const openDetailsPopup = useOpenDetailsPopup();
+  const openDetailsPopup = useDetailsPopup((state) => state.open);
+  const closeDetailsPopup = useDetailsPopup((state) => state.close);
   const navigateToOfficeTimetable = useNavigateOfficeTimetable();
 
   if (!offices.length) return <div>No spots found!</div>;
   return (
     <>
-      <DetailsPopup />
       <div
         className="grid aspect-square w-7/12 max-w-md rounded-2xl bg-slate-500"
         style={{
@@ -24,11 +24,15 @@ const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
         {offices.map((office) => (
           <div
             onMouseOver={(event) => {
-              openDetailsPopup(event, office);
+              if (!office.booked_until) return;
+
+              const box = event.currentTarget.getBoundingClientRect();
+              openDetailsPopup({ ...office, x, y, box });
             }}
-            onClick={() =>
-              navigateToOfficeTimetable(office.space_id, office.officeName)
-            }
+            onClick={() => {
+              navigateToOfficeTimetable(office.space_id, office.officeName);
+              closeDetailsPopup();
+            }}
             style={{
               backgroundColor: office.booked_until ? 'red' : 'green',
               gridColumn: office.y + 1,

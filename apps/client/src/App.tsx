@@ -1,12 +1,8 @@
-import { ReactElement } from 'react';
-import { Outlet } from 'react-router';
+import { ReactElement, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate, useNavigation } from 'react-router';
 
 function App(): ReactElement {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }
 
 export default App;

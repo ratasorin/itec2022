@@ -18,7 +18,8 @@ import {
 import { add, getDate, getDay, getMonth, getYear } from 'date-fns';
 import { useTimeline } from './hooks/timeline.slice';
 import { DAYS, MONTHS } from 'apps/client/src/constants/dates';
-import PickerPopup from './picker-popup';
+import PickerPopup from '../../widgets/picker-popup';
+import { usePickerPopup } from '../../widgets/picker-popup/picker.slice';
 
 interface TimelineProps {
   id: string;
@@ -48,7 +49,6 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
 
   return (
     <>
-      <PickerPopup />
       <div
         className="mt-10 flex w-full flex-col items-start justify-center font-mono"
         id="timeline-parent"

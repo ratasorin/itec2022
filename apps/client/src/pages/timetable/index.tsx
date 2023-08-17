@@ -2,7 +2,9 @@ import { useLocation } from 'react-router';
 import { OfficeFromNavigation } from '../building/components/board/hooks/navigate-office-timetable';
 import Timeline from './components/timeline';
 import { useUser } from '../../hooks/user';
-import BookingModal from './components/booking-modal/Booking';
+import BookingModal from './widgets/booking-modal/Booking';
+import NotificationPopup from './widgets/notification-popup';
+import PickerPopup from './widgets/picker-popup';
 
 const Timetable = () => {
   const { office_id, office_name } = useLocation()
@@ -12,6 +14,8 @@ const Timetable = () => {
   return (
     <>
       <BookingModal />
+      <NotificationPopup />
+      <PickerPopup />
       <div className="m-auto flex h-screen w-3/4 flex-col items-center justify-around">
         <div className="text-center text-2xl">
           Welcome to {office_name}

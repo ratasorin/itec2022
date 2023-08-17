@@ -1,5 +1,5 @@
 import { Area } from 'd3';
-import { PickerPopupPayload } from '../picker-popup/picker.slice';
+import { PickerPopupPayload } from '../../../widgets/picker-popup/picker.slice';
 
 export interface IntervalProps {
   container: d3.Selection<SVGGElement, unknown, HTMLElement, any>;

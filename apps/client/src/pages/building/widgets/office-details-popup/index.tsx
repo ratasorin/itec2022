@@ -1,7 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { useDetailsPopup } from './details.slice';
-import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
 import useDimensions from 'apps/client/src/hooks/dimensions';
 import ReactDOM from 'react-dom';
 
@@ -12,8 +11,6 @@ const DetailsPopup = () => {
   );
 
   const [popup, setPopup] = useState<HTMLDivElement | null>(null);
-
-  useHandleClickOutside('details-popup', closeDetailsPopup);
 
   const dimensions = useDimensions(popup);
   const { left, top } = useMemo(() => {
@@ -31,7 +28,9 @@ const DetailsPopup = () => {
     };
   }, [dimensions, payload]);
 
-  console.log(render);
+  useEffect(() => {
+    return () => closeDetailsPopup();
+  }, []);
 
   if (!render) return null;
   return ReactDOM.createPortal(
@@ -53,7 +52,7 @@ const DetailsPopup = () => {
         BOOK NEXT
       </Button>
     </div>,
-    document.body
+    document.getElementById('widgets')!
   );
 };
 

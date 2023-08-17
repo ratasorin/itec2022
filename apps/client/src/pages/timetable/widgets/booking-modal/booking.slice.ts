@@ -1,4 +1,3 @@
-import { OfficeTimeInterval } from '@shared';
 import { create } from 'zustand';
 
 interface BookingModalPayload {

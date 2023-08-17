@@ -8,8 +8,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
 import { fetchProtected } from 'apps/client/src/api/protected';
-import { useNotificationPopup } from './notification-popup/notification.slice';
-import NotificationPopup from './notification-popup';
+import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
 
 const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   const [bookFrom, setBookFrom] = useState<Date | null>(new Date(start));
@@ -42,7 +41,6 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
 
   return (
     <div>
-      <NotificationPopup />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Stack spacing={3}>
           <TimePicker

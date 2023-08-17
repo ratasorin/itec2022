@@ -5,7 +5,7 @@ import { drawInterval } from './interval';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { D3BrushEvent } from 'd3';
 import { useTimeline } from '../hooks/timeline.slice';
-import { usePickerPopup } from '../picker-popup/picker.slice';
+import { usePickerPopup } from '../../../widgets/picker-popup/picker.slice';
 
 const HEIGHT = 150;
 

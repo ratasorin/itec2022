@@ -33,7 +33,6 @@ export const useOffices = (
   const [offices, setOffices] = useState<SpacesOnFloor[]>([]);
 
   const fetchOffices = useCallback(async () => {
-    console.log({ building_id, level, floor_id });
     let offices: SpacesOnFloor[] = [];
     if (building_id && level)
       offices = await getOfficesByBuildingAndLevel(building_id, level);
