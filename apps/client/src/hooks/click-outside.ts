@@ -118,10 +118,6 @@ const useHandleClickOutside = (
   }, [listener, render]);
 
   useEffect(() => {
-    console.log({ listeners });
-  }, [listeners]);
-
-  useEffect(() => {
     const fn = (event: MouseEvent | TouchEvent) => {
       const currentListener = listeners[listeners.length - 1];
       let successfullyHandledClickOutside = false;

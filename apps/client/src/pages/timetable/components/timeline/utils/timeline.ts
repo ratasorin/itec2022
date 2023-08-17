@@ -21,19 +21,15 @@ const useDrawTimeline = (id: string) => {
     (state) => state.timelineState.selectedRange
   );
 
-  const { end: chartEndsAt, start: chartStartsAt } = useTimeline(
-    (state) => state.timelineState.bounds
-  );
-
   const alterBounds = useTimeline((state) => state.alterBounds);
   const openPickerPopup = usePickerPopup((state) => state.open);
 
   const xScale = useMemo(() => {
     return d3
       .scaleTime()
-      .domain([chartStartsAt, chartEndsAt])
+      .domain([selectedStart, selectedEnd])
       .range([0, dimensions.width]);
-  }, [dimensions, chartEndsAt, chartStartsAt]);
+  }, [dimensions, selectedEnd, selectedStart]);
 
   const yScale = useMemo(
     () => d3.scaleLinear().range([dimensions.height, 0]),
@@ -74,6 +70,8 @@ const useDrawTimeline = (id: string) => {
           const [x1, x2] = event.selection as [number, number];
           const start = xScale.invert(x1);
           const end = xScale.invert(x2);
+
+          console.log('SHOULD ALTER BOUNDS');
           alterBounds({
             interval: { end: end.getTime(), start: start.getTime() },
             update: 'selectedRange',
@@ -97,7 +95,7 @@ const useDrawTimeline = (id: string) => {
           selectedEnd,
           selectedStart,
           width: dimensions.width,
-          end: chartEndsAt,
+          end: selectedEnd,
           id,
           name: null,
           start: new Date().getTime(),
@@ -137,7 +135,7 @@ const useDrawTimeline = (id: string) => {
               end:
                 free_until !== ''
                   ? new Date(free_until).getTime()
-                  : chartEndsAt,
+                  : selectedEnd,
               id,
               name: null,
               start: new Date(free_from).getTime(),
@@ -149,8 +147,8 @@ const useDrawTimeline = (id: string) => {
       id,
       dimensions,
       xScale,
-      chartEndsAt,
-      chartStartsAt,
+      selectedEnd,
+      selectedStart,
       selectedEnd,
       selectedStart,
     ]

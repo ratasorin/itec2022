@@ -27,6 +27,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   const [brushing, setBrushing] = useState(false);
   const timetable = useTimetable(id);
   const { bounds, selectedRange } = useTimeline((state) => state.timelineState);
+
   const alterBounds = useTimeline((state) => state.alterBounds);
 
   const drawTimeline = useDrawTimeline(id);
@@ -39,11 +40,6 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   const [valueType, setValueType] = useState('days');
-  const [interval, setInterval] = useState([bounds.start, bounds.end]);
-
-  useEffect(() => {
-    setInterval([selectedRange.start, selectedRange.end]);
-  }, [selectedRange]);
 
   return (
     <>
@@ -66,12 +62,9 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
           <div>
             <div id="timeline" className="my-10"></div>
             <Slider
-              value={interval}
+              value={[selectedRange.start, selectedRange.end]}
               min={bounds.start}
               max={bounds.end}
-              onChange={(_, timestamps) => {
-                setInterval(timestamps as number[]);
-              }}
               valueLabelFormat={(unixTS: number) => {
                 const date = new Date(unixTS);
                 const month = MONTHS[getMonth(date)];

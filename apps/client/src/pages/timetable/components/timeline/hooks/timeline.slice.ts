@@ -40,16 +40,29 @@ export const useTimeline = create<TimelineStore>()((set) => ({
     const { interval, update } = payload;
     const { end, start } = interval;
 
-    if (end && start) set((state) => ({ ...state, [update]: interval }));
+    if (end && start)
+      set((state) => ({
+        ...state,
+        timelineState: {
+          ...state.timelineState,
+          [update]: { end, start },
+        },
+      }));
     if (end)
       set((state) => ({
         ...state,
-        [update]: { ...state.timelineState[update], end },
+        timelineState: {
+          ...state.timelineState,
+          [update]: { ...state.timelineState[update], end },
+        },
       }));
     if (start)
       set((state) => ({
         ...state,
-        [update]: { ...state.timelineState[update], start },
+        timelineState: {
+          ...state.timelineState,
+          [update]: { ...state.timelineState[update], start },
+        },
       }));
   },
 }));
