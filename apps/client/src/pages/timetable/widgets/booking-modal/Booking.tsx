@@ -24,7 +24,7 @@ const BookingModal = () => {
 
   if (!render) return null;
   return ReactDOM.createPortal(
-    <div className="absolute top-0 left-0 h-screen w-screen bg-black bg-opacity-50">
+    <div className="absolute top-0 left-0 z-50 h-screen w-screen bg-black bg-opacity-50">
       <div
         id="booking-modal"
         className="absolute top-2/4 left-2/4 z-50 translate-x-[-50%] translate-y-[-50%] bg-white p-10"
