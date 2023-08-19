@@ -139,7 +139,7 @@ export class BookingService {
     );
 
     return {
-      message: 'Email confirmation sent at' + email,
+      message: 'Email confirmation sent at ' + email,
     };
   }
 

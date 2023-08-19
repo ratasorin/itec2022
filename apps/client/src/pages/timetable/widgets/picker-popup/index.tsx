@@ -17,7 +17,7 @@ const PickerPopup = () => {
     [null, null]
   );
 
-  useHandleClickOutside('picker-popup', closePickerPopup, [], render);
+  useHandleClickOutside('picker-popup', closePickerPopup, render);
 
   useEffect(() => {
     if (!popup.current || !payload.box) return setDimensions([null, null]);

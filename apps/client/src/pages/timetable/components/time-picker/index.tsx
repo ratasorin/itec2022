@@ -9,6 +9,7 @@ import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
 import { fetchProtected } from 'apps/client/src/api/protected';
 import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
+import { useBookingModal } from '../../widgets/booking-modal/booking.slice';
 
 const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   const [bookFrom, setBookFrom] = useState<Date | null>(new Date(start));
@@ -17,26 +18,37 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   );
 
   const openNotification = useNotificationPopup((state) => state.open);
+  const closeBookingModal = useBookingModal((state) => state.close);
 
   const bookSpace = useCallback(async () => {
     const user = getUser();
     if (!user) return;
 
-    const response = await fetchProtected('booking', {
-      method: 'POST',
-      body: JSON.stringify({
-        book_from: bookFrom?.getTime(),
-        book_until: bookUntil,
-        space_id: id,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then(async (r) => await r.json());
+    closeBookingModal();
 
-    if (typeof response === 'string') openNotification({ message: response });
-    else
+    try {
+      const response = await fetchProtected('booking', {
+        method: 'POST',
+        body: JSON.stringify({
+          book_from: bookFrom?.getTime(),
+          book_until: bookUntil,
+          space_id: id,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(async (r) => await r.json());
+
+      const message = response.message as string;
       openNotification({
-        message: response.message,
+        message,
+        success: true,
       });
+    } catch (error) {
+      console.error('THERE WAS EN ERROR WITH BOOKING SPACE ' + id, error);
+      openNotification({
+        message: 'There was an error while trying to book this office',
+        success: false,
+      });
+    }
   }, [bookFrom, bookUntil, id, openNotification]);
 
   return (

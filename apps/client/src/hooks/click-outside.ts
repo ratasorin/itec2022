@@ -1,7 +1,9 @@
 import { useCallback, useEffect } from 'react';
 import { create } from 'zustand';
 
-const getWhitelistedElements = (whitelist: string[]): HTMLElement[] => {
+const getWhitelistedElements = (whitelist?: string[]): HTMLElement[] => {
+  if (!whitelist) return [];
+
   return whitelist
     .map((id) => document.getElementById(id))
     .filter((element) => element) as HTMLElement[];
@@ -17,7 +19,7 @@ const getDOMElement = (ref: Element | null | string) => {
 
 const isClickInsideWhitelistedElements = (
   event: MouseEvent | TouchEvent,
-  whitelist: string[]
+  whitelist?: string[]
 ) => {
   const whitelistedElements = getWhitelistedElements(whitelist);
   const target = event.target as HTMLElement;
@@ -54,7 +56,6 @@ const useListenerStore = create<ListenerStore>()((set) => ({
 const useHandleClickOutside = (
   ref: string,
   handler: Handler,
-  whitelist: string[] = [],
   /**
    * `render` ensures that the handler's order in the `listeners` array matches the widget's order in the UI.
    *
@@ -76,11 +77,12 @@ const useHandleClickOutside = (
    *  [WidgetA-Handler, WidgetB-Handler, WidgetC-Handler]
    * ```
    *
-   * even if the widgets were ***rendered*** differently, causing unexpected UI behavior.
+   * even if the widgets are ***rendered*** differently, causing unexpected UI behavior.
    *
    * *Solution*: Use the `render` parameter to account for the rendering strategy of widgets. For regular components use `null`.
    */
-  render: boolean | null
+  render: boolean | null,
+  whitelist?: string[]
 ) => {
   const add = useListenerStore((state) => state.add);
   const listeners = useListenerStore((state) => state.listeners);
@@ -89,7 +91,16 @@ const useHandleClickOutside = (
   const listener = useCallback(
     (event: MouseEvent | TouchEvent) => {
       const DOMElement = getDOMElement(ref);
-      if (!DOMElement) return false;
+      if (!DOMElement || !event.target) return false;
+      const target = event.target as HTMLElement;
+
+      console.log({
+        domElementIsChildOfRoot: !!target.closest('#root'),
+        domeElementIsChildOfWidgets: !!target.closest('#widgets'),
+        domeElementIsChildOfSnackbar: !!target.closest('#snackbar'),
+      });
+
+      if (!target.closest('#root') && !target.closest('#widgets')) return false;
 
       if (
         DOMElement.contains(event.target as Node) ||

@@ -9,12 +9,9 @@ const BookingModal = () => {
     (state) => state.bookingModalState
   );
   const closeBookingModal = useBookingModal((state) => state.close);
-  useHandleClickOutside(
-    'booking-modal',
-    closeBookingModal,
-    ['time-picker'],
-    render
-  );
+  useHandleClickOutside('booking-modal', closeBookingModal, render, [
+    'time-picker',
+  ]);
 
   useEffect(() => {
     return () => {

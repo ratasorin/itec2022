@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 interface NotificationPopupPayload {
   message: string;
+  success: boolean;
 }
 
 interface NotificationPopupState {
@@ -18,6 +19,7 @@ interface NotificationPopupStore {
 const notificationState: NotificationPopupState = {
   payload: {
     message: '',
+    success: false,
   },
   render: false,
 };
