@@ -31,7 +31,7 @@ export const drawInterval = ({
   return container
     .append('path')
     .attr('d', area([start, end]))
-    .attr('fill', name ? 'red' : 'green')
+    .attr('fill', name ? '#ef4444' : '#22c55e')
     .on('mouseover', (event: MouseEvent) => {
       let { left, top, height, width } = (
         event.currentTarget as HTMLElement

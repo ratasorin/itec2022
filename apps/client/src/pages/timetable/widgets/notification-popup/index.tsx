@@ -34,17 +34,17 @@ const NotificationPopup = () => {
       style={
         payload.success
           ? {
-              color: '#065f46',
-              borderColor: '#4ade80',
-              backgroundColor: '#bbf7d0',
+              color: '#14532d',
+              borderColor: '#16a34a',
+              backgroundColor: '#f0fdf4',
             }
           : {
-              color: '#991b1b',
-              borderColor: '#f87171',
-              backgroundColor: '#fecaca',
+              color: '#7f1d1d',
+              borderColor: '#dc2626',
+              backgroundColor: '#fef2f2',
             }
       }
-      className="absolute bottom-10 right-10 flex flex-col rounded-lg border-2 py-3 px-6"
+      className="absolute bottom-10 right-10 flex flex-col rounded-lg border-2 py-3 px-6 font-mono font-medium"
     >
       <div className="mb-1 flex flex-row items-center">
         {payload.message}

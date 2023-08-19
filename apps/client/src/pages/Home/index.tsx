@@ -6,9 +6,9 @@ import { url } from '../../constants/server';
 import { Button, Rating } from '@mui/material';
 import LayoutWithNavbar from '../../layouts/with-navbar';
 
-function percentageToColor(percentage: number, maxHue = 120, minHue = 0) {
-  const hue = percentage * (maxHue - minHue) + minHue;
-  return `hsl(${hue}, 100%, 50%)`;
+function percentageToColor(percentage: number) {
+  const hue = (percentage * 120) / 100 - 20;
+  return `hsl(${hue}, 100%, 45%)`;
 }
 
 function Home(): ReactElement {
@@ -49,6 +49,9 @@ function Home(): ReactElement {
                 variant="outlined"
                 key={name}
                 className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
+                TouchRippleProps={{
+                  style: { opacity: 0.4 },
+                }}
                 onClick={() =>
                   navigate({ pathname: `building/${id}` }, { state: id })
                 }
@@ -64,7 +67,7 @@ function Home(): ReactElement {
                 {availability_rate.toFixed(1)}%
               </div>
               <div className="row-start-2">
-                {<Rating name="rating" value={stars || 0} readOnly />}
+                <Rating name="rating" value={stars || 0} readOnly />
               </div>
             </div>
           ))}

@@ -15,9 +15,9 @@ const BuildingMenu = () => {
   return (
     <>
       <DetailsPopup />
-      <div className="flex h-auto w-screen flex-row bg-slate-500">
+      <div className="flex h-auto w-screen flex-row bg-slate-200">
         <Sidebar floors={floors}></Sidebar>
-        <div className="flex h-screen flex-1 items-center justify-center bg-amber-300">
+        <div className="flex h-screen flex-1 items-center justify-center bg-white">
           <Board offices={offices} />
         </div>
       </div>

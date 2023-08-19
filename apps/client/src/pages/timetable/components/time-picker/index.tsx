@@ -99,7 +99,14 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
             renderInput={(params) => <TextField {...params} />}
           />
         </Stack>
-        <Button onClick={bookSpace} variant="outlined" className="mt-10">
+        <Button
+          className="row-start-2 mt-10 border-black font-mono text-black hover:border-black hover:bg-black/5"
+          TouchRippleProps={{
+            style: { opacity: 0.4 },
+          }}
+          onClick={bookSpace}
+          variant="outlined"
+        >
           Book now
         </Button>
       </LocalizationProvider>
