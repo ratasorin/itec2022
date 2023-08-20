@@ -51,7 +51,7 @@ const PickerPopup = () => {
         top: top || 0,
         left: left || 0,
       }}
-      className="absolute z-50 items-center bg-white p-5 font-mono shadow-lg"
+      className="absolute z-50 items-center rounded-md border-2 border-slate-100 bg-white p-5 font-mono shadow-lg"
     >
       <div className="py-1 font-bold">
         The office is{' '}
@@ -63,23 +63,20 @@ const PickerPopup = () => {
       <div className="py-1">
         from:
         <br />
-        <em className="ml-2">
+        <span className="ml-2">
           {new Date(payload.interval.start).toLocaleString()}
-        </em>
+        </span>
         <br />
         <div className="border-1 w-full border-black"></div>
         until:
         <br />{' '}
-        <em className="ml-2">
+        <span className="ml-2">
           {new Date(payload.interval.end).toLocaleString()}
-        </em>
+        </span>
       </div>
       {payload.interval.occupantName ? null : (
         <Button
           className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
-          TouchRippleProps={{
-            style: { opacity: 0.4 },
-          }}
           onClick={() => {
             if (!user) return;
             openBookingModal({

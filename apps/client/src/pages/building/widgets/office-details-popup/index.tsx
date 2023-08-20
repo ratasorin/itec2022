@@ -51,9 +51,6 @@ const DetailsPopup = () => {
       <Button
         variant="outlined"
         className="w-auto border-black font-mono text-black hover:border-black hover:bg-black/5"
-        TouchRippleProps={{
-          style: { opacity: 0.4 },
-        }}
       >
         BOOK NEXT
       </Button>

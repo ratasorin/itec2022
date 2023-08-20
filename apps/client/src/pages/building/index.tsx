@@ -5,19 +5,28 @@ import { useOffices } from './hooks/offices';
 import { useFloors } from './hooks/floors';
 import { useSelectedFloor } from './hooks/selected-floor';
 import DetailsPopup from './widgets/office-details-popup';
+import { BuildingStateNavigation } from '../home';
 
 const BuildingMenu = () => {
-  const building_id = useLocation().state as string;
+  const { buildingId, buildingName } = useLocation()
+    .state as BuildingStateNavigation;
   const selectedFloorLevel = useSelectedFloor((state) => state.floor);
-  const floors = useFloors(building_id);
-  const offices = useOffices(building_id, selectedFloorLevel, undefined);
+  const floors = useFloors(buildingId);
+  const offices = useOffices(buildingId, selectedFloorLevel, undefined);
 
   return (
     <>
       <DetailsPopup />
-      <div className="flex h-auto w-screen flex-row bg-slate-200">
+      <div className="m-auto flex h-screen w-8/12 max-w-lg flex-col justify-center font-mono text-xl">
+        <div className="mx-auto mb-10">
+          Welcome to{' '}
+          <span className="rounded-md border-2 border-slate-200 bg-slate-100 px-2 py-1">
+            {buildingName}
+          </span>{' '}
+          office-building
+        </div>
         <Sidebar floors={floors}></Sidebar>
-        <div className="flex h-screen flex-1 items-center justify-center bg-white">
+        <div className="flex items-center justify-center bg-white">
           <Board offices={offices} />
         </div>
       </div>

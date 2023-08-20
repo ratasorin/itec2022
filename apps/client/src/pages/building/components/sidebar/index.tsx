@@ -1,6 +1,7 @@
 import { FloorDB } from '@shared';
 import { FC } from 'react';
 import { useSelectedFloor } from '../../hooks/selected-floor';
+import { Button } from '@mui/material';
 
 const Sidebar: FC<{
   floors: FloorDB[];
@@ -8,21 +9,27 @@ const Sidebar: FC<{
   const updateFloor = useSelectedFloor((state) => state.changeSelectedFloor);
   const selectedFloor = useSelectedFloor((state) => state.floor);
   return (
-    <div className="flex w-auto flex-col justify-center border font-mono font-bold text-slate-800">
-      {floors.map((_, level) => (
-        <button
+    <div className="mb-3 flex h-14 w-full flex-row items-center rounded-lg bg-zinc-100 px-4 py-2">
+      {floors.map((_, floorIndex) => (
+        <Button
           style={
-            selectedFloor === level + 1
-              ? { borderColor: '#1e293b' }
-              : { borderColor: 'gray' }
+            selectedFloor === floorIndex + 1
+              ? {
+                  color: 'black',
+                  borderColor: '#52525b',
+                }
+              : { color: '#71717a', borderColor: '#d4d4d8' }
           }
-          className={`w-auto border-r-8 bg-slate-800/10 px-10 py-5 text-2xl transition-all`}
+          className="mr-4 min-h-full rounded-md border-2 border-solid bg-white px-3 py-1 font-mono shadow-md hover:bg-white hover:shadow-sm"
+          TouchRippleProps={{
+            style: { opacity: 0.2 },
+          }}
           onClick={() => {
-            updateFloor(level + 1);
+            updateFloor(floorIndex + 1);
           }}
         >
-          SELECT FLOOR {level + 1}
-        </button>
+          Floor {floorIndex + 1}
+        </Button>
       ))}
     </div>
   );

@@ -73,18 +73,21 @@ INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'r
 INSERT INTO buildings (id, name, user_id) VALUES (DEFAULT, 'AMDARIS HQ', (SELECT id FROM users));
 
 INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
-INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 1', 0, 0, (SELECT id FROM floors));
-INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 2', 0, 1, (SELECT id FROM floors));
-INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 3', 1, 0, (SELECT id FROM floors));
-INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 4', 1, 1, (SELECT id FROM floors));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 5', 0, 0, (SELECT id FROM floors WHERE level = 2));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 6', 0, 1, (SELECT id FROM floors WHERE level = 2));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 7', 1, 0, (SELECT id FROM floors WHERE level = 2));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 8', 1, 1, (SELECT id FROM floors WHERE level = 2));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 9', 0, 0, (SELECT id FROM floors WHERE level = 3));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 10', 0, 1, (SELECT id FROM floors WHERE level = 3));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 11', 1, 0, (SELECT id FROM floors WHERE level = 3));
--- INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 12', 1, 1, (SELECT id FROM floors WHERE level = 3));
+INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
+INSERT INTO floors (id, level, building_id) VALUES (DEFAULT, DEFAULT, (SELECT id FROM buildings));
+
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 1', 0, 0, (SELECT id FROM floors WHERE level = 1));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 2', 0, 1, (SELECT id FROM floors WHERE level = 1));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 3', 1, 0, (SELECT id FROM floors WHERE level = 1));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 4', 1, 1, (SELECT id FROM floors WHERE level = 1));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 5', 0, 0, (SELECT id FROM floors WHERE level = 2));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 6', 0, 1, (SELECT id FROM floors WHERE level = 2));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 7', 1, 0, (SELECT id FROM floors WHERE level = 2));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 8', 1, 1, (SELECT id FROM floors WHERE level = 2));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 9', 0, 0, (SELECT id FROM floors WHERE level = 3));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 10', 0, 1, (SELECT id FROM floors WHERE level = 3));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 11', 1, 0, (SELECT id FROM floors WHERE level = 3));
+INSERT INTO spaces (id, name, x, y ,floor_id) VALUES (DEFAULT, 'Office 12', 1, 1, (SELECT id FROM floors WHERE level = 3));
 INSERT INTO bookings (id, interval, space_id, user_id) 
        VALUES (
        DEFAULT, 

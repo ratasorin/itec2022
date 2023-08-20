@@ -16,11 +16,12 @@ const Timetable = () => {
       <BookingModal />
       <NotificationPopup />
       <PickerPopup />
-      <div className="m-auto flex h-screen w-3/4 flex-col items-center justify-around">
+      <div className="m-auto flex h-screen w-3/4 flex-col items-center justify-center font-mono">
         <div className="text-center text-2xl">
-          Welcome to {office_name}
-          <br />
-          👨‍💼 {user?.name || ''}
+          Welcome to{' '}
+          <span className="rounded-md border-2 border-slate-200 bg-slate-100 px-2 py-1">
+            {office_name}
+          </span>{' '}
         </div>
         <Timeline id={office_id} />
       </div>

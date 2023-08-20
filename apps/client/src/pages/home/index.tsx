@@ -6,6 +6,11 @@ import { url } from '../../constants/server';
 import { Button, Rating } from '@mui/material';
 import LayoutWithNavbar from '../../layouts/with-navbar';
 
+export interface BuildingStateNavigation {
+  buildingId: string;
+  buildingName: string;
+}
+
 function percentageToColor(percentage: number) {
   const hue = (percentage * 120) / 100 - 20;
   return `hsl(${hue}, 100%, 45%)`;
@@ -49,11 +54,16 @@ function Home(): ReactElement {
                 variant="outlined"
                 key={name}
                 className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
-                TouchRippleProps={{
-                  style: { opacity: 0.4 },
-                }}
                 onClick={() =>
-                  navigate({ pathname: `building/${id}` }, { state: id })
+                  navigate(
+                    { pathname: `building/${id}` },
+                    {
+                      state: {
+                        buildingName: name,
+                        buildingId: id,
+                      } as BuildingStateNavigation,
+                    }
+                  )
                 }
               >
                 {name}

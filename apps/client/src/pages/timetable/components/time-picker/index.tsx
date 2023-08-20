@@ -52,65 +52,60 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   }, [bookFrom, bookUntil, id, openNotification]);
 
   return (
-    <div>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Stack spacing={3}>
-          <TimePicker
-            ampm={false}
-            className="text-white"
-            openTo="hours"
-            views={['hours', 'minutes']}
-            inputFormat="HH:mm:ss"
-            mask="__:__:__"
-            label={`Book space ${id} from`}
-            value={bookFrom}
-            onChange={(newDate) => {
-              setBookFrom(newDate);
-            }}
-            PopperProps={{ id: 'time-picker' }}
-            shouldDisableTime={(timeValue, clockType) => {
-              if (clockType === 'minutes' && timeValue % 30) {
-                return true;
-              }
-
-              return false;
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-          <TimePicker
-            ampm={false}
-            openTo="hours"
-            views={['hours', 'minutes']}
-            inputFormat="HH:mm:ss"
-            mask="__:__:__"
-            label={`Until`}
-            value={bookUntil}
-            shouldDisableTime={(timeValue, clockType) => {
-              if (clockType === 'minutes' && timeValue % 30) {
-                return true;
-              }
-
-              return false;
-            }}
-            PopperProps={{ id: 'time-picker' }}
-            onChange={(newDate) => {
-              setBookUntil(newDate);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </Stack>
-        <Button
-          className="row-start-2 mt-10 border-black font-mono text-black hover:border-black hover:bg-black/5"
-          TouchRippleProps={{
-            style: { opacity: 0.4 },
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Stack className="mt-7" spacing={3}>
+        <TimePicker
+          ampm={false}
+          className="text-white"
+          openTo="hours"
+          views={['hours', 'minutes']}
+          inputFormat="HH:mm:ss"
+          mask="__:__:__"
+          label={`from`}
+          value={bookFrom}
+          onChange={(newDate) => {
+            setBookFrom(newDate);
           }}
-          onClick={bookSpace}
-          variant="outlined"
-        >
-          Book now
-        </Button>
-      </LocalizationProvider>
-    </div>
+          PopperProps={{ id: 'time-picker' }}
+          shouldDisableTime={(timeValue, clockType) => {
+            if (clockType === 'minutes' && timeValue % 30) {
+              return true;
+            }
+
+            return false;
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        <TimePicker
+          ampm={false}
+          openTo="hours"
+          views={['hours', 'minutes']}
+          inputFormat="HH:mm:ss"
+          mask="__:__:__"
+          label={`Until`}
+          value={bookUntil}
+          shouldDisableTime={(timeValue, clockType) => {
+            if (clockType === 'minutes' && timeValue % 30) {
+              return true;
+            }
+
+            return false;
+          }}
+          PopperProps={{ id: 'time-picker' }}
+          onChange={(newDate) => {
+            setBookUntil(newDate);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </Stack>
+      <Button
+        className="row-start-2 mt-7 border-black text-black hover:border-black hover:bg-black/5"
+        onClick={bookSpace}
+        variant="outlined"
+      >
+        Book now
+      </Button>
+    </LocalizationProvider>
   );
 };
 
