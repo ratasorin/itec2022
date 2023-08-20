@@ -20,7 +20,7 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
   const openNotification = useNotificationPopup((state) => state.open);
   const closeBookingModal = useBookingModal((state) => state.close);
 
-  const bookSpace = useCallback(async () => {
+  const bookOffice = useCallback(async () => {
     const user = getUser();
     if (!user) return;
 
@@ -32,7 +32,7 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
         body: JSON.stringify({
           book_from: bookFrom?.getTime(),
           book_until: bookUntil,
-          space_id: id,
+          office_id: id,
         }),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (r) => await r.json());
@@ -100,7 +100,7 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
       </Stack>
       <Button
         className="row-start-2 mt-7 border-black text-black hover:border-black hover:bg-black/5"
-        onClick={bookSpace}
+        onClick={bookOffice}
         variant="outlined"
       >
         Book now

@@ -6,10 +6,10 @@ export interface BuildingDB {
 export interface BookingDB {
   id: string;
   interval: [Date, Date];
-  space_id: string;
+  office_id: string;
   user_id: string;
 }
-export interface SpaceDB {
+export interface OfficeDB {
   id: string;
   name: string;
   x: number;

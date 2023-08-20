@@ -21,14 +21,14 @@ export class BookingController {
     private mailService: MailService
   ) {}
 
-  @Get('/timetable/:space_id')
-  async getTimetable(@Param('space_id') space_id: string) {
-    return await this.service.getTimetable(space_id);
+  @Get('/timetable/:office_id')
+  async getTimetable(@Param('office_id') office_id: string) {
+    return await this.service.getTimetable(office_id);
   }
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async unverifiedBookSpace(@Body() input: BookingDTO, @Request() req) {
+  async unverifiedBookOffice(@Body() input: BookingDTO, @Request() req) {
     const user: JwtUser = req.user;
     if (!user.id)
       throw new HttpException(
@@ -36,11 +36,11 @@ export class BookingController {
         500
       );
 
-    return await this.service.unverifiedBookSpace(input, user.id);
+    return await this.service.unverifiedBookOffice(input, user.id);
   }
 
   @Get('/verify/:unverified_id')
-  async bookSpace(@Param('unverified_id') unverified_id: string) {
-    return this.service.bookSpace(unverified_id);
+  async bookOffice(@Param('unverified_id') unverified_id: string) {
+    return this.service.bookOffice(unverified_id);
   }
 }

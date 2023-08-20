@@ -1,10 +1,10 @@
-import { SpacesOnFloor } from '@shared';
+import { OfficesOnFloor } from '@shared';
 import { FC } from 'react';
 import { useNavigateOfficeTimetable } from './hooks/navigate-office-timetable';
 import { useOfficeCoordinates } from './hooks/office-coordinates';
 import { useDetailsPopup } from '../../widgets/office-details-popup/details.slice';
 
-const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
+const Board: FC<{ offices: OfficesOnFloor[] }> = ({ offices }) => {
   const { x, y } = useOfficeCoordinates(offices);
   const openDetailsPopup = useDetailsPopup((state) => state.open);
   const closeDetailsPopup = useDetailsPopup((state) => state.close);
@@ -28,7 +28,7 @@ const Board: FC<{ offices: SpacesOnFloor[] }> = ({ offices }) => {
             openDetailsPopup({ ...office, x, y, box });
           }}
           onClick={() => {
-            navigateToOfficeTimetable(office.space_id, office.officeName);
+            navigateToOfficeTimetable(office.office_id, office.officeName);
             closeDetailsPopup();
           }}
           style={{

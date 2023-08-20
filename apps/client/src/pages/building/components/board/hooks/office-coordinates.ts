@@ -1,7 +1,7 @@
-import { SpacesOnFloor } from '@shared';
+import { OfficesOnFloor } from '@shared';
 import { useMemo } from 'react';
 
-export const useOfficeCoordinates = (offices: SpacesOnFloor[]) => {
+export const useOfficeCoordinates = (offices: OfficesOnFloor[]) => {
   const { x, y } = useMemo(
     () =>
       offices.reduce(

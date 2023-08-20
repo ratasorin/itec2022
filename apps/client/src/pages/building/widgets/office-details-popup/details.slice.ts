@@ -4,7 +4,7 @@ interface DetailsPopupPayload {
   booked_until: null | string;
   occupantName: null | string;
   officeName: string;
-  space_id: string;
+  office_id: string;
   x: number;
   y: number;
   box: Box;
@@ -27,7 +27,7 @@ const detailsPopupState: DetailsPopupState = {
     booked_until: null,
     occupantName: null,
     officeName: '',
-    space_id: '',
+    office_id: '',
     x: -1,
     y: -1,
     box: {

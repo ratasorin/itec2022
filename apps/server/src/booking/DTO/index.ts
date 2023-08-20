@@ -14,5 +14,5 @@ export class BookingDTO {
 
   @IsString()
   @IsNotEmpty()
-  space_id: string;
+  office_id: string;
 }

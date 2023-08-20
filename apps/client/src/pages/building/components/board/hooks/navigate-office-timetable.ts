@@ -9,14 +9,14 @@ export interface OfficeFromNavigation {
 export const useNavigateOfficeTimetable = () => {
   const navigate = useNavigate();
   const navigateToOfficeTimetable = useCallback(
-    (space_id: string, office_name: string) => {
+    (office_id: string, office_name: string) => {
       navigate(
         {
-          pathname: `/timetable/${space_id}`,
+          pathname: `/timetable/${office_id}`,
         },
         {
           state: {
-            office_id: space_id,
+            office_id: office_id,
             office_name,
           },
         }

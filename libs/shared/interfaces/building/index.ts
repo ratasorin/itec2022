@@ -1,5 +1,5 @@
-export interface SpacesOnFloor {
-  space_id: string;
+export interface OfficesOnFloor {
+  office_id: string;
   x: number;
   y: number;
   occupantName: string | null;

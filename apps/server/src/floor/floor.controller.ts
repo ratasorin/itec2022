@@ -16,17 +16,17 @@ import { FloorService } from './floor.service';
 @Controller('floor')
 export class FloorController {
   constructor(private floorService: FloorService) {}
-  @Get('/:id/spaces')
-  async spacesFromFloor(@Param('id') id: string) {
-    return await this.floorService.getSpacesByFloorID(id);
+  @Get('/:id/offices')
+  async officesFromFloor(@Param('id') id: string) {
+    return await this.floorService.getOfficesByFloorId(id);
   }
 
   @Get('/:building_id/:floor_level')
-  async spacesFromLevel(
+  async officesFromLevel(
     @Param('building_id') building_id: string,
     @Param('floor_level', ParseIntPipe) floor_level: number
   ) {
-    return await this.floorService.getSpacesByFloorLevel(
+    return await this.floorService.getOfficesByFloorLevel(
       building_id,
       floor_level
     );
@@ -53,7 +53,7 @@ export class FloorController {
   }
 
   @Put('/update')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async updateFloors(@Body() floors: FloorUpdateDTO[]) {
     return await this.floorService.updateFloors(floors);
   }

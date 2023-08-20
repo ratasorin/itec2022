@@ -15,17 +15,17 @@ export class BookingService {
     private mailService: MailService
   ) {}
 
-  async getTimetable(space_id: string) {
+  async getTimetable(office_id: string) {
     const response = await this.pool.query<OfficeTimeIntervalDB>(
       `--sql
       SELECT LOWER(interval) AS booked_from, UPPER(interval) AS booked_until, users.name AS occupant_name
       FROM bookings 
-      LEFT JOIN spaces ON bookings.space_id = spaces.id
+      LEFT JOIN offices ON bookings.office_id = offices.id
       LEFT JOIN users ON bookings.user_id = users.id
-      WHERE spaces.id = $1 AND upper(interval) >= current_timestamp
+      WHERE offices.id = $1 AND upper(interval) >= current_timestamp
       ORDER BY booked_from ASC;
       `,
-      [space_id]
+      [office_id]
     );
 
     const bookings = response.rows;
@@ -72,15 +72,15 @@ export class BookingService {
     return intervals;
   }
 
-  async unverifiedBookSpace(
-    { book_from, book_until, space_id }: BookingDTO,
+  async unverifiedBookOffice(
+    { book_from, book_until, office_id }: BookingDTO,
     user_id: string
   ) {
     const unverifiedBookingResponse = await this.pool.query<{ id: string }>(
       `--sql
       INSERT 
         INTO unverified_bookings 
-          (id, interval, space_id, user_id) 
+          (id, interval, office_id, user_id) 
         VALUES 
           (
             DEFAULT, 
@@ -100,7 +100,7 @@ export class BookingService {
             $4
           ) 
         RETURNING id`,
-      [book_from, book_until, space_id, user_id]
+      [book_from, book_until, office_id, user_id]
     );
     const { id: unverifiedId } = unverifiedBookingResponse.rows[0];
 
@@ -143,10 +143,10 @@ export class BookingService {
     };
   }
 
-  async bookSpace(unverified_id: string) {
+  async bookOffice(unverified_id: string) {
     const response = await this.pool.query<{ id: string }>(
-      `INSERT INTO bookings (interval, space_id, user_id)
-      SELECT interval, space_id, user_id FROM unverified_bookings
+      `INSERT INTO bookings (interval, office_id, user_id)
+      SELECT interval, office_id, user_id FROM unverified_bookings
       WHERE unverified_bookings.id = $1`,
       [unverified_id]
     );

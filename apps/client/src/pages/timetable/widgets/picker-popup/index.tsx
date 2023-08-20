@@ -87,7 +87,7 @@ const PickerPopup = () => {
             });
           }}
         >
-          Book Space
+          Book Office
         </Button>
       )}
     </div>,
