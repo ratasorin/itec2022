@@ -10,19 +10,29 @@ export class FloorService {
   async getOfficesByFloorId(floorId: string) {
     const result = await this.pool.query<OfficesOnFloor>(
       `--sql
-      WITH RECURSIVE block_booking(booking_id, user_id, booked_until) AS (
-        SELECT bookings.id as booking_id, users.id as user_id, upper(bookings.interval) as booked_until FROM offices
-        LEFT JOIN floors ON floors.id = offices.floor_id
-        LEFT JOIN bookings ON bookings.office_id = offices.id AND bookings.interval @> current_timestamp
-        LEFT JOIN users ON bookings.user_id = users.id
-        WHERE office.id = '0cc674f4-bfae-468d-8e6f-9f28ffa55053'
-
-        UNION ALL 
-
-        SELECT booking.id, users.id, upper(current_booking.interval) as booked_until FROM block_booking AS previous_booking, bookings AS current_booking
-        LEFT JOIN users ON current_booking.user_id = users.id 
-        WHERE previous_booking.booked_until = lower(current_booking.interval)
-      )
+      WITH max_booked_block AS (
+        WITH RECURSIVE block_booking(booking_id, user_id, booked_until, office_id) AS (
+          SELECT bookings.id as booking_id, users.id as user_id, upper(bookings.interval) as booked_until, offices.id AS office_id FROM offices
+          LEFT JOIN bookings ON bookings.office_id = offices.id AND bookings.interval @> current_timestamp
+          LEFT JOIN users ON bookings.user_id = users.id
+          
+          UNION ALL 
+          
+          SELECT current_booking.id AS booking_id, users.id AS user_id, upper(current_booking.interval) as booked_until, offices.id AS office_id FROM block_booking AS previous_booking, bookings AS current_booking
+          LEFT JOIN offices ON offices.id = current_booking.office_id
+          LEFT JOIN users ON current_booking.user_id = users.id 
+          WHERE previous_booking.booked_until = lower(current_booking.interval)
+        )
+        SELECT block_booking.office_id, MAX(block_booking.booked_until) AS booked_until FROM block_booking 
+        GROUP BY block_booking.office_id
+    )
+      SELECT max_booked_block.office_id, max_booked_block.booked_until, offices.name AS "officeName", users.name AS "occupantName", x, y FROM offices
+      LEFT JOIN max_booked_block ON offices.id = max_booked_block.office_id
+      LEFT JOIN floors ON floors.id = offices.floor_id
+      LEFT JOIN bookings ON bookings.office_id = offices.id AND upper(bookings.interval) = max_booked_block.booked_until
+      LEFT JOIN users ON bookings.user_id = users.id
+      WHERE floors.id = $1
+      ORDER BY max_booked_block.booked_until ASC
       `,
       [floorId]
     );
@@ -32,34 +42,39 @@ export class FloorService {
   }
 
   async getOfficesByFloorLevel(building_id: string, floor_level: number) {
-    const bookedOfficesQuery = await this.pool.query<OfficesOnFloor>(
+    const officesOnFloorResult = await this.pool.query<OfficesOnFloor>(
       `--sql
-      SELECT offices.id AS big_office_id, (WITH RECURSIVE block_booking(booking_id, user_id, booked_until, office_id) AS (
-        SELECT bookings.id as booking_id, users.id as user_id, upper(bookings.interval) as booked_until, offices.id AS office_id FROM offices
-        LEFT JOIN bookings ON bookings.office_id = offices.id
-        LEFT JOIN users ON bookings.user_id = users.id
-        WHERE offices.id = big_office_id
+      WITH max_booked_block AS (
+        WITH RECURSIVE block_booking(booking_id, user_id, booked_until, office_id) AS (
+          SELECT bookings.id as booking_id, users.id as user_id, upper(bookings.interval) as booked_until, offices.id AS office_id FROM offices
+          LEFT JOIN bookings ON bookings.office_id = offices.id AND bookings.interval @> current_timestamp
+          LEFT JOIN users ON bookings.user_id = users.id
           
           UNION ALL 
           
-          SELECT current_booking.id AS booking_id, users.id AS user_id, upper(current_booking.interval) as booked_until, previous_booking.office_id FROM block_booking AS previous_booking, bookings AS current_booking
+          SELECT current_booking.id AS booking_id, users.id AS user_id, upper(current_booking.interval) as booked_until, offices.id AS office_id FROM block_booking AS previous_booking, bookings AS current_booking
+          LEFT JOIN offices ON offices.id = current_booking.office_id
           LEFT JOIN users ON current_booking.user_id = users.id 
           WHERE previous_booking.booked_until = lower(current_booking.interval)
         )
-        SELECT * FROM block_booking ORDER BY block_booking.booked_until DESC LIMIT 1
-      ).user_id FROM offices
+        SELECT block_booking.office_id, MAX(block_booking.booked_until) AS booked_until FROM block_booking 
+        GROUP BY block_booking.office_id
+      )
+      SELECT max_booked_block.office_id, max_booked_block.booked_until, offices.name AS "officeName", users.name AS "occupantName", x, y FROM offices
+      LEFT JOIN max_booked_block ON offices.id = max_booked_block.office_id
       LEFT JOIN floors ON floors.id = offices.floor_id
-      LEFT JOIN bookings ON bookings.office_id = offices.id
-      LEFT JOIN users ON bookings.user_id = users.id
       LEFT JOIN buildings ON buildings.id = floors.building_id
-      WHERE buildings.id = $1 AND floors.level = $2 AND bookings.interval @> current_timestamp
+      LEFT JOIN bookings ON bookings.office_id = offices.id AND upper(bookings.interval) = max_booked_block.booked_until
+      LEFT JOIN users ON bookings.user_id = users.id
+      WHERE buildings.id = $1 AND floors.level = $2
+      ORDER BY max_booked_block.booked_until ASC
       `,
       [building_id, floor_level]
     );
 
-    const bookedOfficesOnFloor = bookedOfficesQuery.rows;
+    const officesOnFloor = officesOnFloorResult.rows;
 
-    return [...bookedOfficesOnFloor];
+    return officesOnFloor;
   }
 
   async createFloor(building_id: string) {

@@ -155,3 +155,110 @@ INSERT INTO bookings (id, interval, office_id, user_id)
        (SELECT id FROM users 
        WHERE name = 'Sorin')
        );
+
+INSERT INTO bookings (id, interval, office_id, user_id) 
+       VALUES (
+       DEFAULT, 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp ), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '3 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
+       (SELECT id FROM offices 
+       WHERE name = 'Office 2'), 
+       (SELECT id FROM users 
+       WHERE name = 'Sorin')
+       );
+
+INSERT INTO bookings (id, interval, office_id, user_id) 
+       VALUES (
+       DEFAULT, 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '3 hours'), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '7 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
+       (SELECT id FROM offices 
+       WHERE name = 'Office 2'), 
+       (SELECT id FROM users 
+       WHERE name = 'Sorin')
+       );
+
+INSERT INTO bookings (id, interval, office_id, user_id) 
+       VALUES (
+       DEFAULT, 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '5 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
+       (SELECT id FROM offices 
+       WHERE name = 'Office 3'), 
+       (SELECT id FROM users 
+       WHERE name = 'Sorin')
+       );
+
+INSERT INTO bookings (id, interval, office_id, user_id) 
+       VALUES (
+       DEFAULT, 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '2 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
+       (SELECT id FROM offices 
+       WHERE name = 'Office 4'), 
+       (SELECT id FROM users 
+       WHERE name = 'Sorin')
+       );
+
+INSERT INTO bookings (id, interval, office_id, user_id) 
+       VALUES (
+       DEFAULT, 
+       tstzrange(
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '4 hours'), 
+            TO_TIMESTAMP(0)
+        ), 
+        date_bin(
+            '30 minutes', 
+            date_trunc('minute', current_timestamp + interval '6 hours'), 
+            TO_TIMESTAMP(0)
+        )
+       ), 
+       (SELECT id FROM offices 
+       WHERE name = 'Office 4'), 
+       (SELECT id FROM users 
+       WHERE name = 'Sorin')
+       );
+
+
