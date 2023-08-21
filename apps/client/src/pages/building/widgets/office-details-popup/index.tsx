@@ -3,12 +3,15 @@ import { Button } from '@mui/material';
 import { useDetailsPopup } from './details.slice';
 import useDimensions from 'apps/client/src/hooks/dimensions';
 import ReactDOM from 'react-dom';
+import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
 
 const DetailsPopup = () => {
   const closeDetailsPopup = useDetailsPopup((state) => state.close);
   const { payload, render } = useDetailsPopup(
     (state) => state.detailsPopupState
   );
+
+  useHandleClickOutside('details-popup', closeDetailsPopup, render);
 
   const [popup, setPopup] = useState<HTMLDivElement | null>(null);
 
