@@ -22,4 +22,19 @@ export class RatingController {
       stars
     );
   }
+
+  @Post('/buildings/:building_id/update')
+  @UseGuards(JwtAuthGuard)
+  async updateBuildingRating(
+    @Param('building_id') building_id: string,
+    @Body('stars') stars: number,
+    @Req() req: Request
+  ) {
+    const user = req.user as JwtUser;
+    return await this.ratingService.updateBuildingRating(
+      building_id,
+      user.id,
+      stars
+    );
+  }
 }

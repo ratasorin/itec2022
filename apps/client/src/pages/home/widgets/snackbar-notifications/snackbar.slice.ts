@@ -1,14 +1,32 @@
 import { create } from 'zustand';
 import { v4 as uuid } from 'uuid';
-import { ErrorRating } from '@shared';
+import {
+  InsertRatingResponse,
+  RatingErrorOnInsert,
+  UnknownRatingError,
+} from '@shared';
 
 export interface RatingAddedPayload {
   type: 'post-rating';
   details:
+    | ({ success: true } & InsertRatingResponse)
+    | {
+        success: false;
+        error: RatingErrorOnInsert;
+      };
+}
+
+export interface DefaultErrorPayload {
+  type: 'default-error';
+}
+
+export interface RatingUpdatedPayload {
+  type: 'update-rating';
+  details:
     | { success: true; ratingId: string }
     | {
         success: false;
-        error: ErrorRating;
+        error: UnknownRatingError;
       };
 }
 
@@ -17,12 +35,11 @@ export interface RatingDeletedPayload {
   success: boolean;
 }
 
-export interface RatingUpdatedPayload {
-  type: 'update-rating';
-  success: boolean;
-}
-
-type SnackbarNotificationsPayload = RatingAddedPayload | RatingDeletedPayload;
+type SnackbarNotificationsPayload =
+  | RatingAddedPayload
+  | RatingDeletedPayload
+  | DefaultErrorPayload
+  | RatingUpdatedPayload;
 
 export interface SnackbarNotificationsState {
   payload: SnackbarNotificationsPayload;

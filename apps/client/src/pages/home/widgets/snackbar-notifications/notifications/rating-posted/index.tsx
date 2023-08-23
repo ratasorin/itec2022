@@ -1,28 +1,47 @@
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import CheckIcon from '@mui/icons-material/Check';
 import { Button, Rating } from '@mui/material';
 import { FC, useState } from 'react';
 import { RatingAddedPayload } from '../../snackbar.slice';
 import { useSnackbarNotifications } from '../../snackbar.slice';
+import { useMutation } from '@tanstack/react-query';
+import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import Success from './success';
+import UnidentifiedError from './unidentified-error';
 
-const UnidentifiedError: FC<{ details: string }> = ({ details }) => {
-  return (
-    <>
-      <div className="mr-2 flex items-center justify-center rounded-full text-red-500">
-        <ErrorOutlineIcon className="h-6 w-6" />
-      </div>
-      <div className="flex flex-col">
-        <span className="font-semibold">There was an error on the server</span>
-        <span className="mb-2 text-gray-500">{details}</span>
-      </div>
-    </>
-  );
-};
-
-const DuplicateReviewError = () => {
+const DuplicateReviewError: FC<{
+  buildingId: string;
+  notificationId: string;
+}> = ({ buildingId, notificationId }) => {
   const [stars, setStars] = useState(0);
   const [update, setUpdate] = useState(false);
+  const { open } = useSnackbarNotifications();
+  const updateStars = useMutation({
+    mutationFn: () => {
+      return fetchProtectedRoute(`/rating/buildings/${buildingId}/update`, {
+        method: 'POST',
+        body: JSON.stringify({ stars }),
+      });
+    },
+    onSuccess: async (response) => {
+      if (response.ok) {
+        // open the rating modified notification
+        const ratingId = (await response.json()).reviewId as string;
+        open({ type: 'update-rating', details: { success: true, ratingId } });
+      } else {
+        const error = await response.json();
+        if (!error.cause) {
+          open({ type: 'default-error' });
+          return;
+        }
+
+        open({
+          type: 'update-rating',
+          details: { error, success: false },
+        });
+      }
+    },
+  });
   return (
     <>
       <div className="mr-2 rounded-full text-red-500">
@@ -41,9 +60,9 @@ const DuplicateReviewError = () => {
             <em> update</em> the current one.
           </div>
           {update && (
-            <div className="flex flex-row items-center justify-around">
+            <div className="ml-2 flex flex-row items-center justify-around">
               <div>
-                <div className="mt-2">Updated rating:</div>
+                <div className="mt-2 text-black">Update rating:</div>
                 <Rating
                   onChange={(event, stars) => {
                     setStars(stars || 0);
@@ -52,6 +71,9 @@ const DuplicateReviewError = () => {
               </div>
               <Button
                 variant="outlined"
+                onClick={() => {
+                  updateStars.mutate();
+                }}
                 className=" border-gray-500 font-mono text-black hover:border-gray-700 hover:bg-black/10"
               >
                 SUBMIT
@@ -75,47 +97,6 @@ const DuplicateReviewError = () => {
   );
 };
 
-const Success = () => {
-  const [stars, setStars] = useState(0);
-  const [update, setUpdate] = useState(false);
-  return (
-    <>
-      <div className="mr-2 rounded-full text-green-500">
-        <CheckIcon className="h-6 w-6" />
-      </div>
-      <div className="mr-2 flex flex-col">
-        <span className="font-semibold"> Rating successfully added </span>
-        <span className="mb-2 text-gray-500">
-          Your rating has been successfully uploaded! Thank you!
-        </span>
-        {update && (
-          <span>
-            Updated rating:{' '}
-            <Rating
-              onChange={(event, stars) => {
-                setStars(stars || 0);
-              }}
-            />
-          </span>
-        )}
-        <div className="mb-1 flex flex-row">
-          <button
-            onClick={() => {
-              if (!update) setUpdate(true);
-            }}
-            className="mr-3 rounded-md bg-pink-500 py-1 px-2 text-white"
-          >
-            {update ? 'SAVE' : 'UPDATE'}
-          </button>
-          <button className="mr-3 rounded-md border border-red-500 py-1 px-2 text-red-500">
-            Delete
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
-
 const RatingAdded: React.FC<
   RatingAddedPayload & { notificationId: string }
 > = ({ details, notificationId }) => {
@@ -125,9 +106,12 @@ const RatingAdded: React.FC<
     <div className="mb-4 rounded-md border-2 border-zinc-200 bg-white p-3 font-mono shadow-md">
       <div className="flex flex-row items-start">
         {details.success ? (
-          <Success />
+          <Success {...details} />
         ) : details.error.cause === 'UNIQUE REVIEWER CONSTRAINT FAILED' ? (
-          <DuplicateReviewError />
+          <DuplicateReviewError
+            buildingId={details.error.building_id}
+            notificationId={notificationId}
+          />
         ) : (
           <UnidentifiedError details={details.error.details} />
         )}

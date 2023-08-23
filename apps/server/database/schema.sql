@@ -64,7 +64,17 @@ CREATE TABLE building_ratings (
     stars INTEGER NOT NULL DEFAULT 0,
     reviewer_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
     building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE,
+    deleted boolean DEFAULT false,
     UNIQUE(reviewer_id, building_id)
+);
+
+CREATE TABLE building_rating_updates (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    stars INTEGER NOT NULL DEFAULT 0,
+    reviewer_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
+    building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+    deleted boolean DEFAULT false
 );
 
 CREATE TABLE office_ratings (

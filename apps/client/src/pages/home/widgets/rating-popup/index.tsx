@@ -4,8 +4,12 @@ import { Button, Popper, Rating } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { useSnackbarNotifications } from '../snackbar-notifications/snackbar.slice';
-import { ErrorRating } from '@shared';
 import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
+import {
+  InsertRatingResponse,
+  RatingErrorOnInsert,
+  UnknownRatingError,
+} from '@shared';
 
 const RatingPopup = () => {
   const { payload, render } = useRatingPopup(
@@ -48,22 +52,30 @@ const RatingPopup = () => {
       });
     },
     onSuccess: async (response) => {
-      if (response.ok) {
-        const ratingId: string | undefined = (await response.json()).ratingId;
-        if (!ratingId) return;
-        addNotification({
-          type: 'post-rating',
-          details: { success: true, ratingId },
-        });
-      } else {
-        const error: ErrorRating | undefined = await response.json();
-        console.log('THIS IS THE ERROR:', error);
-        if (!error?.cause) return;
+      if (!response.ok) {
+        const error: RatingErrorOnInsert | undefined = await response.json();
+        if (!error?.cause) {
+          addNotification({
+            type: 'default-error',
+          });
+          return;
+        }
+
         addNotification({
           type: 'post-rating',
           details: { error, success: false },
         });
+
+        return;
       }
+
+      const { ratingId, updateId } =
+        (await response.json()) as InsertRatingResponse;
+      if (!ratingId) return;
+      addNotification({
+        type: 'post-rating',
+        details: { success: true, ratingId, updateId },
+      });
     },
   });
 
