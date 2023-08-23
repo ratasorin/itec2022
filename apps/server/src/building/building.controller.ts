@@ -26,8 +26,10 @@ export class BuildingController {
 
   @Post('')
   @UseGuards(JwtAuthGuard)
-  async createBuilding(@Body('name') name: string, @Request() req) {
-    const user: JwtUser = req.user;
+  async createBuilding(
+    @Body('name') name: string,
+    @Body('user') user: JwtUser
+  ) {
     return await this.buildingsService.createBuilding(user.id, name);
   }
 }

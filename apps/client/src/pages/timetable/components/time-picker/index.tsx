@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
-import { fetchProtected } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
 import { useBookingModal } from '../../widgets/booking-modal/booking.slice';
 
@@ -27,7 +27,7 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
     closeBookingModal();
 
     try {
-      const response = await fetchProtected('booking', {
+      const response = await fetchProtectedRoute('/booking', {
         method: 'POST',
         body: JSON.stringify({
           book_from: bookFrom?.getTime(),

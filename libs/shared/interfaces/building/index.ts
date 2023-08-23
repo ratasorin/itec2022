@@ -8,8 +8,9 @@ export interface OfficesOnFloor {
 }
 
 export interface BuildingStats {
-  id: string;
-  name: string;
+  building_id: string;
+  building_name: string;
   availability_rate: number;
   stars: number | null;
+  reviews: number;
 }

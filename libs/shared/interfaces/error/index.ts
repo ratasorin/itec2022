@@ -1,5 +1,4 @@
 export interface Error {
-  status: number;
-  error: string;
-  message: string;
+  cause: string;
+  details?: string;
 }

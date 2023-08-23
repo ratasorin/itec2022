@@ -1,5 +1,5 @@
 import { OfficeTimeIntervalAPI, OfficeTimeIntervalDB } from '@shared';
-import { url } from 'apps/client/src/constants/server';
+import { SERVER_URL } from 'apps/client/src/constants/server';
 import { useEffect, useState } from 'react';
 
 const useTimetable = (id: string) => {
@@ -9,7 +9,7 @@ const useTimetable = (id: string) => {
     if (!id) return;
 
     const getTimetable = async () => {
-      const response = await fetch(url(`booking/timetable/${id}`));
+      const response = await fetch(SERVER_URL + `booking/timetable/${id}`);
       const timetable: OfficeTimeIntervalAPI[] = await response.json();
       if (!timetable) return;
 

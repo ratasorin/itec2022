@@ -16,29 +16,33 @@ import NotFoundPage from './pages/not-found';
 import TimetablePage from './pages/timetable';
 import AccountPage from './pages/account';
 import { theme } from './utils/theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <StyledEngineProvider injectFirst>
-        <Router>
-          <Routes>
-            <Route path={ROUTES.DEFAULT} element={<App />}>
-              <Route index element={<HomePage />} />
-              <Route path={ROUTES.AUTH} element={<AuthPage />} />
-              <Route path={ROUTES.BUILDING} element={<BuildingPage />} />
-              <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
-              <Route path={ROUTES.ADMIN} element={<AdminPage />} />
-              <Route path={ROUTES.ACCOUNT} element={<AccountPage />}></Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </Router>
-      </StyledEngineProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <StyledEngineProvider injectFirst>
+          <Router>
+            <Routes>
+              <Route path={ROUTES.DEFAULT} element={<App />}>
+                <Route index element={<HomePage />} />
+                <Route path={ROUTES.AUTH} element={<AuthPage />} />
+                <Route path={ROUTES.BUILDING} element={<BuildingPage />} />
+                <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
+                <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+                <Route path={ROUTES.ACCOUNT} element={<AccountPage />}></Route>
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </Router>
+        </StyledEngineProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

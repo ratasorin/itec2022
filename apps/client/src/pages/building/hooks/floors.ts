@@ -1,9 +1,9 @@
 import { FloorDB } from '@shared';
-import { url } from '../../../constants/server';
+import { SERVER_URL } from 'apps/client/src/constants/server';
 import { useCallback, useEffect, useState } from 'react';
 
 export const getFloors = async (building_id: string) => {
-  const response = await fetch(url(`building/${building_id}/floors`));
+  const response = await fetch(SERVER_URL + `/building/${building_id}/floors`);
   const floors: FloorDB[] = await response.json();
 
   if (!floors) return [];

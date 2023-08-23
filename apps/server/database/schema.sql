@@ -62,15 +62,18 @@ CREATE TABLE bookings (
 CREATE TABLE building_ratings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     stars INTEGER NOT NULL DEFAULT 0,
-    review TEXT,
-    building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE
+    reviewer_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
+    building_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE,
+    UNIQUE(reviewer_id, building_id)
 );
 
 CREATE TABLE office_ratings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     stars INTEGER NOT NULL DEFAULT 0,
-    review TEXT,
-    office_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE
+    reviewer_id UUID NOT NULL REFERENCES users ON DELETE CASCADE,
+    office_id UUID NOT NULL REFERENCES buildings ON DELETE CASCADE,
+    UNIQUE(reviewer_id, office_id)
+
 );
 
 INSERT INTO users (id, name,email, password, admin) VALUES (DEFAULT, 'Sorin', 'ratasorin0@gmail.com', 'Sorin', DEFAULT);

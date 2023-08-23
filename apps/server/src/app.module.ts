@@ -10,6 +10,7 @@ import { FloorModule } from './floor/floor.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MailModule } from './mail/mail.module';
     BuildingModule,
     FloorModule,
     DatabaseModule,
+    RatingModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

@@ -1,5 +1,5 @@
 import { OfficesOnFloor } from '@shared';
-import { url } from '../../../constants/server';
+import { SERVER_URL } from '../../../constants/server';
 import { useCallback, useEffect, useState } from 'react';
 
 export type FetchOfficesBy = {
@@ -12,14 +12,14 @@ const getOfficesByBuildingAndLevel = async (
   building_id: string,
   level: number | string
 ) => {
-  const response = await fetch(url(`floor/${building_id}/${level}`));
+  const response = await fetch(SERVER_URL + `/floor/${building_id}/${level}`);
   const offices: OfficesOnFloor[] = await response.json();
   if (!offices) return [];
   return offices;
 };
 
 const getOfficeByFloorID = async (floor_id: string) => {
-  const response = await fetch(url(`floor/${floor_id}/office`));
+  const response = await fetch(SERVER_URL + `floor/${floor_id}/office`);
   const offices: OfficesOnFloor[] = await response.json();
   if (!offices) return [];
   return offices;
