@@ -3,24 +3,33 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { FC } from 'react';
 import { useSnackbarNotifications } from '../../snackbar.slice';
+import { UndoRatingUpdateSuccess } from '@shared';
+import { queryClient } from 'apps/client/src/main';
 
 const Success: FC<{ ratingId: string; updateId: string }> = ({
   ratingId,
   updateId,
 }) => {
   const { open } = useSnackbarNotifications();
-  const deleteRating = useMutation({
+  const undoRatingUpdate = useMutation({
     mutationFn: () => {
-      return fetchProtectedRoute(`/rating/delete`, {
+      return fetchProtectedRoute(`/rating/buildings/undo/${updateId}`, {
         method: 'POST',
-        body: JSON.stringify({ ratingId, updateId }),
       });
     },
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (!response.ok) {
         // TODO: better error handling here!
         open({ type: 'default-error' });
+        return;
       }
+
+      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      const payload = (await response.json()) as UndoRatingUpdateSuccess;
+      open({
+        type: 'rating-undo-change',
+        details: { success: true, ...payload },
+      });
     },
   });
   return (
@@ -35,7 +44,9 @@ const Success: FC<{ ratingId: string; updateId: string }> = ({
         </span>
         <div className="mb-1 flex flex-row">
           <button
-            onClick={() => {}}
+            onClick={() => {
+              undoRatingUpdate.mutate();
+            }}
             className="mr-3 rounded-md border border-slate-500 py-1 px-2 text-slate-700"
           >
             UNDO

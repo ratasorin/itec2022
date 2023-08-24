@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import RatingAdded from './notifications/rating-posted';
 import DefaultNotificationError from './notifications/default-error';
 import RatingUpdated from './notifications/rating-updated';
+import RatingUndoUpdate from './notifications/rating-undo-change';
 
 const HomeSnackbar = () => {
   const notifications = useSnackbarNotifications(
@@ -27,6 +28,10 @@ const HomeSnackbar = () => {
           return <RatingAdded {...payload} notificationId={notificationId} />;
         if (payload.type === 'update-rating')
           return <RatingUpdated {...payload} notificationId={notificationId} />;
+        if (payload.type === 'rating-undo-change')
+          return (
+            <RatingUndoUpdate {...payload} notificationId={notificationId} />
+          );
 
         return null;
       })}

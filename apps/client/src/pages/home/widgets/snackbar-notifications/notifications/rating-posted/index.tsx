@@ -8,6 +8,8 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import Success from './success';
 import UnidentifiedError from './unidentified-error';
+import { queryClient } from 'apps/client/src/main';
+import { UpdateRatingSuccess } from '@shared';
 
 const DuplicateReviewError: FC<{
   buildingId: string;
@@ -24,11 +26,7 @@ const DuplicateReviewError: FC<{
       });
     },
     onSuccess: async (response) => {
-      if (response.ok) {
-        // open the rating modified notification
-        const ratingId = (await response.json()).reviewId as string;
-        open({ type: 'update-rating', details: { success: true, ratingId } });
-      } else {
+      if (!response.ok) {
         const error = await response.json();
         if (!error.cause) {
           open({ type: 'default-error' });
@@ -39,7 +37,13 @@ const DuplicateReviewError: FC<{
           type: 'update-rating',
           details: { error, success: false },
         });
+
+        return;
       }
+
+      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      const payload = (await response.json()) as UpdateRatingSuccess;
+      open({ type: 'update-rating', details: { success: true, ...payload } });
     },
   });
   return (

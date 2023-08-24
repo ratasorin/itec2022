@@ -21,7 +21,25 @@ export type RatingErrorOnInsert =
   | UnknownRatingError
   | RatingConstraintFailedError;
 
-export interface InsertRatingResponse {
+export interface InsertRatingSuccess {
   ratingId: string;
   updateId: string;
+}
+
+export type UpdateRatingSuccess = InsertRatingSuccess;
+
+export interface UndoRatingUpdateSuccess {
+  beforeUndo: {
+    deleted: boolean;
+    stars: number;
+  };
+  afterUndo: {
+    deleted: boolean;
+    stars: number;
+  };
+  nextUndo: {
+    deleted: boolean | null;
+    stars: number | null;
+  };
+  updateId: string | null;
 }

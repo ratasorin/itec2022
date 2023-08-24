@@ -1,15 +1,17 @@
 import { create } from 'zustand';
 import { v4 as uuid } from 'uuid';
 import {
-  InsertRatingResponse,
+  InsertRatingSuccess,
   RatingErrorOnInsert,
+  UndoRatingUpdateSuccess,
   UnknownRatingError,
+  UpdateRatingSuccess,
 } from '@shared';
 
 export interface RatingAddedPayload {
   type: 'post-rating';
   details:
-    | ({ success: true } & InsertRatingResponse)
+    | ({ success: true } & InsertRatingSuccess)
     | {
         success: false;
         error: RatingErrorOnInsert;
@@ -23,21 +25,23 @@ export interface DefaultErrorPayload {
 export interface RatingUpdatedPayload {
   type: 'update-rating';
   details:
-    | { success: true; ratingId: string }
+    | ({ success: true } & UpdateRatingSuccess)
     | {
         success: false;
         error: UnknownRatingError;
       };
 }
 
-export interface RatingDeletedPayload {
-  type: 'delete-rating';
-  success: boolean;
+export interface RatingUndoChangePayload {
+  type: 'rating-undo-change';
+  details: {
+    success: true;
+  } & UndoRatingUpdateSuccess;
 }
 
 type SnackbarNotificationsPayload =
   | RatingAddedPayload
-  | RatingDeletedPayload
+  | RatingUndoChangePayload
   | DefaultErrorPayload
   | RatingUpdatedPayload;
 

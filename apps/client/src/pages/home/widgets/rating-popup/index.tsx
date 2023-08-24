@@ -6,7 +6,7 @@ import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { useSnackbarNotifications } from '../snackbar-notifications/snackbar.slice';
 import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
 import {
-  InsertRatingResponse,
+  InsertRatingSuccess,
   RatingErrorOnInsert,
   UnknownRatingError,
 } from '@shared';
@@ -70,7 +70,7 @@ const RatingPopup = () => {
       }
 
       const { ratingId, updateId } =
-        (await response.json()) as InsertRatingResponse;
+        (await response.json()) as InsertRatingSuccess;
       if (!ratingId) return;
       addNotification({
         type: 'post-rating',

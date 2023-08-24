@@ -16,7 +16,7 @@ const RatingUpdated: FC<RatingUpdatedPayload & { notificationId: string }> = ({
     <div className="mb-4 rounded-md border-2 border-zinc-200 bg-white p-3 font-mono shadow-md">
       <div className="flex flex-row items-start">
         {details.success ? (
-          <Success />
+          <Success updateId={details.updateId} />
         ) : (
           <UnidentifiedError details={details.error.details} />
         )}

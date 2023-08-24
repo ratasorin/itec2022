@@ -8,6 +8,7 @@ import { useRatingPopup } from './widgets/rating-popup/rating.slice';
 import RatingPopup from './widgets/rating-popup';
 import { SERVER_URL } from '../../constants/server';
 import HomeSnackbar from './widgets/snackbar-notifications';
+import { useQuery } from '@tanstack/react-query';
 
 export interface BuildingStateNavigation {
   buildingId: string;
@@ -21,7 +22,6 @@ function percentageToColor(percentage: number) {
 
 function Home(): ReactElement {
   const navigate = useNavigate();
-  const [Building, setBuilding] = useState<BuildingStats[]>([]);
 
   useEffect(() => {
     const user = getUser();
@@ -33,17 +33,28 @@ function Home(): ReactElement {
     if (!jwt) return;
   }, []);
 
-  useEffect(() => {
-    const getAllBuilding = async () => {
+  const {
+    data: buildings,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: [`buildings`],
+    queryFn: async (): Promise<BuildingStats[]> => {
       const response = await fetch(SERVER_URL + '/building');
-      const buildings: BuildingStats[] = await response.json();
-      setBuilding(buildings);
-    };
-
-    getAllBuilding();
-  }, []);
+      return await response.json();
+    },
+  });
 
   const openRatingPopup = useRatingPopup((state) => state.open);
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {JSON.stringify(error)}</span>;
+  }
 
   return (
     <>
@@ -52,7 +63,7 @@ function Home(): ReactElement {
         <div className="flex h-screen w-screen flex-col items-center font-mono">
           <div className="pb-5 text-3xl font-light">Find a free office</div>
           <div className="flex flex-col">
-            {Building.map(
+            {buildings.map(
               ({
                 building_id,
                 building_name,
