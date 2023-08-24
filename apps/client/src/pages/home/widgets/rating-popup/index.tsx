@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRatingPopup } from './rating.slice';
 import { Button, Popper, Rating } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import { useSnackbarNotifications } from '../snackbar-notifications/snackbar.slice';
-import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
+import useHandleClickOutside from '@client/hooks/click-outside';
 import { InsertRatingSuccess, RatingErrorOnInsert } from '@shared';
-import { queryClient } from 'apps/client/src/main';
+import { queryClient } from '@client/main';
 
 const RatingPopup = () => {
   const { payload, render } = useRatingPopup(

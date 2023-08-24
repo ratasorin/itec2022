@@ -1,5 +1,5 @@
-export const Omit = <Return extends Record<string, any>>(
-  o: Record<string, any>,
+export const Omit = <Return extends Record<string, unknown>>(
+  o: Record<string, unknown>,
   omit: string
 ) =>
   Object.fromEntries(

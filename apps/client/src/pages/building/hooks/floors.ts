@@ -1,5 +1,5 @@
 import { FloorDB } from '@shared';
-import { SERVER_URL } from 'apps/client/src/constants/server';
+import { SERVER_URL } from '@client/constants/server';
 import { useCallback, useEffect, useState } from 'react';
 
 export const getFloors = async (building_id: string) => {

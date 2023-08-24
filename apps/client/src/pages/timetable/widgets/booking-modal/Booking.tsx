@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useBookingModal } from './booking.slice';
 import Picker from '../../components/time-picker';
 import ReactDOM from 'react-dom';
-import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
+import useHandleClickOutside from '@client/hooks/click-outside';
 import { useLocation } from 'react-router';
 import { OfficeFromNavigation } from '../../../building/components/board/hooks/navigate-office-timetable';
 

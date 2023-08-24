@@ -1,10 +1,10 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import { FC } from 'react';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { InsertRatingSuccess, UndoRatingUpdateSuccess } from '@shared';
-import { queryClient } from 'apps/client/src/main';
+import { queryClient } from '@client/main';
 
 const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
   const { open } = useSnackbarNotifications();

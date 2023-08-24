@@ -1,5 +1,5 @@
 import { OfficesOnFloor } from '@shared';
-import { SERVER_URL } from '../../../constants/server';
+import { SERVER_URL } from '@client/constants/server';
 import { useCallback, useEffect, useState } from 'react';
 
 export type FetchOfficesBy = {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useRatingPopup } from '../../widgets/rating-popup/rating.slice';
 import { useQuery } from '@tanstack/react-query';
-import { SERVER_URL } from 'apps/client/src/constants/server';
+import { SERVER_URL } from '@client/constants/server';
 import { BuildingRatings } from '@shared';
 import { Rating } from '@mui/material';
 import RatingPopup from '../../widgets/rating-popup';

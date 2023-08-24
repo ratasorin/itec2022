@@ -9,3 +9,4 @@
 - [x] Fix `TypeError: Cannot destructure property "x" of undefined` in the `rating` module (24.08.2023)
 - [] Improve undo notification UI (24.08.2023)
 - [x] Don't count reviews marked as deleted when displaying rating (24.08.2023)
+- [] Fix all eslint errors

@@ -2,7 +2,7 @@ import { Area } from 'd3';
 import { PickerPopupPayload } from '../../../widgets/picker-popup/picker.slice';
 
 export interface IntervalProps {
-  container: d3.Selection<SVGGElement, unknown, HTMLElement, any>;
+  container: d3.Selection<SVGGElement, unknown, HTMLElement, unknown>;
   area: Area<number>;
   xScale: d3.ScaleTime<number, number, never>;
   openPickerPopup: (payload: PickerPopupPayload) => void;
@@ -33,12 +33,14 @@ export const drawInterval = ({
     .attr('d', area([start, end]))
     .attr('fill', name ? '#ef4444' : '#22c55e')
     .on('mouseover', (event: MouseEvent) => {
-      let { left, top, height, width } = (
-        event.currentTarget as HTMLElement
-      ).getBoundingClientRect();
+      const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+
+      let left = rect.left,
+        width = rect.right;
+      const { top, height } = rect;
 
       if (selectedStart >= start && selectedEnd <= end) {
-        const padding = -xScale(new Date(start)) + left;
+        const padding = -xScale(new Date(start)) + rect.left;
         left = padding;
         width = containerWidth;
       } else if (start < selectedStart) {

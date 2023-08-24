@@ -1,5 +1,5 @@
-import { OfficeTimeIntervalAPI, OfficeTimeIntervalDB } from '@shared';
-import { SERVER_URL } from 'apps/client/src/constants/server';
+import { OfficeTimeIntervalAPI } from '@shared';
+import { SERVER_URL } from '@client/constants/server';
 import { useEffect, useState } from 'react';
 
 const useTimetable = (id: string) => {

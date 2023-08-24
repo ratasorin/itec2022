@@ -1,8 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import { useSnackbarNotifications } from '../../snackbar.slice';
-import { queryClient } from 'apps/client/src/main';
+import { queryClient } from '@client/main';
 import { UndoRatingUpdateSuccess } from '@shared';
 import { FC } from 'react';
 

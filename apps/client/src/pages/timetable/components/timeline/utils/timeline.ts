@@ -1,4 +1,4 @@
-import type { OfficeTimeIntervalAPI, OfficeTimeIntervalDB } from '@shared';
+import type { OfficeTimeIntervalAPI } from '@shared';
 import * as d3 from 'd3';
 import { drawInterval } from './interval';
 

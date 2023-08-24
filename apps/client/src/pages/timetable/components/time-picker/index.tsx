@@ -1,4 +1,4 @@
-import getUser from '../../../../utils/user';
+import getUser from '@client/utils/user';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
 import { useBookingModal } from '../../widgets/booking-modal/booking.slice';
 

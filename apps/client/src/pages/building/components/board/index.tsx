@@ -2,7 +2,7 @@ import { OfficesOnFloor } from '@shared';
 import { FC } from 'react';
 import { useNavigateOfficeTimetable } from './hooks/navigate-office-timetable';
 import { useOfficeCoordinates } from './hooks/office-coordinates';
-import { useDetailsPopup } from '../../widgets/office-details-popup/details.slice';
+import { useDetailsPopup } from '@client/pages/building/widgets/office-details-popup/details.slice';
 
 const Board: FC<{ offices: OfficesOnFloor[] }> = ({ offices }) => {
   const { x, y } = useOfficeCoordinates(offices);

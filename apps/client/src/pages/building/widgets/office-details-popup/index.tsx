@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { useDetailsPopup } from './details.slice';
-import useDimensions from 'apps/client/src/hooks/dimensions';
+import useDimensions from '@client/hooks/dimensions';
 import ReactDOM from 'react-dom';
-import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
+import useHandleClickOutside from '@client/hooks/click-outside';
+
+const widgetsContainer = document.getElementById('widgets');
+if (!widgetsContainer) throw new Error('Widget container missing');
 
 const DetailsPopup = () => {
   const closeDetailsPopup = useDetailsPopup((state) => state.close);
@@ -58,7 +61,7 @@ const DetailsPopup = () => {
         BOOK NEXT
       </Button>
     </div>,
-    document.getElementById('widgets')!
+    widgetsContainer
   );
 };
 

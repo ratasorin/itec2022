@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { add, getDate, getDay, getMonth, getYear } from 'date-fns';
 import { useTimeline } from './hooks/timeline.slice';
-import { DAYS, MONTHS } from 'apps/client/src/constants/dates';
+import { DAYS, MONTHS } from '@client/constants/dates';
 import colors from 'tailwindcss/colors';
 
 interface TimelineProps {

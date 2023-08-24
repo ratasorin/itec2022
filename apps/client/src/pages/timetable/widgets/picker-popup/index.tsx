@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import { usePickerPopup } from './picker.slice';
 import ReactDOM from 'react-dom';
 import { useBookingModal } from '../booking-modal/booking.slice';
-import { useUser } from 'apps/client/src/hooks/user';
-import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
+import { useUser } from '@client/hooks/user';
+import useHandleClickOutside from '@client/hooks/click-outside';
 
 const PickerPopup = () => {
   const closePickerPopup = usePickerPopup((state) => state.close);

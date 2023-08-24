@@ -1,4 +1,4 @@
-import { SERVER_URL } from '../../constants/server';
+import { SERVER_URL } from '@client/constants/server';
 
 export const fetchProtectedRoute = async (
   route: `/${string}`,

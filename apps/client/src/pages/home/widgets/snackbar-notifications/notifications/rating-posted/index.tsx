@@ -4,10 +4,10 @@ import { FC, useState } from 'react';
 import { RatingAddedPayload } from '../../snackbar.slice';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import Success from './success';
 import UnidentifiedError from './unidentified-error';
-import { queryClient } from 'apps/client/src/main';
+import { queryClient } from '@client/main';
 import { UpdateRatingSuccess } from '@shared';
 
 const DuplicateReviewError: FC<{

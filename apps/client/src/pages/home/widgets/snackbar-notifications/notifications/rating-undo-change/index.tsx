@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { RatingUndoChangePayload } from '../../snackbar.slice';
 import CheckIcon from '@mui/icons-material/Check';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from 'apps/client/src/api/protected';
+import { fetchProtectedRoute } from '@client/api/protected';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { UndoRatingUpdateSuccess } from '@shared';
-import { queryClient } from 'apps/client/src/main';
+import { queryClient } from '@client/main';
 
 const RatingUndoUpdate: FC<RatingUndoChangePayload> = ({ details }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
