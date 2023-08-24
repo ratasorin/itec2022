@@ -5,6 +5,7 @@ import RatingAdded from './notifications/rating-posted';
 import DefaultNotificationError from './notifications/default-error';
 import RatingUpdated from './notifications/rating-updated';
 import RatingUndoUpdate from './notifications/rating-undo-change';
+import NotificationBase from './notifications/components/notification-base';
 
 const HomeSnackbar = () => {
   const notifications = useSnackbarNotifications(
@@ -20,20 +21,21 @@ const HomeSnackbar = () => {
   }, []);
 
   return createPortal(
-    <div className="absolute bottom-10 right-10">
+    <div className="absolute bottom-10 right-10 flex flex-col items-end">
       {notifications.map(({ payload, id: notificationId }) => {
-        if (payload.type === 'default-error')
-          return <DefaultNotificationError notificationId={notificationId} />;
-        if (payload.type === 'post-rating')
-          return <RatingAdded {...payload} notificationId={notificationId} />;
-        if (payload.type === 'update-rating')
-          return <RatingUpdated {...payload} notificationId={notificationId} />;
-        if (payload.type === 'rating-undo-change')
-          return (
-            <RatingUndoUpdate {...payload} notificationId={notificationId} />
-          );
-
-        return null;
+        return (
+          <NotificationBase notificationId={notificationId}>
+            {payload.type === 'default-error' ? (
+              <DefaultNotificationError />
+            ) : payload.type === 'post-rating' ? (
+              <RatingAdded {...payload} />
+            ) : payload.type === 'update-rating' ? (
+              <RatingUpdated {...payload} />
+            ) : payload.type === 'rating-undo-change' ? (
+              <RatingUndoUpdate {...payload} />
+            ) : null}
+          </NotificationBase>
+        );
       })}
     </div>,
     document.getElementById('snackbar')!
