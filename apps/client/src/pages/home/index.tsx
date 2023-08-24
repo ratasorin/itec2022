@@ -1,14 +1,13 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { BuildingStats } from '@shared';
 import getUser from '../../utils/user';
-import { Button, Rating } from '@mui/material';
+import { Button } from '@mui/material';
 import LayoutWithNavbar from '../../layouts/with-navbar';
-import { useRatingPopup } from './widgets/rating-popup/rating.slice';
-import RatingPopup from './widgets/rating-popup';
 import { SERVER_URL } from '../../constants/server';
 import HomeSnackbar from './widgets/snackbar-notifications';
 import { useQuery } from '@tanstack/react-query';
+import Ratings from './components/ratings';
 
 export interface BuildingStateNavigation {
   buildingId: string;
@@ -46,8 +45,6 @@ function Home(): ReactElement {
     },
   });
 
-  const openRatingPopup = useRatingPopup((state) => state.open);
-
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -64,13 +61,7 @@ function Home(): ReactElement {
           <div className="pb-5 text-3xl font-light">Find a free office</div>
           <div className="flex flex-col">
             {buildings.map(
-              ({
-                building_id,
-                building_name,
-                availability_rate,
-                stars,
-                reviews,
-              }) => (
+              ({ building_id, building_name, availability_rate }) => (
                 <div className="my-3 grid grid-cols-3 grid-rows-2 gap-x-8 rounded border-2 border-zinc-200 bg-white p-6 shadow-lg">
                   <div className="row-start-1">Building</div>
                   <div className="row-start-1">Availability</div>
@@ -101,25 +92,7 @@ function Home(): ReactElement {
                   >
                     {availability_rate.toFixed(1)}%
                   </div>
-                  <div
-                    className="row-start-2 hover:cursor-pointer"
-                    onMouseOver={() => {
-                      openRatingPopup({
-                        anchorElementId: `${building_id}-rating`,
-                        building_id,
-                        stars: stars || 0,
-                        reviews,
-                      });
-                    }}
-                  >
-                    <Rating
-                      id={`${building_id}-rating`}
-                      name="rating"
-                      value={stars || 0}
-                      readOnly
-                    />
-                    <RatingPopup />
-                  </div>
+                  <Ratings building_id={building_id} />
                 </div>
               )
             )}

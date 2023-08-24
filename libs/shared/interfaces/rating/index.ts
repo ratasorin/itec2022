@@ -1,4 +1,7 @@
-export type RatingError<E extends { cause: string }, T = {}> = E & T;
+export type RatingError<
+  E extends { cause: string },
+  T extends Record<string, unknown>
+> = E & T;
 
 export type UnknownRatingError = RatingError<
   { cause: 'MISCELLANEOUS' },
@@ -23,7 +26,7 @@ export type RatingErrorOnInsert =
 
 export interface InsertRatingSuccess {
   ratingId: string;
-  updateId: string;
+  buildingId: string;
 }
 
 export type UpdateRatingSuccess = InsertRatingSuccess;
@@ -41,5 +44,10 @@ export interface UndoRatingUpdateSuccess {
     deleted: boolean | null;
     stars: number | null;
   };
-  updateId: string | null;
+  buildingId: string;
+}
+
+export interface BuildingRatings {
+  reviews: number;
+  stars: number;
 }

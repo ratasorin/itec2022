@@ -1,4 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Button, Rating } from '@mui/material';
 import { FC, useState } from 'react';
@@ -40,7 +39,7 @@ const DuplicateReviewError: FC<{
         return;
       }
 
-      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      queryClient.invalidateQueries({ queryKey: ['building', buildingId] });
       const payload = (await response.json()) as UpdateRatingSuccess;
       open({ type: 'update-rating', details: { success: true, ...payload } });
     },
@@ -101,16 +100,12 @@ const DuplicateReviewError: FC<{
 };
 
 const RatingAdded: React.FC<RatingAddedPayload> = ({ details }) => {
-  return (
-    <>
-      {details.success ? (
-        <Success {...details} />
-      ) : details.error.cause === 'UNIQUE REVIEWER CONSTRAINT FAILED' ? (
-        <DuplicateReviewError buildingId={details.error.building_id} />
-      ) : (
-        <UnidentifiedError details={details.error.details} />
-      )}
-    </>
+  return details.success ? (
+    <Success {...details} />
+  ) : details.error.cause === 'UNIQUE REVIEWER CONSTRAINT FAILED' ? (
+    <DuplicateReviewError buildingId={details.error.building_id} />
+  ) : (
+    <UnidentifiedError details={details.error.details} />
   );
 };
 

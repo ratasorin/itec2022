@@ -12,7 +12,7 @@ const RatingUndoUpdate: FC<RatingUndoChangePayload> = ({ details }) => {
 
   const undoRatingUpdate = useMutation({
     mutationFn: () => {
-      return fetchProtectedRoute(`/rating/buildings/undo/${details.updateId}`, {
+      return fetchProtectedRoute(`/rating/buildings/undo`, {
         method: 'POST',
       });
     },
@@ -23,7 +23,9 @@ const RatingUndoUpdate: FC<RatingUndoChangePayload> = ({ details }) => {
         return;
       }
 
-      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      queryClient.invalidateQueries({
+        queryKey: ['building', details.buildingId],
+      });
       const payload = (await response.json()) as UndoRatingUpdateSuccess;
       openNotification({
         type: 'rating-undo-change',

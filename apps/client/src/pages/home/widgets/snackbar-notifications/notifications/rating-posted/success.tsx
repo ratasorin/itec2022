@@ -3,17 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { FC } from 'react';
 import { useSnackbarNotifications } from '../../snackbar.slice';
-import { UndoRatingUpdateSuccess } from '@shared';
+import { InsertRatingSuccess, UndoRatingUpdateSuccess } from '@shared';
 import { queryClient } from 'apps/client/src/main';
 
-const Success: FC<{ ratingId: string; updateId: string }> = ({
-  ratingId,
-  updateId,
-}) => {
+const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
   const { open } = useSnackbarNotifications();
   const undoRatingUpdate = useMutation({
     mutationFn: () => {
-      return fetchProtectedRoute(`/rating/buildings/undo/${updateId}`, {
+      return fetchProtectedRoute(`/rating/buildings/undo/`, {
         method: 'POST',
       });
     },
@@ -24,7 +21,7 @@ const Success: FC<{ ratingId: string; updateId: string }> = ({
         return;
       }
 
-      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      queryClient.invalidateQueries({ queryKey: ['building', buildingId] });
       const payload = (await response.json()) as UndoRatingUpdateSuccess;
       open({
         type: 'rating-undo-change',

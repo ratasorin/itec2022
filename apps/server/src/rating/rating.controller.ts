@@ -1,7 +1,16 @@
-import { Body, Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RatingService } from './rating.service';
 import {
+  BuildingRatings,
   InsertRatingSuccess,
   JwtUser,
   UndoRatingUpdateSuccess,
@@ -43,11 +52,16 @@ export class RatingController {
     );
   }
 
-  @Post('buildings/undo/:update_id')
+  @Post('buildings/undo')
   @UseGuards(JwtAuthGuard)
-  async undoBuildingRatingChanges(
-    @Param('update_id') update_id: string
-  ): Promise<UndoRatingUpdateSuccess> {
-    return await this.ratingService.undoLastUpdate(update_id);
+  async undoBuildingRatingChanges(): Promise<UndoRatingUpdateSuccess> {
+    return await this.ratingService.undoLastBuildingReviewUpdate();
+  }
+
+  @Get('/building/:building_id')
+  async getBuildingRatings(
+    @Param('building_id') building_id: string
+  ): Promise<BuildingRatings> {
+    return await this.ratingService.getBuildingRating(building_id);
   }
 }

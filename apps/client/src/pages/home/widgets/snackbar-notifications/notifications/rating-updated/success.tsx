@@ -6,11 +6,11 @@ import { queryClient } from 'apps/client/src/main';
 import { UndoRatingUpdateSuccess } from '@shared';
 import { FC } from 'react';
 
-const Success: FC<{ updateId: string }> = ({ updateId }) => {
+const Success: FC<{ buildingId: string }> = ({ buildingId }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
   const undoRatingUpdate = useMutation({
     mutationFn: () => {
-      return fetchProtectedRoute(`/rating/buildings/undo/${updateId}`, {
+      return fetchProtectedRoute(`/rating/buildings/undo`, {
         method: 'POST',
       });
     },
@@ -21,7 +21,7 @@ const Success: FC<{ updateId: string }> = ({ updateId }) => {
         return;
       }
 
-      queryClient.invalidateQueries({ queryKey: ['buildings'] });
+      queryClient.invalidateQueries({ queryKey: ['building', buildingId] });
       const payload = (await response.json()) as UndoRatingUpdateSuccess;
       openNotification({
         type: 'rating-undo-change',

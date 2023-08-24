@@ -5,11 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from 'apps/client/src/api/protected';
 import { useSnackbarNotifications } from '../snackbar-notifications/snackbar.slice';
 import useHandleClickOutside from 'apps/client/src/hooks/click-outside';
-import {
-  InsertRatingSuccess,
-  RatingErrorOnInsert,
-  UnknownRatingError,
-} from '@shared';
+import { InsertRatingSuccess, RatingErrorOnInsert } from '@shared';
+import { queryClient } from 'apps/client/src/main';
 
 const RatingPopup = () => {
   const { payload, render } = useRatingPopup(
@@ -69,12 +66,13 @@ const RatingPopup = () => {
         return;
       }
 
-      const { ratingId, updateId } =
-        (await response.json()) as InsertRatingSuccess;
-      if (!ratingId) return;
+      queryClient.invalidateQueries({
+        queryKey: ['building', payload.building_id],
+      });
+      const rating = (await response.json()) as InsertRatingSuccess;
       addNotification({
         type: 'post-rating',
-        details: { success: true, ratingId, updateId },
+        details: { success: true, ...rating },
       });
     },
   });

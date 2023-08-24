@@ -8,17 +8,12 @@ export class BuildingService {
 
   async getBuildings() {
     const result = await this.pool.query<BuildingStats>(`--sql
-    WITH availability_rate AS (
-      SELECT buildings.id as building_id,  100 - ((COUNT(bookings.interval) / COUNT(buildings.id)::float) * 100) AS availability_rate FROM buildings 
+      SELECT buildings.id as building_id, buildings.name as building_name, 100 - ((COUNT(bookings.interval) / COUNT(buildings.id)::float) * 100) AS availability_rate FROM buildings 
       LEFT JOIN floors ON floors.building_id = buildings.id 
       LEFT JOIN offices ON offices.floor_id = floors.id
       LEFT JOIN bookings ON bookings.office_id = offices.id AND bookings.interval @> current_timestamp
-      GROUP BY buildings.id
-    )
-    SELECT buildings.name AS building_name, AVG(availability_rate.availability_rate) AS availability_rate, buildings.id AS building_id, AVG(building_ratings.stars)::int AS stars, COUNT(building_ratings.id) AS reviews FROM buildings
-    LEFT JOIN building_ratings ON building_ratings.building_id = buildings.id
-    LEFT JOIN availability_rate ON availability_rate.building_id = buildings.id
-    GROUP BY buildings.id, buildings.name;
+      GROUP BY buildings.id;
+      ;
     `);
     const buildings = result.rows;
     return buildings;
