@@ -10,11 +10,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@shared": ["libs/shared/src/index.ts"],
-      "@client/*": ["apps/client/src/*"]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],
