@@ -270,4 +270,12 @@ export class RatingService {
       );
     }
   }
+  async cleanBuildingUpdates(building_id: string, user_id: string) {
+    await this.pool.query(
+      `--sql 
+      DELETE FROM building_rating_updates WHERE reviewer_id = $1 AND building_id = $2
+    `,
+      [user_id, building_id]
+    );
+  }
 }

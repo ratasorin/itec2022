@@ -64,4 +64,14 @@ export class RatingController {
   ): Promise<BuildingRatings> {
     return await this.ratingService.getBuildingRating(building_id);
   }
+
+  @Post('/building/updates/clean/:building_id')
+  @UseGuards(JwtAuthGuard)
+  async cleanBuildingUpdates(
+    @Param('building_id') building_id: string,
+    @Req() req: Request
+  ) {
+    const user = req.user as JwtUser;
+    return await this.ratingService.cleanBuildingUpdates(building_id, user.id);
+  }
 }

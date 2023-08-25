@@ -17,15 +17,9 @@ const RatingPopup = () => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    console.log({ payload });
-  }, [payload]);
-  useEffect(() => {
-    console.log(payload.anchorElementId);
     if (!payload.anchorElementId) return;
     const element = document.getElementById(payload.anchorElementId);
     if (!element) return;
-
-    console.log({ element });
 
     setAnchorElement(element);
   }, [payload.anchorElementId]);
@@ -34,6 +28,23 @@ const RatingPopup = () => {
   const addNotification = useSnackbarNotifications((state) => state.open);
 
   useHandleClickOutside('rating-popup', closeRatingPopup, render);
+
+  const cleanupBuildingUpdates = useMutation({
+    mutationFn: async (building_id: string) => {
+      return await fetchProtectedRoute(
+        `/rating/building/updates/clean/${building_id}`,
+        { method: 'POST' }
+      );
+    },
+  });
+
+  useEffect(() => {
+    return () => {
+      if (!render) return;
+
+      cleanupBuildingUpdates.mutate(payload.building_id);
+    };
+  }, [render]);
 
   const postRating = useMutation({
     mutationFn: ({
