@@ -1,13 +1,14 @@
 import { ReactElement, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { BuildingStats } from '@shared';
-import getUser from '../../utils/user';
+import getUser from '@client/utils/user';
 import { Button } from '@mui/material';
-import LayoutWithNavbar from '../../layouts/with-navbar';
-import { SERVER_URL } from '../../constants/server';
+import LayoutWithNavbar from '@client/layouts/with-navbar';
+import { SERVER_URL } from '@client/constants/server';
 import HomeSnackbar from './widgets/snackbar-notifications';
 import { useQuery } from '@tanstack/react-query';
 import Ratings from './components/ratings';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export interface BuildingStateNavigation {
   buildingId: string;
@@ -46,7 +47,13 @@ function Home(): ReactElement {
   });
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return (
+      <LayoutWithNavbar>
+        <div className="flex h-screen w-screen items-center justify-center">
+          <CircularProgress className="text-black" />
+        </div>
+      </LayoutWithNavbar>
+    );
   }
 
   if (isError) {

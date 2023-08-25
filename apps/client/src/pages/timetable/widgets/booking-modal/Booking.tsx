@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useBookingModal } from './booking.slice';
 import Picker from '../../components/time-picker';
 import ReactDOM from 'react-dom';

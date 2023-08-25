@@ -6,6 +6,7 @@ import { fetchProtectedRoute } from '@client/api/protected';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { UndoRatingUpdateSuccess } from '@shared';
 import { queryClient } from '@client/main';
+import StarIcon from '@mui/icons-material/Star';
 
 const RatingUndoUpdate: FC<RatingUndoChangePayload> = ({ details }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
@@ -40,17 +41,57 @@ const RatingUndoUpdate: FC<RatingUndoChangePayload> = ({ details }) => {
       </div>
       <div className="mr-2 flex flex-col">
         <span className="font-semibold"> Successfully reverted changes </span>
-        <span className="mb-2 text-gray-500">
-          Before the undo the state was {JSON.stringify(details.beforeUndo)}.
-          Now the state is {JSON.stringify(details.afterUndo)}. On the next undo
-          the state is going to be {JSON.stringify(details.nextUndo)}
-        </span>
+        <div className="mb-4 text-gray-500">
+          The rating:
+          <div className="grid grid-cols-3 grid-rows-2">
+            <span className="col-start-1 row-start-1 mr-2 p-1">
+              Before undo:
+            </span>
+            <span className="col-start-1 row-start-2 inline-flex max-h-min max-w-min items-center justify-center self-center justify-self-start rounded-md border-2 border-zinc-200 px-2 shadow-sm">
+              {details.beforeUndo.deleted ? (
+                <span>DELETED</span>
+              ) : (
+                <>
+                  <span className="mt-[2px] mr-1 text-lg">
+                    {details.beforeUndo.stars}
+                  </span>
+                  <StarIcon className="h-5 w-5 text-amber-400" />
+                </>
+              )}
+            </span>
+            <span className="col-start-2 row-start-1 p-1">Now:</span>
+            <span className="col-start-2 row-start-2 inline-flex items-center justify-center self-center justify-self-start rounded-md border-2 border-zinc-200 px-2 shadow-sm">
+              {details.afterUndo.deleted ? (
+                <span>DELETED</span>
+              ) : (
+                <>
+                  <span className="mt-[2px] mr-1 text-lg">
+                    {details.afterUndo.stars}
+                  </span>
+                  <StarIcon className="h-5 w-5 text-amber-400" />
+                </>
+              )}
+            </span>
+
+            <span className="col-start-3 row-start-1 p-1">After undo:</span>
+            <span className="col-start-3 row-start-2 self-center justify-self-start">
+              {details.nextUndo.deleted === null ||
+              details.nextUndo.stars === null
+                ? 'NULL'
+                : null}
+            </span>
+          </div>
+        </div>
         <div className="mb-1 flex flex-row">
           <button
             onClick={() => {
               undoRatingUpdate.mutate();
             }}
-            className="mr-3 rounded-md border border-slate-500 py-1 px-2 text-slate-700"
+            className="mr-3 rounded-md border border-slate-500 py-1 px-2 text-slate-700 disabled:border-slate-400 disabled:text-slate-400"
+            disabled={
+              details.nextUndo.deleted === null ||
+              details.nextUndo.stars === null
+            }
           >
             UNDO
           </button>

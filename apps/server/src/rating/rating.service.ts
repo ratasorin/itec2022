@@ -62,11 +62,12 @@ export class RatingService {
             [stars, reviewer_id, building_id]
           )
         ).rows;
+
         await this.pool.query(
           `--sql
-              INSERT INTO building_rating_updates(stars, reviewer_id, building_id) VALUES ($1, $2, $3);
-            `,
-          [stars, reviewer_id, building_id]
+            INSERT INTO building_rating_updates(reviewer_id, building_id, deleted) VALUES ($1, $2, true);
+          `,
+          [reviewer_id, building_id]
         );
 
         const ratingId = insertBuildingRatingQuery[0].id as string;
@@ -79,17 +80,17 @@ export class RatingService {
       const updateBuildingRatingQuery = (
         await this.pool.query(
           `--sql
-              UPDATE building_ratings SET stars = $1, deleted = false WHERE reviewer_id = $2 AND building_id = $3 RETURNING id;
-            `,
+            UPDATE building_ratings SET stars = $1, deleted = false WHERE reviewer_id = $2 AND building_id = $3 RETURNING id;
+          `,
           [stars, reviewer_id, building_id]
         )
       ).rows;
 
       await this.pool.query(
         `--sql
-              INSERT INTO building_rating_updates(stars, reviewer_id, building_id) VALUES ($1, $2, $3) RETURNING id;
-            `,
-        [stars, reviewer_id, building_id]
+          INSERT INTO building_rating_updates(reviewer_id, building_id, deleted) VALUES ($1, $2, true) RETURNING id;
+        `,
+        [reviewer_id, building_id]
       );
 
       const ratingId = updateBuildingRatingQuery[0].id as string;
@@ -123,6 +124,33 @@ export class RatingService {
     stars: number
   ): Promise<UpdateRatingSuccess> {
     try {
+      const currentRatingState = (
+        await this.pool.query(
+          `--sql 
+        SELECT stars, deleted FROM building_ratings WHERE building_id = $1 AND reviewer_id = $2;
+      `,
+          [building_id, reviewer_id]
+        )
+      ).rows[0];
+
+      if (!currentRatingState)
+        throw new HttpException(
+          'THERE WAS NOT A REVIEW FOR: ' + building_id + ' AND: ' + reviewer_id,
+          HttpStatus.INTERNAL_SERVER_ERROR
+        );
+
+      await this.pool.query(
+        `--sql
+          INSERT INTO building_rating_updates (stars, deleted, reviewer_id, building_id) VALUES ($1, $2, $3, $4);
+      `,
+        [
+          currentRatingState.stars,
+          currentRatingState.deleted,
+          reviewer_id,
+          building_id,
+        ]
+      );
+
       const { id: ratingId } = (
         await this.pool.query(
           `--sql
@@ -131,13 +159,6 @@ export class RatingService {
           [stars, reviewer_id, building_id]
         )
       ).rows[0];
-
-      await this.pool.query(
-        `--sql
-          INSERT INTO building_rating_updates (stars, reviewer_id, building_id) VALUES ($1, $2, $3) RETURNING id;
-      `,
-        [stars, reviewer_id, building_id]
-      );
 
       return { ratingId, buildingId: building_id };
     } catch (e) {
@@ -153,7 +174,56 @@ export class RatingService {
 
   async undoLastBuildingReviewUpdate(): Promise<UndoRatingUpdateSuccess> {
     try {
-      const previousRating = (
+      const ratingAfterUndo = (
+        await this.pool.query(
+          `--sql
+          SELECT * FROM building_rating_updates
+          ORDER BY updated_at DESC 
+          LIMIT 1;
+        `
+        )
+      ).rows[0];
+
+      if (!ratingAfterUndo) {
+        throw new HttpException(
+          {
+            cause: 'MISCELLANEOUS',
+            details: 'UNDO STACK EMPTY!',
+          } as UnknownRatingError,
+          HttpStatus.INTERNAL_SERVER_ERROR
+        );
+      }
+
+      // remove the last update
+      await this.pool.query(
+        `--sql
+        DELETE FROM building_rating_updates WHERE id = (SELECT id FROM building_rating_updates ORDER BY updated_at DESC LIMIT 1)
+      `
+      );
+
+      const ratingBeforeUndo = (
+        await this.pool.query(
+          `--sql
+          SELECT deleted, stars FROM building_ratings WHERE building_id = $1 AND reviewer_id = $2;
+        `,
+          [ratingAfterUndo.building_id, ratingAfterUndo.reviewer_id]
+        )
+      ).rows[0];
+
+      // update the state
+      await this.pool.query(
+        `--sql
+        UPDATE building_ratings SET deleted = $1, stars = $2 WHERE reviewer_id = $3 AND building_id = $4;
+      `,
+        [
+          ratingAfterUndo.deleted,
+          ratingAfterUndo.stars,
+          ratingAfterUndo.reviewer_id,
+          ratingAfterUndo.building_id,
+        ]
+      );
+
+      const nextUndoState = (
         await this.pool.query(
           `--sql
           SELECT * FROM building_rating_updates
@@ -163,97 +233,36 @@ export class RatingService {
         `
         )
       ).rows[0];
-      if (!previousRating) {
-        const currentRating = (
-          await this.pool.query(
-            `--sql 
-          DELETE FROM building_rating_updates WHERE id = (SELECT id FROM building_rating_updates ORDER BY updated_at DESC LIMIT 1) RETURNING reviewer_id, building_id        
-        `
-          )
-        ).rows[0];
-        if (!currentRating)
-          throw new HttpException(
-            {
-              cause: 'MISCELLANEOUS',
-              details: 'UNDO STACK EMPTY!',
-            } as UnknownRatingError,
-            HttpStatus.INTERNAL_SERVER_ERROR
-          );
 
-        const { stars } = (
-          await this.pool.query(
-            `--sql
-          UPDATE building_ratings SET deleted = true WHERE reviewer_id = $1 AND building_id = $2 RETURNING stars;
-        `,
-            [currentRating.reviewer_id, currentRating.building_id]
-          )
-        ).rows[0];
-
+      if (!nextUndoState) {
         return {
-          afterUndo: { deleted: true, stars },
-          beforeUndo: { deleted: false, stars },
+          afterUndo: {
+            deleted: ratingAfterUndo.deleted,
+            stars: ratingAfterUndo.stars,
+          },
+          beforeUndo: {
+            deleted: ratingBeforeUndo.deleted,
+            stars: ratingBeforeUndo.stars,
+          },
+          buildingId: ratingAfterUndo.building_id,
           nextUndo: { deleted: null, stars: null },
-          buildingId: currentRating.building_id,
         };
       }
 
-      const { reviewer_id, building_id, deleted, stars } = previousRating;
-
-      const nextUndoState = (
-        await this.pool.query(
-          `--sql
-          SELECT * FROM building_rating_updates
-          ORDER BY updated_at DESC 
-          LIMIT 1
-          OFFSET 2;
-        `
-        )
-      ).rows[0];
-
-      const beforeUndoState = (
-        await this.pool.query(
-          `--sql
-          SELECT deleted, stars FROM building_ratings WHERE reviewer_id = $1 AND building_id = $2
-      `,
-          [reviewer_id, building_id]
-        )
-      ).rows[0];
-
-      if (!nextUndoState)
-        return {
-          afterUndo: { deleted, stars },
-          beforeUndo: {
-            deleted: beforeUndoState.deleted,
-            stars: beforeUndoState.stars,
-          },
-          buildingId: building_id,
-          nextUndo: { deleted: null, stars: null },
-        };
-
-      this.pool.query(
-        `--sql
-        DELETE FROM building_rating_updates WHERE id = (SELECT id FROM building_rating_updates ORDER BY updated_at DESC LIMIT 1)
-      `
-      );
-
-      this.pool.query(
-        `--sql
-        UPDATE building_ratings SET deleted = $1, stars = $2 WHERE reviewer_id = $3 AND building_id = $4 RETURNING deleted, stars;
-      `,
-        [deleted, stars, reviewer_id, building_id]
-      );
-
       return {
         beforeUndo: {
-          deleted: beforeUndoState.deleted,
-          stars: beforeUndoState.stars,
+          deleted: ratingBeforeUndo.deleted,
+          stars: ratingBeforeUndo.stars,
         },
-        afterUndo: { deleted, stars },
+        afterUndo: {
+          deleted: ratingAfterUndo.deleted,
+          stars: ratingAfterUndo.stars,
+        },
         nextUndo: {
           deleted: nextUndoState.deleted,
           stars: nextUndoState.stars,
         },
-        buildingId: building_id,
+        buildingId: ratingAfterUndo.building_id,
       };
     } catch (e) {
       console.error(e);
@@ -270,6 +279,7 @@ export class RatingService {
       );
     }
   }
+
   async cleanBuildingUpdates(building_id: string, user_id: string) {
     await this.pool.query(
       `--sql 
