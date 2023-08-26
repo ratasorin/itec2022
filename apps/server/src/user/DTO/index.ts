@@ -1,5 +1,5 @@
 import { UserDB } from '@shared';
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserDTO implements Omit<UserDB, 'id' | 'admin'> {
   @IsNotEmpty()

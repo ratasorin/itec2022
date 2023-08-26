@@ -1,14 +1,5 @@
-// import { Injectable } from '@nestjs/common';
-// import { MailerService } from '@nestjs-modules/mailer';
-
 import { Injectable } from '@nestjs/common';
 import { Transporter, createTransport } from 'nodemailer';
-
-// @Injectable()
-// export class MailService {
-//   constructor(private readonly mailerService: MailerService) {}
-
-// }
 
 @Injectable()
 export class MailService {

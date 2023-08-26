@@ -7,8 +7,8 @@ import {
   UnknownRatingError,
   UpdateRatingSuccess,
 } from '@shared';
-import { PG_ERROR_CODES } from 'apps/server/database/utils/errors';
-import { PgError } from 'apps/server/database/utils/interface/pg-error';
+import { PG_ERROR_CODES } from '@server/database/utils/errors';
+import { PgError } from '@server/database/utils/interface/pg-error';
 import { Pool } from 'pg';
 
 @Injectable()

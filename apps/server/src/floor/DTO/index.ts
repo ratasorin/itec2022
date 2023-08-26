@@ -1,11 +1,4 @@
-import {
-  IsArray,
-  IsNumber,
-  IsNumberString,
-  IsString,
-  IsUUID,
-  ValidateIf,
-} from 'class-validator';
+import { IsNumber, IsString, IsUUID, ValidateIf } from 'class-validator';
 
 export class FloorDTO {
   @IsString()

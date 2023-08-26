@@ -35,7 +35,7 @@ export class BookingService {
     if (!firstBooking) return [];
 
     const currentTimestamp = new Date();
-    let firstIntervalBooked =
+    const firstIntervalBooked =
       currentTimestamp >= new Date(firstBooking.booked_from) &&
       currentTimestamp <= new Date(firstBooking.booked_until);
 
