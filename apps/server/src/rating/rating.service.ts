@@ -223,13 +223,13 @@ export class RatingService {
         ]
       );
 
+      // do not use any offset because we already deleted the undo state before it, so this is the undo state that follows
       const nextUndoState = (
         await this.pool.query(
           `--sql
           SELECT * FROM building_rating_updates
           ORDER BY updated_at DESC 
-          LIMIT 1
-          OFFSET 1;
+          LIMIT 1;
         `
         )
       ).rows[0];
