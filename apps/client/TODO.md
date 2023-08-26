@@ -12,3 +12,4 @@
 - [x] Fix all eslint errors (25.08.2023)
 - [] Allow user to delete a review (25.08.2023)
 - [] Batch queries inside the same method inside a transaction (25.08.2023)
+- [x] Add an overflow-y to the snackbar container (25.08.2023)
