@@ -3,7 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from '@client/api/protected';
 import { FC } from 'react';
 import { useSnackbarNotifications } from '../../snackbar.slice';
-import { InsertRatingSuccess, UndoRatingUpdateSuccess } from '@shared';
+import {
+  InsertRatingSuccess,
+  UndoRatingUpdateSuccess,
+  UnknownRatingError,
+} from '@shared';
 import { queryClient } from '@client/main';
 
 const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
@@ -14,10 +18,21 @@ const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
         method: 'POST',
       });
     },
+
     onSuccess: async (response) => {
       if (!response.ok) {
-        // TODO: better error handling here!
-        open({ type: 'default-error' });
+        const error = (await response.json()) as UnknownRatingError | undefined;
+        console.log({ error });
+        if (!error?.cause) {
+          open({ type: 'default-error' });
+          return;
+        }
+
+        open({
+          type: 'rating-undo-change',
+          details: { success: false, details: error.details },
+        });
+
         return;
       }
 

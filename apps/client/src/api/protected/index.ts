@@ -15,5 +15,7 @@ export const fetchProtectedRoute = async (
     },
   });
 
+  console.log('FROM FETCH PROTECTED:', { response });
+
   return response;
 };

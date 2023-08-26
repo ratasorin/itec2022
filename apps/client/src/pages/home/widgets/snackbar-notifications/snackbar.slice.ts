@@ -34,9 +34,11 @@ export interface RatingUpdatedPayload {
 
 export interface RatingUndoChangePayload {
   type: 'rating-undo-change';
-  details: {
-    success: true;
-  } & UndoRatingUpdateSuccess;
+  details:
+    | ({
+        success: true;
+      } & UndoRatingUpdateSuccess)
+    | { success: false; details: string };
 }
 
 type SnackbarNotificationsPayload =

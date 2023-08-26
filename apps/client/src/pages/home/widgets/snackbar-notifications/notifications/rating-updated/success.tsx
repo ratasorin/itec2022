@@ -3,21 +3,31 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from '@client/api/protected';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { queryClient } from '@client/main';
-import { UndoRatingUpdateSuccess } from '@shared';
+import { UndoRatingUpdateSuccess, UnknownRatingError } from '@shared';
 import { FC } from 'react';
 
 const Success: FC<{ buildingId: string }> = ({ buildingId }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
   const undoRatingUpdate = useMutation({
     mutationFn: () => {
-      return fetchProtectedRoute(`/rating/buildings/undo`, {
+      return fetchProtectedRoute(`/rating/buildings/undo/`, {
         method: 'POST',
       });
     },
     onSuccess: async (response) => {
       if (!response.ok) {
-        // TODO: better error handling here!
-        openNotification({ type: 'default-error' });
+        const error = (await response.json()) as UnknownRatingError | undefined;
+        console.log({ error });
+        if (!error?.cause) {
+          openNotification({ type: 'default-error' });
+          return;
+        }
+
+        openNotification({
+          type: 'rating-undo-change',
+          details: { success: false, details: error.details },
+        });
+
         return;
       }
 
