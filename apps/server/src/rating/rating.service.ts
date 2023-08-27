@@ -135,7 +135,10 @@ export class RatingService {
 
       if (!currentRatingState)
         throw new HttpException(
-          'THERE WAS NOT A REVIEW FOR: ' + building_id + ' AND: ' + reviewer_id,
+          {
+            cause: 'MISCELLANEOUS',
+            details: 'You cannot update a non-existing record!',
+          } as UnknownRatingError,
           HttpStatus.INTERNAL_SERVER_ERROR
         );
 
@@ -163,6 +166,7 @@ export class RatingService {
       return { ratingId, buildingId: building_id };
     } catch (e) {
       console.error(e);
+      if (e instanceof HttpException) throw e;
       const error: PgError = e;
 
       throw new HttpException(
@@ -287,5 +291,58 @@ export class RatingService {
     `,
       [user_id, building_id]
     );
+  }
+
+  async deleteBuildingRating(building_id: string, reviewer_id: string) {
+    try {
+      const currentRatingState = (
+        await this.pool.query(
+          `--sql 
+        SELECT stars, deleted FROM building_ratings WHERE building_id = $1 AND reviewer_id = $2;
+      `,
+          [building_id, reviewer_id]
+        )
+      ).rows[0];
+
+      if (!currentRatingState)
+        throw new HttpException(
+          {
+            cause: 'MISCELLANEOUS',
+            details: `You cannot delete a non-existing record!`,
+          } as UnknownRatingError,
+          HttpStatus.INTERNAL_SERVER_ERROR
+        );
+
+      await this.pool.query(
+        `--sql
+          INSERT INTO building_rating_updates (stars, deleted, reviewer_id, building_id) VALUES ($1, $2, $3, $4);
+      `,
+        [
+          currentRatingState.stars,
+          currentRatingState.deleted,
+          reviewer_id,
+          building_id,
+        ]
+      );
+
+      await this.pool.query(
+        `--sql
+      UPDATE building_ratings SET deleted = true WHERE reviewer_id = $1 AND building_id = $2;
+    `,
+        [reviewer_id, building_id]
+      );
+    } catch (e) {
+      console.error(e);
+      if (e instanceof HttpException) throw e;
+      const error: PgError = e;
+
+      throw new HttpException(
+        {
+          cause: 'MISCELLANEOUS',
+          details: error.detail,
+        } as UnknownRatingError,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }

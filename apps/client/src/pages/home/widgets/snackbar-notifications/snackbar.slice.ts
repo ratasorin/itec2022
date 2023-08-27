@@ -41,11 +41,25 @@ export interface RatingUndoChangePayload {
     | { success: false; details: string };
 }
 
+export interface RatingDeletedPayload {
+  type: 'delete-rating';
+  details:
+    | {
+        success: true;
+        building_id: string;
+      }
+    | {
+        success: false;
+        error: string;
+      };
+}
+
 type SnackbarNotificationsPayload =
   | RatingAddedPayload
   | RatingUndoChangePayload
   | DefaultErrorPayload
-  | RatingUpdatedPayload;
+  | RatingUpdatedPayload
+  | RatingDeletedPayload;
 
 export interface SnackbarNotificationsState {
   payload: SnackbarNotificationsPayload;

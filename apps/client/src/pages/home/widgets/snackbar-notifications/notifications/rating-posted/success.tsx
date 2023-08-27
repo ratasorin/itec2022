@@ -9,6 +9,7 @@ import {
   UnknownRatingError,
 } from '@shared';
 import { queryClient } from '@client/main';
+import DeleteButton from '@home/widgets/snackbar-notifications/notifications/components/delete-button';
 
 const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
   const { open } = useSnackbarNotifications();
@@ -63,9 +64,7 @@ const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
           >
             UNDO
           </button>
-          <button className="mr-3 rounded-md border border-red-500 py-1 px-2 text-red-500">
-            DELETE
-          </button>
+          <DeleteButton buildingId={buildingId} />
         </div>
       </div>
     </>

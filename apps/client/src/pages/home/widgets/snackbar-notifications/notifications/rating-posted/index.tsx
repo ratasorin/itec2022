@@ -6,7 +6,7 @@ import { useSnackbarNotifications } from '../../snackbar.slice';
 import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from '@client/api/protected';
 import Success from './success';
-import UnidentifiedError from './unidentified-error';
+import UnidentifiedError from '@home/widgets/snackbar-notifications/notifications/components/unidentified-error';
 import { queryClient } from '@client/main';
 import { UpdateRatingSuccess } from '@shared';
 

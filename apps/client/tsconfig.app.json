@@ -6,7 +6,8 @@
     "baseUrl": "../../",
     "paths": {
       "@shared": ["libs/shared/src/index.ts"],
-      "@client/*": ["apps/client/src/*"]
+      "@client/*": ["apps/client/src/*"],
+      "@home/*": ["apps/client/src/pages/home/*"]
     }
   },
   "files": [

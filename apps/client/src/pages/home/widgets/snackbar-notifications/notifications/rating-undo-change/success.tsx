@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchProtectedRoute } from '@client/api/protected';
 import { queryClient } from '@client/main';
 import CheckIcon from '@mui/icons-material/Check';
-
+import DeleteButton from '@home/widgets/snackbar-notifications/notifications/components/delete-button';
 const Success: FC<{ details: UndoRatingUpdateSuccess }> = ({ details }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
 
@@ -113,9 +113,7 @@ const Success: FC<{ details: UndoRatingUpdateSuccess }> = ({ details }) => {
         >
           UNDO
         </button>
-        <button className="mr-3 rounded-md border border-red-500 py-1 px-2 text-red-500">
-          DELETE
-        </button>
+        <DeleteButton buildingId={details.buildingId} />
       </div>
     </div>
   );

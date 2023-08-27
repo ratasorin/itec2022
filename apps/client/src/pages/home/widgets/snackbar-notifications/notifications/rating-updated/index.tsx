@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { RatingUpdatedPayload } from '../../snackbar.slice';
 import Success from './success';
-import UnidentifiedError from '../rating-posted/unidentified-error';
+import UnidentifiedError from '@home/widgets/snackbar-notifications/notifications/components/unidentified-error';
 
 const RatingUpdated: FC<RatingUpdatedPayload> = ({ details }) => {
   return details.success ? (

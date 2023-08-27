@@ -6,6 +6,7 @@ import DefaultNotificationError from './notifications/default-error';
 import RatingUpdated from './notifications/rating-updated';
 import RatingUndoUpdate from './notifications/rating-undo-change';
 import NotificationBase from './notifications/components/notification-base';
+import RatingDeleted from './notifications/rating-deleted';
 
 const snackbarParent = document.getElementById('snackbar');
 if (!snackbarParent) throw new Error('CANNOT RENDER SNACKBAR!');
@@ -49,6 +50,8 @@ const HomeSnackbar = () => {
               <RatingUpdated {...payload} />
             ) : payload.type === 'rating-undo-change' ? (
               <RatingUndoUpdate {...payload} />
+            ) : payload.type === 'delete-rating' ? (
+              <RatingDeleted {...payload} />
             ) : null}
           </NotificationBase>
         );

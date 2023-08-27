@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -73,5 +74,15 @@ export class RatingController {
   ) {
     const user = req.user as JwtUser;
     return await this.ratingService.cleanBuildingUpdates(building_id, user.id);
+  }
+
+  @Post('/building/delete/:building_id')
+  @UseGuards(JwtAuthGuard)
+  async deleteBuildingRating(
+    @Param('building_id') building_id: string,
+    @Req() req: Request
+  ) {
+    const user = req.user as JwtUser;
+    return await this.ratingService.deleteBuildingRating(building_id, user.id);
   }
 }

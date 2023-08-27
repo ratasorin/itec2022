@@ -46,9 +46,9 @@ const Success: FC<{ buildingId: string }> = ({ buildingId }) => {
         <CheckIcon className="h-6 w-6" />
       </div>
       <div className="mr-2 flex flex-col">
-        <span className="font-semibold"> Rating successfully modified </span>
+        <span className="font-semibold"> Rating successfully deleted </span>
         <span className="mb-2 text-gray-500">
-          Your rating has been successfully modified! Thank you!
+          Your rating has been successfully deleted! Thank you
         </span>
         <div className="mb-1 flex flex-row">
           <button
@@ -59,7 +59,7 @@ const Success: FC<{ buildingId: string }> = ({ buildingId }) => {
           >
             UNDO
           </button>
-          <DeleteButton buildingId={buildingId} />
+          <DeleteButton buildingId={buildingId}></DeleteButton>
         </div>
       </div>
     </>
