@@ -9,7 +9,7 @@ const useTimetable = (id: string) => {
     if (!id) return;
 
     const getTimetable = async () => {
-      const response = await fetch(SERVER_URL + `booking/timetable/${id}`);
+      const response = await fetch(SERVER_URL + `/booking/timetable/${id}`);
       const timetable: OfficeTimeIntervalAPI[] = await response.json();
       if (!timetable) return;
 
