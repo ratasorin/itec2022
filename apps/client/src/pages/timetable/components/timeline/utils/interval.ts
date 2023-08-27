@@ -36,7 +36,7 @@ export const drawInterval = ({
       const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
 
       let left = rect.left,
-        width = rect.right;
+        width = rect.width;
       const { top, height } = rect;
 
       if (selectedStart >= start && selectedEnd <= end) {
@@ -52,6 +52,7 @@ export const drawInterval = ({
         left = padding;
         width = xScale(new Date(start)) + containerWidth;
       }
+
       openPickerPopup({
         id,
         interval: {
