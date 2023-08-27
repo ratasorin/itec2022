@@ -71,7 +71,6 @@ const useDrawTimeline = (id: string) => {
           const start = xScale.invert(x1);
           const end = xScale.invert(x2);
 
-          console.log('SHOULD ALTER BOUNDS');
           alterBounds({
             interval: { end: end.getTime(), start: start.getTime() },
             update: 'selectedRange',

@@ -1,5 +1,5 @@
 import { UndoRatingUpdateSuccess, UnknownRatingError } from '@shared';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { useSnackbarNotifications } from '../../snackbar.slice';
 import { useMutation } from '@tanstack/react-query';
@@ -10,6 +10,9 @@ import CheckIcon from '@mui/icons-material/Check';
 const Success: FC<{ details: UndoRatingUpdateSuccess }> = ({ details }) => {
   const openNotification = useSnackbarNotifications((state) => state.open);
 
+  useEffect(() => {
+    console.log('THE NEXT UNDO: ', { nextUndo: details.nextUndo });
+  }, [details.nextUndo]);
   const undoRatingUpdate = useMutation({
     mutationFn: () => {
       return fetchProtectedRoute(`/rating/buildings/undo/`, {
@@ -19,7 +22,7 @@ const Success: FC<{ details: UndoRatingUpdateSuccess }> = ({ details }) => {
     onSuccess: async (response) => {
       if (!response.ok) {
         const error = (await response.json()) as UnknownRatingError | undefined;
-        console.log({ error });
+
         if (!error?.cause) {
           openNotification({ type: 'default-error' });
           return;
@@ -81,11 +84,20 @@ const Success: FC<{ details: UndoRatingUpdateSuccess }> = ({ details }) => {
           </span>
 
           <span className="col-start-3 row-start-1 p-1">After undo:</span>
-          <span className="col-start-3 row-start-2 self-center justify-self-start">
+          <span className="col-start-3 row-start-2 self-center justify-self-start rounded-md border-2 border-zinc-200 px-2 shadow-sm">
             {details.nextUndo.deleted === null ||
-            details.nextUndo.stars === null
-              ? 'NULL'
-              : null}
+            details.nextUndo.stars === null ? (
+              'NULL'
+            ) : details.nextUndo.deleted ? (
+              <span>DELETE</span>
+            ) : (
+              <>
+                <span className="mt-[2px] mr-1 text-lg">
+                  {details.nextUndo.stars}
+                </span>
+                <StarIcon className="h-5 w-5 text-amber-400" />
+              </>
+            )}
           </span>
         </div>
       </div>

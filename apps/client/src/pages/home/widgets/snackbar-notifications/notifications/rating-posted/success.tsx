@@ -22,7 +22,7 @@ const Success: FC<InsertRatingSuccess> = ({ buildingId }) => {
     onSuccess: async (response) => {
       if (!response.ok) {
         const error = (await response.json()) as UnknownRatingError | undefined;
-        console.log({ error });
+
         if (!error?.cause) {
           open({ type: 'default-error' });
           return;

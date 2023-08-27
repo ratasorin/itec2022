@@ -94,12 +94,6 @@ const useHandleClickOutside = (
       if (!DOMElement || !event.target) return false;
       const target = event.target as HTMLElement;
 
-      console.log({
-        domElementIsChildOfRoot: !!target.closest('#root'),
-        domeElementIsChildOfWidgets: !!target.closest('#widgets'),
-        domeElementIsChildOfSnackbar: !!target.closest('#snackbar'),
-      });
-
       if (!target.closest('#root') && !target.closest('#widgets')) return false;
 
       if (

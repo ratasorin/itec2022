@@ -17,7 +17,7 @@ const Success: FC<{ buildingId: string }> = ({ buildingId }) => {
     onSuccess: async (response) => {
       if (!response.ok) {
         const error = (await response.json()) as UnknownRatingError | undefined;
-        console.log({ error });
+
         if (!error?.cause) {
           openNotification({ type: 'default-error' });
           return;
