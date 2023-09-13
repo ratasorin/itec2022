@@ -11,6 +11,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailModule } from './mail/mail.module';
 import { RatingModule } from './rating/rating.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { RatingModule } from './rating/rating.module';
     RatingModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: join(__dirname, '.env'),
     }),
     MailModule,
   ],

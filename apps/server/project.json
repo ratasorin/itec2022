@@ -10,6 +10,7 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
+        "assets": ["apps/server/src/.env"],
         "outputPath": "apps/server/dist",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
