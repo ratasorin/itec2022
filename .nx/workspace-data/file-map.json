@@ -118,66 +118,6 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "prettier.config.js",
-        "hash": "9656984136558838236"
-      },
-      {
-        "file": "babel.config.json",
-        "hash": "6619451454968768629"
-      },
-      {
-        "file": "libs/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "nx.json",
-        "hash": "14695060950283349364"
-      },
-      {
-        "file": ".eslintignore",
-        "hash": "13404745306227114823"
-      },
-      {
-        "file": ".editorconfig",
-        "hash": "11532813898455409296"
-      },
-      {
-        "file": "migrations.json",
-        "hash": "6950024373655032533"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "17207399594127257225"
-      },
-      {
-        "file": ".eslintrc.json",
-        "hash": "9188201835120897554"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "1324685984948235314"
-      },
-      {
-        "file": "README.md",
-        "hash": "6748844420118798709"
-      },
-      {
-        "file": "package.json",
-        "hash": "17770826436290588230"
-      },
-      {
-        "file": "tsconfig.base.json",
-        "hash": "3619375313827708720"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "6481884873699543387"
-      },
-      {
-        "file": "apps/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
         "file": "jest.config.ts",
         "hash": "3407785570333453138"
       },
@@ -186,16 +126,76 @@
         "hash": "11810713488198132402"
       },
       {
-        "file": ".vscode/settings.json",
-        "hash": "334380260034571495"
+        "file": ".gitignore",
+        "hash": "17207399594127257225"
+      },
+      {
+        "file": "README.md",
+        "hash": "6748844420118798709"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "nx.json",
+        "hash": "14695060950283349364"
       },
       {
         "file": "package-lock.json",
         "hash": "6337097465404261465"
       },
       {
+        "file": ".editorconfig",
+        "hash": "11532813898455409296"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "6481884873699543387"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "1324685984948235314"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "13404745306227114823"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "6619451454968768629"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "9188201835120897554"
+      },
+      {
+        "file": "prettier.config.js",
+        "hash": "9656984136558838236"
+      },
+      {
         "file": ".prettierrc",
         "hash": "6820402234827505055"
+      },
+      {
+        "file": "package.json",
+        "hash": "17770826436290588230"
+      },
+      {
+        "file": "migrations.json",
+        "hash": "6950024373655032533"
+      },
+      {
+        "file": "libs/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "3619375313827708720"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "334380260034571495"
       }
     ],
     "projectFileMap": {
@@ -416,7 +416,7 @@
         },
         {
           "file": "apps/server/src/floor/floor.controller.ts",
-          "hash": "9935769394947060780",
+          "hash": "6824157495568083914",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -723,7 +723,11 @@
         },
         {
           "file": "apps/client/src/pages/account/index.tsx",
-          "hash": "16316392443098952112"
+          "hash": "9814212707123229955",
+          "deps": [
+            "npm:@mui/material",
+            "npm:react"
+          ]
         },
         {
           "file": "apps/client/src/pages/admin/index.tsx",
@@ -1072,6 +1076,14 @@
         {
           "file": "apps/client/tsconfig.spec.json",
           "hash": "12295772200706027236"
+        },
+        {
+          "file": "apps/client/src/pages/account/components/offices-view/index.tsx",
+          "hash": "4527370417378333341"
+        },
+        {
+          "file": "apps/client/src/pages/account/components/bookins-view/index.tsx",
+          "hash": "1039146690710156017"
         }
       ],
       "shared": [

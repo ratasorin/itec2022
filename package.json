@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "database": "ts-node apps/server/database/seed.ts"
+    "database": "ts-node apps/server/database/seed.ts",
+    "generate-schema": "ts-node apps/server/database/generate-schema.ts"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@tanstack/react-query": "^4.33.0",
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^9.0.2",
+    "@vramework/schemats": "^1.0.8",
     "babel-plugin-macros": "^3.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",

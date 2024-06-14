@@ -13,4 +13,13 @@ export class UserController {
     const user = await this.service.getUserBy(attachedUser.id);
     return user;
   }
+
+  @Get('buildings')
+  @UseGuards(JwtAuthGuard)
+  async getBuildingsOwnedByUser(@Body() attachedUser: JwtUser) {
+    const buildings = await this.service.getBuildingsOwnedByUser(
+      attachedUser.id
+    );
+    return buildings;
+  }
 }

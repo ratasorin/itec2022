@@ -36,4 +36,6 @@ export class UserService {
     const user = response.rows[0];
     return user;
   }
+
+  async getBuildingsOwnedByUser(user_id: string): Promise<{}> {}
 }

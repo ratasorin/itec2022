@@ -34,10 +34,7 @@ export class FloorController {
 
   @Post('/:building_id')
   @UseGuards(JwtAuthGuard)
-  async createFloor(
-    @Param('building_id') building_id: string,
-    @Body() floor: FloorDTO
-  ) {
+  async createFloor(@Param('building_id') building_id: string) {
     return await this.floorService.createFloor(building_id);
   }
 
