@@ -31,7 +31,7 @@ const NotificationPopup = () => {
         setIsPlaying(true);
       }}
       id="notification-popup"
-      className="absolute bottom-10 right-10 flex flex-row items-center rounded-lg border-2 border-slate-200 bg-white p-3 font-mono font-medium text-slate-800 shadow-lg"
+      className="font-poppins absolute bottom-10 right-10 flex flex-row items-center rounded-lg border-2 border-slate-200 bg-white p-3 font-medium text-slate-800 shadow-lg"
     >
       {payload.success ? (
         <DoneIcon className="mr-4 text-green-600" />
@@ -42,13 +42,13 @@ const NotificationPopup = () => {
         <span className="mr-2">{payload.message}</span>
         <div className="flex flex-row">
           <Button
-            className="border-black font-mono text-black hover:border-black hover:bg-black/5"
+            className="font-poppins border-black text-black hover:border-black hover:bg-black/5"
             onClick={() => setIsPlaying(false)}
           >
             KEEP
           </Button>
           <Button
-            className="border-black font-mono text-black hover:border-black hover:bg-black/5"
+            className="font-poppins border-black text-black hover:border-black hover:bg-black/5"
             onClick={() => closeNotificationPopup()}
           >
             DISMISS

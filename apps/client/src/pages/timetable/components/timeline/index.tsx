@@ -45,7 +45,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
 
   return (
     <div
-      className="mt-10 flex w-full flex-col items-start justify-center font-mono"
+      className="font-poppins mt-10 flex w-full flex-col items-start justify-center"
       id="timeline-parent"
     >
       <div className="text-xl">Check the next available hours</div>
@@ -65,7 +65,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
             }}
           />
         }
-        label={<div className="!font-mono !text-xl">Zoom on timeline</div>}
+        label={<div className="!font-poppins !text-xl">Zoom on timeline</div>}
       />
       <div className="flex w-full flex-row items-center">
         <div>
@@ -105,7 +105,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
               const year = getYear(date);
               const day = getDate(date);
               return (
-                <div className="flex flex-col items-center font-mono">
+                <div className="font-poppins flex flex-col items-center">
                   <span>
                     {dayOfTheWeek}: {day} {month} {year}
                   </span>
@@ -140,7 +140,7 @@ const Timeline: FC<TimelineProps> = ({ id }) => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <div className="my-3 flex h-auto w-auto flex-col items-start bg-white p-6 font-mono text-lg">
+          <div className="font-poppins my-3 flex h-auto w-auto flex-col items-start bg-white p-6 text-lg">
             <div className="flex w-full flex-row items-center justify-around">
               <div className="flex flex-col items-start">
                 <Button

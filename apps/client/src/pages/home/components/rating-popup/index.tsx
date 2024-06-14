@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useRatingPopup } from './rating.slice';
 import { Button, Popper, Rating } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { fetchProtectedRoute } from '@client/api/protected';
-import { useSnackbarNotifications } from '../snackbar-notifications/snackbar.slice';
+import { fetchProtectedRoute } from '@client/api/fetch-protected';
 import useHandleClickOutside from '@client/hooks/click-outside';
-import { InsertRatingSuccess, RatingErrorOnInsert } from '@shared';
+import {
+  i_BuildingReviewServerError,
+  i_InsertBuildingReviewResponse,
+} from '@shared';
 import { queryClient } from '@client/main';
+import { useNotification } from '../../components/notification/notification.slice';
 
 const RatingPopup = () => {
   const { payload, render } = useRatingPopup(
@@ -15,6 +18,8 @@ const RatingPopup = () => {
   const closeRatingPopup = useRatingPopup((state) => state.close);
 
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
+
+  const { updateNotification } = useNotification();
 
   useEffect(() => {
     if (!payload.anchorElementId) return;
@@ -25,26 +30,11 @@ const RatingPopup = () => {
   }, [payload.anchorElementId]);
 
   const [stars, setStars] = useState(0);
-  const addNotification = useSnackbarNotifications((state) => state.open);
+  useEffect(() => {
+    if (!render) setStars(0);
+  }, [render]);
 
   useHandleClickOutside('rating-popup', closeRatingPopup, render);
-
-  const cleanupBuildingUpdates = useMutation({
-    mutationFn: async (building_id: string) => {
-      return await fetchProtectedRoute(
-        `/rating/building/updates/clean/${building_id}`,
-        { method: 'POST' }
-      );
-    },
-  });
-
-  useEffect(() => {
-    return () => {
-      if (!render) return;
-
-      cleanupBuildingUpdates.mutate(payload.building_id);
-    };
-  }, [render]);
 
   const postRating = useMutation({
     mutationFn: ({
@@ -60,30 +50,44 @@ const RatingPopup = () => {
       });
     },
     onSuccess: async (response) => {
+      // error handling
       if (!response.ok) {
-        const error: RatingErrorOnInsert | undefined = await response.json();
-        if (!error?.cause) {
-          addNotification({
-            type: 'default-error',
+        const error = (await response.json()) as
+          | i_BuildingReviewServerError
+          | undefined;
+
+        if (!error?.error) {
+          // if the error cause is not specified return a generic error
+          updateNotification({
+            type: 'error',
+            error: 'Unknown error occurred on the server!',
           });
           return;
         }
 
-        addNotification({
-          type: 'post-rating',
-          details: { error, success: false },
+        // if the error cause is specified return a more detailed error
+        updateNotification({
+          type: 'error',
+          error: error.error,
         });
-
         return;
       }
 
+      // force the building to refresh the state
       queryClient.invalidateQueries({
         queryKey: ['building', payload.building_id],
       });
-      const rating = (await response.json()) as InsertRatingSuccess;
-      addNotification({
-        type: 'post-rating',
-        details: { success: true, ...rating },
+
+      // display the popup
+      const rating = (await response.json()) as i_InsertBuildingReviewResponse;
+      updateNotification({
+        type: 'success',
+        payload: {
+          building_id: payload.building_id,
+          stars: rating.stars,
+          rating_id: rating.rating_id,
+          building_name: payload.building_name,
+        },
       });
     },
   });
@@ -96,7 +100,7 @@ const RatingPopup = () => {
       container={document.getElementById('widgets')}
       anchorEl={anchorElement}
     >
-      <div className="mt-3 flex flex-col items-start rounded-md border-2 border-zinc-200 bg-white p-4 font-mono shadow-md">
+      <div className="font-poppins mt-3 flex flex-col items-start rounded-md border-2 border-zinc-200 bg-white p-4 shadow-md">
         <span>This office got {payload.stars} stars</span>
         <span className="text-sm text-zinc-400">
           from {payload.reviews} reviews
@@ -115,7 +119,7 @@ const RatingPopup = () => {
         />
         <Button
           variant="outlined"
-          className="ml-auto border-black text-black hover:border-black hover:bg-black/5"
+          className="ml-auto border-black px-1 py-[2px] text-black hover:border-black hover:bg-black/10"
           onClick={() => {
             postRating.mutate({ building_id: payload.building_id, stars });
           }}

@@ -144,15 +144,20 @@ export class BookingService {
   }
 
   async bookOffice(unverified_id: string) {
-    const response = await this.pool.query<{ id: string }>(
-      `INSERT INTO bookings (interval, office_id, user_id)
+    try {
+      const response = await this.pool.query<{ id: string }>(
+        `INSERT INTO bookings (interval, office_id, user_id)
       SELECT interval, office_id, user_id FROM unverified_bookings
-      WHERE unverified_bookings.id = $1`,
-      [unverified_id]
-    );
+    WHERE unverified_bookings.id = $1`,
+        [unverified_id]
+      );
 
-    const booking = response.rows[0];
+      const booking = response.rows[0];
 
-    return booking;
+      return booking;
+    } catch (err) {
+      console.error(err);
+      return 'This booking has probably been verified!';
+    }
   }
 }

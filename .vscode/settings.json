@@ -1,8 +1,8 @@
 {
   "explorer.compactFolders": false,
   "material-icon-theme.files.associations": {
-    "*.service.ts": "Nest-service",
+    "*.service.ts": "Nest",
     "*.module.ts": "Nest",
-    "*.controller.ts": "Nest-controller"
+    "*.controller.ts": "Nest"
   }
 }

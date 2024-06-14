@@ -13,7 +13,7 @@ const Board: FC<{ offices: OfficesOnFloor[] }> = ({ offices }) => {
   if (!offices.length) return <div>No spots found!</div>;
   return (
     <div
-      className="grid aspect-square w-full rounded-2xl bg-slate-400 font-mono"
+      className="font-poppins grid aspect-square w-full rounded-2xl bg-slate-400"
       style={{
         gridTemplateColumns: `repeat(${y}, 1fr)`,
         gridTemplateRows: `repeat(${x}, 1fr)`,

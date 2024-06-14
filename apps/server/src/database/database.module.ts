@@ -10,12 +10,21 @@ import { Pool } from 'pg';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const ca = (
-          await readFile('apps/server/database/aws-ca.pem')
+          await readFile('apps/server/database/global-bundle.pem')
         ).toString();
         if (!ca)
           throw new Error(
             "Certificate Authority missing, please visit https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html and download a valid certificate and save it in the database folder as: 'aws-ca.pem'"
           );
+
+        // debugging
+        console.log('CONNECTION SETTINGS: ', {
+          user: configService.get('DATABASE_USER') as string,
+          host: configService.get('DATABASE_HOST') as string,
+          database: configService.get('DATABASE') as string,
+          password: configService.get('DATABASE_PASSWORD') as string,
+          port: configService.get('DATABASE_PORT') as number,
+        });
 
         const pool = new Pool({
           user: configService.get('DATABASE_USER') as string,
@@ -35,7 +44,7 @@ import { Pool } from 'pg';
           client.release();
           return pool;
         } catch (error) {
-          throw new Error('DATABASE NOT CONNECTED' + String(error));
+          throw new Error('DATABASE NOT CONNECTED: ' + String(error));
         }
       },
     },

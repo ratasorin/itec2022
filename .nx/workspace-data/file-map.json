@@ -1,0 +1,1153 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.3.0",
+  "deps": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.5",
+    "@mui/x-date-pickers": "^5.0.0-alpha.4",
+    "@nestjs/common": "10.0.2",
+    "@nestjs/config": "^3.0.0",
+    "@nestjs/core": "10.0.2",
+    "@nestjs/jwt": "^10.1.0",
+    "@nestjs/passport": "^10.0.0",
+    "@nestjs/platform-express": "10.0.2",
+    "@prisma/client": "^3.14.0",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
+    "@tanstack/react-query": "^4.33.0",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.2",
+    "babel-plugin-macros": "^3.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "core-js": "^3.6.5",
+    "d3": "^7.4.4",
+    "d3-brush": "^3.0.0",
+    "date-fns": "^2.28.0",
+    "dotenv": "^16.3.1",
+    "handlebars": "^4.7.8",
+    "jwt-decode": "^3.1.2",
+    "nodemailer": "^6.9.4",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.3",
+    "react": "18.2.0",
+    "react-countdown-circle-timer": "^3.2.1",
+    "react-dom": "18.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "6.11.2",
+    "reflect-metadata": "^0.1.13",
+    "regenerator-runtime": "0.13.7",
+    "rxjs": "^7.0.0",
+    "supertest": "^6.2.3",
+    "tailwind": "^4.0.0",
+    "ts-node": "10.9.1",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
+    "zustand": "^4.4.1",
+    "@babel/preset-react": "^7.14.5",
+    "@nestjs/schematics": "10.0.1",
+    "@nestjs/testing": "10.0.2",
+    "@nrwl/js": "19.3.0",
+    "@nrwl/webpack": "19.3.0",
+    "@nx/cypress": "19.3.0",
+    "@nx/eslint-plugin": "19.3.0",
+    "@nx/jest": "19.3.0",
+    "@nx/linter": "19.3.0",
+    "@nx/nest": "19.3.0",
+    "@nx/node": "19.3.0",
+    "@nx/react": "19.3.0",
+    "@nx/web": "19.3.0",
+    "@nx/webpack": "19.3.0",
+    "@nx/workspace": "19.3.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@svgr/webpack": "^6.1.2",
+    "@testing-library/react": "14.0.0",
+    "@types/d3": "^7.4.0",
+    "@types/jest": "29.4.4",
+    "@types/node": "18.14.2",
+    "@types/nodemailer": "^6.4.9",
+    "@types/passport-jwt": "^3.0.6",
+    "@types/passport-local": "^1.0.34",
+    "@types/pg": "^8.6.5",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@types/react-router-dom": "5.3.3",
+    "@typescript-eslint/eslint-plugin": "5.60.1",
+    "@typescript-eslint/parser": "5.60.1",
+    "@vitejs/plugin-react": "^1.3.0",
+    "autoprefixer": "10.4.13",
+    "babel-jest": "29.4.3",
+    "css-loader": "^6.4.0",
+    "cypress": "^4.2.0",
+    "eslint": "8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jest": "29.4.3",
+    "jest-environment-jsdom": "28.1.3",
+    "nx": "19.3.0",
+    "nx-cloud": "19.0.0",
+    "postcss": "8.4.21",
+    "prettier": "2.6.2",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "react-refresh": "^0.10.0",
+    "style-loader": "^3.3.0",
+    "stylus": "^0.55.0",
+    "stylus-loader": "^7.1.0",
+    "tailwindcss": "3.2.7",
+    "ts-jest": "29.1.1",
+    "typescript": "5.1.6",
+    "url-loader": "^4.1.1",
+    "vite": "^2.9.9",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "pathMappings": {
+    "@shared": [
+      "libs/shared/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "tsconfig.base.json",
+        "hash": "3619375313827708720"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "11810713488198132402"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "package.json",
+        "hash": "17770826436290588230"
+      },
+      {
+        "file": "README.md",
+        "hash": "6748844420118798709"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "11532813898455409296"
+      },
+      {
+        "file": "prettier.config.js",
+        "hash": "9656984136558838236"
+      },
+      {
+        "file": "nx.json",
+        "hash": "14695060950283349364"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "334380260034571495"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "17207399594127257225"
+      },
+      {
+        "file": "migrations.json",
+        "hash": "6950024373655032533"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "1324685984948235314"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "3407785570333453138"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "6337097465404261465"
+      },
+      {
+        "file": "libs/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "6619451454968768629"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "6820402234827505055"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "6481884873699543387"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "9188201835120897554"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "13404745306227114823"
+      }
+    ],
+    "projectFileMap": {
+      "server": [
+        {
+          "file": "apps/server/.eslintrc.json",
+          "hash": "14921153827776288937"
+        },
+        {
+          "file": "apps/server/database/aws-ca.pem",
+          "hash": "12281841635631075154"
+        },
+        {
+          "file": "apps/server/database/global-bundle.pem",
+          "hash": "549927670560932374"
+        },
+        {
+          "file": "apps/server/database/schema.sql",
+          "hash": "14466368234055338687"
+        },
+        {
+          "file": "apps/server/database/seed.ts",
+          "hash": "15855665197058848543",
+          "deps": [
+            "npm:pg",
+            "npm:dotenv"
+          ]
+        },
+        {
+          "file": "apps/server/database/utils/errors/codes.ts",
+          "hash": "3988986845126284681"
+        },
+        {
+          "file": "apps/server/database/utils/errors/index.ts",
+          "hash": "9101892717678611373"
+        },
+        {
+          "file": "apps/server/database/utils/interface/pg-error.ts",
+          "hash": "5769703433030067518"
+        },
+        {
+          "file": "apps/server/jest.config.ts",
+          "hash": "18358622367902794389"
+        },
+        {
+          "file": "apps/server/project.json",
+          "hash": "5732502692203691224"
+        },
+        {
+          "file": "apps/server/src/.example.env",
+          "hash": "10938986408563546348"
+        },
+        {
+          "file": "apps/server/src/app.module.ts",
+          "hash": "13440573239850034144",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/auth.controller.spec.ts",
+          "hash": "7115151591097085209",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/testing",
+            "npm:supertest",
+            "npm:@nestjs/core",
+            "npm:jest-mock"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/auth.controller.ts",
+          "hash": "13705628756778482081",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/auth.module.ts",
+          "hash": "6064629047853922179",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/passport",
+            "npm:@nestjs/jwt",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/auth.service.spec.ts",
+          "hash": "16456163777341300694",
+          "deps": [
+            "npm:@nestjs/testing",
+            "npm:jest-mock",
+            "npm:@nestjs/jwt",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/auth.service.ts",
+          "hash": "12621535311590676018",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/jwt",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/guards/jwt-auth.guard.ts",
+          "hash": "12907724048518590633",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/passport"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/guards/local-auth.guard.ts",
+          "hash": "17806112196821080631",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/passport"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/strategies/jwt.strategy.ts",
+          "hash": "6911048503574671035",
+          "deps": [
+            "npm:passport-jwt",
+            "npm:@nestjs/passport",
+            "npm:@nestjs/common",
+            "shared",
+            "npm:pg",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/auth/strategies/local.strategy.ts",
+          "hash": "1657614394442384087",
+          "deps": [
+            "npm:passport-local",
+            "npm:@nestjs/passport",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/booking/DTO/index.ts",
+          "hash": "1897883224573798200",
+          "deps": [
+            "npm:class-transformer",
+            "npm:class-validator"
+          ]
+        },
+        {
+          "file": "apps/server/src/booking/booking.controller.ts",
+          "hash": "882990548900530577",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/booking/booking.module.ts",
+          "hash": "6845883773432340222",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/booking/booking.service.ts",
+          "hash": "15915519003295655261",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared",
+            "npm:pg",
+            "npm:handlebars"
+          ]
+        },
+        {
+          "file": "apps/server/src/building/building.controller.ts",
+          "hash": "17290710818648903576",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/building/building.module.ts",
+          "hash": "15392039928740862680",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/passport"
+          ]
+        },
+        {
+          "file": "apps/server/src/building/building.service.ts",
+          "hash": "5771764532936962171",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:pg",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/database/database.module.ts",
+          "hash": "7170506319264075759",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:pg"
+          ]
+        },
+        {
+          "file": "apps/server/src/floor/DTO/index.ts",
+          "hash": "9148896366199282114",
+          "deps": [
+            "npm:class-validator"
+          ]
+        },
+        {
+          "file": "apps/server/src/floor/floor.controller.ts",
+          "hash": "9935769394947060780",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/floor/floor.module.ts",
+          "hash": "9777478397067452608",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/floor/floor.service.ts",
+          "hash": "2927703254201879633",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:pg",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/mail/mail.module.ts",
+          "hash": "16667926315953215520",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/mail/mail.service.spec.ts",
+          "hash": "2384487607913572307",
+          "deps": [
+            "npm:@nestjs/testing",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "apps/server/src/mail/mail.service.ts",
+          "hash": "13976141929402655404",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:nodemailer"
+          ]
+        },
+        {
+          "file": "apps/server/src/mail/templates/confirmation.hbs",
+          "hash": "2252168031528378257"
+        },
+        {
+          "file": "apps/server/src/main.ts",
+          "hash": "16957148811473359089",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core"
+          ]
+        },
+        {
+          "file": "apps/server/src/rating/rating.controller.ts",
+          "hash": "8882486991267921882",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared",
+            "npm:express"
+          ]
+        },
+        {
+          "file": "apps/server/src/rating/rating.module.ts",
+          "hash": "6899909425191526550",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/rating/rating.service.ts",
+          "hash": "17235051341895137423",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared",
+            "npm:pg"
+          ]
+        },
+        {
+          "file": "apps/server/src/user/DTO/index.ts",
+          "hash": "6238912985278367731",
+          "deps": [
+            "shared",
+            "npm:class-validator"
+          ]
+        },
+        {
+          "file": "apps/server/src/user/user.controller.ts",
+          "hash": "1625337353462510952",
+          "deps": [
+            "npm:@nestjs/common",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/src/user/user.module.ts",
+          "hash": "11031250366584699692",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "apps/server/src/user/user.service.ts",
+          "hash": "9441407959788207932",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:pg",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/server/tsconfig.app.json",
+          "hash": "11130160727378566160"
+        },
+        {
+          "file": "apps/server/tsconfig.json",
+          "hash": "15306849309602208576"
+        },
+        {
+          "file": "apps/server/tsconfig.spec.json",
+          "hash": "17669705757049736923"
+        },
+        {
+          "file": "apps/server/webpack.config.js",
+          "hash": "2568520224079181945",
+          "deps": [
+            "npm:@nrwl/webpack"
+          ]
+        }
+      ],
+      "client-e2e": [
+        {
+          "file": "apps/client-e2e/.eslintrc.json",
+          "hash": "10799368048025705622"
+        },
+        {
+          "file": "apps/client-e2e/cypress.json",
+          "hash": "17408658053629932915"
+        },
+        {
+          "file": "apps/client-e2e/project.json",
+          "hash": "17654722957925273979"
+        },
+        {
+          "file": "apps/client-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/client-e2e/src/integration/app.spec.ts",
+          "hash": "4726685898258005606"
+        },
+        {
+          "file": "apps/client-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/client-e2e/src/support/commands.ts",
+          "hash": "13051211446410103734"
+        },
+        {
+          "file": "apps/client-e2e/src/support/index.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/client-e2e/tsconfig.json",
+          "hash": "4481033669731146765"
+        }
+      ],
+      "client": [
+        {
+          "file": "apps/client/.babelrc",
+          "hash": "5147975077747583272"
+        },
+        {
+          "file": "apps/client/.browserslistrc",
+          "hash": "15083903566230435468"
+        },
+        {
+          "file": "apps/client/.eslintrc.json",
+          "hash": "14830867113928387670"
+        },
+        {
+          "file": "apps/client/TODO.md",
+          "hash": "2967569089991738899"
+        },
+        {
+          "file": "apps/client/jest.config.ts",
+          "hash": "17971959422954813322"
+        },
+        {
+          "file": "apps/client/postcss.config.js",
+          "hash": "4080954692028639031"
+        },
+        {
+          "file": "apps/client/project.json",
+          "hash": "15099050356246801966"
+        },
+        {
+          "file": "apps/client/src/App.tsx",
+          "hash": "17723729353442210282",
+          "deps": [
+            "npm:react",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/api/fetch-protected/index.ts",
+          "hash": "5579348532098862452"
+        },
+        {
+          "file": "apps/client/src/assets/auth-illustration.jpg",
+          "hash": "1679663980039734354"
+        },
+        {
+          "file": "apps/client/src/components/navbar/index.tsx",
+          "hash": "16397061170338575462",
+          "deps": [
+            "npm:@mui/material",
+            "npm:@mui/icons-material",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/constants/dates.ts",
+          "hash": "8693158490006718000"
+        },
+        {
+          "file": "apps/client/src/constants/routes.ts",
+          "hash": "12932392613198520827"
+        },
+        {
+          "file": "apps/client/src/constants/server.ts",
+          "hash": "6020695649619597414"
+        },
+        {
+          "file": "apps/client/src/favicon.ico",
+          "hash": "15776523296802650480"
+        },
+        {
+          "file": "apps/client/src/helpers/Omit.ts",
+          "hash": "12230256994649289267"
+        },
+        {
+          "file": "apps/client/src/hooks/click-outside.ts",
+          "hash": "3749386057855132104",
+          "deps": [
+            "npm:react",
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/hooks/dimensions.ts",
+          "hash": "17359590481092157702",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/hooks/local-storage.ts",
+          "hash": "13238935183907459939",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/hooks/user.ts",
+          "hash": "7541179490960439791",
+          "deps": [
+            "shared",
+            "npm:jwt-decode",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/index.css",
+          "hash": "13911369584201060295"
+        },
+        {
+          "file": "apps/client/src/index.html",
+          "hash": "6796239593679425844"
+        },
+        {
+          "file": "apps/client/src/layouts/with-navbar/index.tsx",
+          "hash": "5480245998175935043",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/main.tsx",
+          "hash": "16216534910545533941",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:@mui/material",
+            "npm:react-router-dom",
+            "npm:react-router",
+            "npm:@tanstack/react-query"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/account/index.tsx",
+          "hash": "16316392443098952112"
+        },
+        {
+          "file": "apps/client/src/pages/admin/index.tsx",
+          "hash": "8890360550367976344",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/auth/components/form.tsx",
+          "hash": "7295055858777805944",
+          "deps": [
+            "npm:@mui/material",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/auth/components/login.tsx",
+          "hash": "10261428087846800095",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/auth/components/signup.tsx",
+          "hash": "9442251301104597119",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:react-router",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/auth/index.tsx",
+          "hash": "11572574836909284276",
+          "deps": [
+            "npm:react",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/hooks/navigate-office-timetable.ts",
+          "hash": "1798841811357694439",
+          "deps": [
+            "npm:react",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/hooks/office-coordinates.ts",
+          "hash": "2082238367117185528",
+          "deps": [
+            "shared",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/index.tsx",
+          "hash": "10702517973217323841",
+          "deps": [
+            "shared",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/sidebar/index.tsx",
+          "hash": "9402148768498315780",
+          "deps": [
+            "shared",
+            "npm:react",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/hooks/floors.ts",
+          "hash": "18646287640373523",
+          "deps": [
+            "shared",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/hooks/offices.ts",
+          "hash": "14182812020095299281",
+          "deps": [
+            "shared",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/hooks/selected-floor.ts",
+          "hash": "1439750641057389650",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/index.tsx",
+          "hash": "5412274961650392558",
+          "deps": [
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/widgets/office-details-popup/details.slice.ts",
+          "hash": "1598351913696928908",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/widgets/office-details-popup/index.tsx",
+          "hash": "12605692493751304763",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/notification/error/index.tsx",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/client/src/pages/home/components/notification/index.tsx",
+          "hash": "16760288772716107654",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/notification/notification.slice.ts",
+          "hash": "2741342443779302893",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/notification/success/index.tsx",
+          "hash": "3889820641594414957",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:@tanstack/react-query",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/rating-popup/index.tsx",
+          "hash": "15301371733011577242",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:@tanstack/react-query",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/rating-popup/rating.slice.ts",
+          "hash": "8724733055820165672",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/components/ratings/index.tsx",
+          "hash": "5308017142546293994",
+          "deps": [
+            "npm:react",
+            "npm:@tanstack/react-query",
+            "shared",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/home/index.tsx",
+          "hash": "14503387106504978559",
+          "deps": [
+            "npm:react",
+            "npm:react-router",
+            "shared",
+            "npm:@mui/material",
+            "npm:@tanstack/react-query"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/not-found/index.tsx",
+          "hash": "8348474820915706715",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/time-picker/index.tsx",
+          "hash": "11665208183572516562",
+          "deps": [
+            "npm:@mui/material",
+            "npm:@mui/x-date-pickers",
+            "npm:react",
+            "npm:date-fns"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/timeline/hooks/timeline.slice.ts",
+          "hash": "17888955458810691363",
+          "deps": [
+            "npm:date-fns",
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/timeline/hooks/timetable.ts",
+          "hash": "3951548587873018212",
+          "deps": [
+            "shared",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/timeline/index.tsx",
+          "hash": "5581996003181892198",
+          "deps": [
+            "npm:@mui/icons-material",
+            "npm:react",
+            "npm:@mui/material",
+            "npm:date-fns",
+            "npm:tailwindcss"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/timeline/utils/interval.ts",
+          "hash": "8984270976940648675",
+          "deps": [
+            "npm:d3"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/components/timeline/utils/timeline.ts",
+          "hash": "6430755210372758100",
+          "deps": [
+            "shared",
+            "npm:d3",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/index.tsx",
+          "hash": "4258351895333518841",
+          "deps": [
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/booking-modal/Booking.tsx",
+          "hash": "3062254574259434473",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-router"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/booking-modal/booking.slice.ts",
+          "hash": "7570271486896551671",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/notification-popup/index.tsx",
+          "hash": "8609901576624022884",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:@mui/icons-material",
+            "npm:react-countdown-circle-timer",
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/notification-popup/notification.slice.ts",
+          "hash": "14187313525183561720",
+          "deps": [
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/picker-popup/index.tsx",
+          "hash": "7653640181139998730",
+          "deps": [
+            "npm:react",
+            "npm:@mui/material",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/timetable/widgets/picker-popup/picker.slice.ts",
+          "hash": "16505366997242206618",
+          "deps": [
+            "shared",
+            "npm:zustand"
+          ]
+        },
+        {
+          "file": "apps/client/src/polyfills.ts",
+          "hash": "665023768905917724",
+          "deps": [
+            "npm:core-js",
+            "npm:regenerator-runtime"
+          ]
+        },
+        {
+          "file": "apps/client/src/utils/theme.ts",
+          "hash": "15641813142781240840",
+          "deps": [
+            "npm:@mui/material"
+          ]
+        },
+        {
+          "file": "apps/client/src/utils/user.ts",
+          "hash": "2205939027843057378",
+          "deps": [
+            "npm:jwt-decode",
+            "shared"
+          ]
+        },
+        {
+          "file": "apps/client/tailwind.config.js",
+          "hash": "9021152077720346560",
+          "deps": [
+            "npm:@nx/react",
+            "npm:tailwindcss"
+          ]
+        },
+        {
+          "file": "apps/client/tsconfig.app.json",
+          "hash": "18196350815015920765"
+        },
+        {
+          "file": "apps/client/tsconfig.json",
+          "hash": "11467488481238851422"
+        },
+        {
+          "file": "apps/client/tsconfig.spec.json",
+          "hash": "12295772200706027236"
+        }
+      ],
+      "shared": [
+        {
+          "file": "libs/shared/.babelrc",
+          "hash": "5279675753743739674"
+        },
+        {
+          "file": "libs/shared/.eslintrc.json",
+          "hash": "14921153827776288937"
+        },
+        {
+          "file": "libs/shared/README.md",
+          "hash": "9512147227256862143"
+        },
+        {
+          "file": "libs/shared/interfaces/auth/index.ts",
+          "hash": "6347798356803765218"
+        },
+        {
+          "file": "libs/shared/interfaces/booking/index.ts",
+          "hash": "14965611693462509654"
+        },
+        {
+          "file": "libs/shared/interfaces/booking/office-interval.ts",
+          "hash": "2377286470905670906"
+        },
+        {
+          "file": "libs/shared/interfaces/building/index.ts",
+          "hash": "12549372900081327182"
+        },
+        {
+          "file": "libs/shared/interfaces/error/index.ts",
+          "hash": "4417185872645633684"
+        },
+        {
+          "file": "libs/shared/interfaces/floor/index.ts",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/shared/interfaces/generated/schema.ts",
+          "hash": "16589549127967347509"
+        },
+        {
+          "file": "libs/shared/interfaces/rating/index.ts",
+          "hash": "2199521491633127269"
+        },
+        {
+          "file": "libs/shared/interfaces/user/index.ts",
+          "hash": "2480890850023010834"
+        },
+        {
+          "file": "libs/shared/jest.config.ts",
+          "hash": "17757006638187483637"
+        },
+        {
+          "file": "libs/shared/project.json",
+          "hash": "4037484452466067188"
+        },
+        {
+          "file": "libs/shared/src/index.ts",
+          "hash": "5991085732429412254"
+        },
+        {
+          "file": "libs/shared/tsconfig.json",
+          "hash": "10360521114947254435"
+        },
+        {
+          "file": "libs/shared/tsconfig.lib.json",
+          "hash": "1137948040318787348"
+        },
+        {
+          "file": "libs/shared/tsconfig.spec.json",
+          "hash": "16089454158163324996"
+        }
+      ]
+    }
+  }
+}

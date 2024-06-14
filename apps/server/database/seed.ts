@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises';
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 
-const path = join(process.cwd(), 'apps', 'server', '.env');
+const path = join(process.cwd(), 'apps', 'server', 'src', '.env');
 dotenv.config({ path });
 
 const seed = async () => {
@@ -13,7 +13,9 @@ const seed = async () => {
       'Missing sql seed file! The sql file should be named: "schema.sql"'
     );
 
-  const ca = (await readFile('apps/server/database/aws-ca.pem')).toString();
+  const ca = (
+    await readFile('apps/server/database/global-bundle.pem')
+  ).toString();
   if (!ca)
     throw new Error(
       "Certificate Authority missing, please visit https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html, download a valid certificate and save it in the database folder as: 'aws-ca.pem'"

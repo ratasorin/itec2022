@@ -14,7 +14,7 @@ export class MailService {
         user: configService.get('SMTP_NAME') as string,
         pass: configService.get('SMTP_PASSWORD') as string,
       },
-      from: 'ratasorinwork@gmail.com',
+      from: 'ratasorin0@gmail.com',
     });
   }
 
@@ -25,7 +25,7 @@ export class MailService {
   ) {
     return await this.transporter.sendMail({
       to: recipientEmail,
-      from: 'ratasorinwork@gmail.com',
+      from: 'ratasorin0@gmail.com',
       subject,
       html: htmlPayload,
     });

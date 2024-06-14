@@ -51,7 +51,7 @@ const PickerPopup = () => {
         top: top || 0,
         left: left || 0,
       }}
-      className="absolute z-50 items-center rounded-md border-2 border-slate-100 bg-white p-5 font-mono shadow-lg"
+      className="font-poppins absolute z-50 items-center rounded-md border-2 border-slate-100 bg-white p-5 shadow-lg"
     >
       <div className="py-1 font-bold">
         The office is{' '}
@@ -76,7 +76,7 @@ const PickerPopup = () => {
       </div>
       {payload.interval.occupantName ? null : (
         <Button
-          className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
+          className="font-poppins row-start-2 border-black text-black hover:border-black hover:bg-black/5"
           onClick={() => {
             if (!user) return;
             openBookingModal({

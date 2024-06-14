@@ -48,7 +48,7 @@ const DetailsPopup = () => {
         top: top || 0,
         left: left || 0,
       }}
-      className="absolute z-50 flex flex-col items-start justify-start rounded-md bg-white p-6 align-middle font-mono shadow-md"
+      className="font-poppins absolute z-50 flex flex-col items-start justify-start rounded-md bg-white p-6 align-middle shadow-md"
     >
       <span className="pb-3">
         Booked by {payload.occupantName || ''}, until{' '}
@@ -56,7 +56,7 @@ const DetailsPopup = () => {
       </span>
       <Button
         variant="outlined"
-        className="w-auto border-black font-mono text-black hover:border-black hover:bg-black/5"
+        className="font-poppins w-auto border-black text-black hover:border-black hover:bg-black/5"
       >
         BOOK NEXT
       </Button>

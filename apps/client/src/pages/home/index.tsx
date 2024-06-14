@@ -5,13 +5,13 @@ import getUser from '@client/utils/user';
 import { Button } from '@mui/material';
 import LayoutWithNavbar from '@client/layouts/with-navbar';
 import { SERVER_URL } from '@client/constants/server';
-import HomeSnackbar from './widgets/snackbar-notifications';
 import { useQuery } from '@tanstack/react-query';
 import Ratings from './components/ratings';
 import CircularProgress from '@mui/material/CircularProgress';
+import Notifications from './components/notification';
 
 export interface BuildingStateNavigation {
-  buildingId: string;
+  building_id: string;
   buildingName: string;
 }
 
@@ -62,9 +62,9 @@ function Home(): ReactElement {
 
   return (
     <>
-      <HomeSnackbar />
+      <Notifications />
       <LayoutWithNavbar>
-        <div className="flex h-screen w-screen flex-col items-center font-mono">
+        <div className="font-poppins flex h-screen w-screen flex-col items-center">
           <div className="pb-5 text-3xl font-light">Find a free office</div>
           <div className="flex flex-col">
             {buildings.map(
@@ -76,14 +76,14 @@ function Home(): ReactElement {
                   <Button
                     variant="outlined"
                     key={building_name}
-                    className="row-start-2 border-black font-mono text-black hover:border-black hover:bg-black/5"
+                    className="font-poppins row-start-2 border-black text-black hover:border-black hover:bg-black/5"
                     onClick={() =>
                       navigate(
                         { pathname: `building/${building_id}` },
                         {
                           state: {
                             buildingName: building_name,
-                            buildingId: building_id,
+                            building_id: building_id,
                           } as BuildingStateNavigation,
                         }
                       )
@@ -99,7 +99,10 @@ function Home(): ReactElement {
                   >
                     {availability_rate.toFixed(1)}%
                   </div>
-                  <Ratings building_id={building_id} />
+                  <Ratings
+                    building_name={building_name}
+                    building_id={building_id}
+                  />
                 </div>
               )
             )}

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 interface RatingPopupPayload {
+  building_name: string;
   building_id: string;
   anchorElementId: string;
   stars: number;
@@ -14,6 +15,7 @@ interface RatingPopupState {
 
 const ratingPopupState: RatingPopupState = {
   payload: {
+    building_name: '',
     anchorElementId: '',
     building_id: '',
     stars: -1,

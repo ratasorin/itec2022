@@ -1,16 +1,19 @@
 import { FC } from 'react';
-import { useRatingPopup } from '../../widgets/rating-popup/rating.slice';
+import { useRatingPopup } from '../rating-popup/rating.slice';
 import { useQuery } from '@tanstack/react-query';
 import { SERVER_URL } from '@client/constants/server';
-import { BuildingRatings } from '@shared';
+import { i_BuildingReviewStats } from '@shared';
 import { Rating } from '@mui/material';
-import RatingPopup from '../../widgets/rating-popup';
+import RatingPopup from '../rating-popup';
 
-const Ratings: FC<{ building_id: string }> = ({ building_id }) => {
+const Ratings: FC<{ building_id: string; building_name: string }> = ({
+  building_id,
+  building_name,
+}) => {
   const openRatingPopup = useRatingPopup((state) => state.open);
   const { data, isLoading, error } = useQuery({
     queryKey: ['building', building_id],
-    queryFn: async (): Promise<BuildingRatings> => {
+    queryFn: async (): Promise<i_BuildingReviewStats> => {
       const response = await fetch(
         SERVER_URL + `/rating/building/${building_id}`
       );
@@ -37,6 +40,7 @@ const Ratings: FC<{ building_id: string }> = ({ building_id }) => {
           building_id,
           stars: data.stars || 0,
           reviews: data.reviews,
+          building_name,
         });
       }}
     >

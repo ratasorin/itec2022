@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { FC, useCallback, useState } from 'react';
 import { add } from 'date-fns';
-import { fetchProtectedRoute } from '@client/api/protected';
+import { fetchProtectedRoute } from '@client/api/fetch-protected';
 import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
 import { useBookingModal } from '../../widgets/booking-modal/booking.slice';
 

@@ -20,7 +20,7 @@ const Sidebar: FC<{
                 }
               : { color: '#71717a', borderColor: '#d4d4d8' }
           }
-          className="mr-4 min-h-full rounded-md border-2 border-solid bg-white px-3 py-1 font-mono shadow-md hover:bg-white hover:shadow-sm"
+          className="font-poppins mr-4 min-h-full rounded-md border-2 border-solid bg-white px-3 py-1 shadow-md hover:bg-white hover:shadow-sm"
           TouchRippleProps={{
             style: { opacity: 0.2 },
           }}

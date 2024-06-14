@@ -8,16 +8,16 @@ import DetailsPopup from './widgets/office-details-popup';
 import { BuildingStateNavigation } from '../home';
 
 const BuildingMenu = () => {
-  const { buildingId, buildingName } = useLocation()
+  const { building_id, buildingName } = useLocation()
     .state as BuildingStateNavigation;
   const selectedFloorLevel = useSelectedFloor((state) => state.floor);
-  const floors = useFloors(buildingId);
-  const offices = useOffices(buildingId, selectedFloorLevel, undefined);
+  const floors = useFloors(building_id);
+  const offices = useOffices(building_id, selectedFloorLevel, undefined);
 
   return (
     <>
       <DetailsPopup />
-      <div className="m-auto flex h-screen w-8/12 max-w-lg flex-col justify-center font-mono text-xl">
+      <div className="font-poppins m-auto flex h-screen w-8/12 max-w-lg flex-col justify-center text-xl">
         <div className="mx-auto mb-10">
           Welcome to{' '}
           <span className="rounded-md border-2 border-slate-200 bg-slate-100 px-2 py-1">

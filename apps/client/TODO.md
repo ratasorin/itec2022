@@ -14,3 +14,4 @@
 - [] Batch queries inside the same method inside a transaction (25.08.2023)
 - [x] Add an overflow-y to the snackbar container (25.08.2023)
 - [x] Fix `next-undo` displaying incorrect state (25.08.2023)
+- [] Allow building admin to rearrange floors and change desks layout

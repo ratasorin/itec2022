@@ -11,7 +11,7 @@
         "target": "node",
         "compiler": "tsc",
         "assets": ["apps/server/src/.env"],
-        "outputPath": "apps/server/dist",
+        "outputPath": "dist/apps/server",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
         "isolatedConfig": true,

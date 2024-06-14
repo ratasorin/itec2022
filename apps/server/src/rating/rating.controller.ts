@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
@@ -11,11 +10,9 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RatingService } from './rating.service';
 import {
-  BuildingRatings,
-  InsertRatingSuccess,
+  i_BuildingReviewStats,
+  i_InsertBuildingReviewResponse,
   JwtUser,
-  UndoRatingUpdateSuccess,
-  UpdateRatingSuccess,
 } from '@shared';
 import { Request } from 'express';
 
@@ -29,7 +26,7 @@ export class RatingController {
     @Param('building_id') building_id: string,
     @Body('stars') stars: number,
     @Req() req: Request
-  ): Promise<InsertRatingSuccess> {
+  ): Promise<i_InsertBuildingReviewResponse> {
     const user = req.user as JwtUser;
     return await this.ratingService.addBuildingRating(
       building_id,
@@ -38,51 +35,18 @@ export class RatingController {
     );
   }
 
-  @Post('/buildings/:building_id/update')
-  @UseGuards(JwtAuthGuard)
-  async updateBuildingRating(
-    @Param('building_id') building_id: string,
-    @Body('stars') stars: number,
-    @Req() req: Request
-  ): Promise<UpdateRatingSuccess> {
-    const user = req.user as JwtUser;
-    return await this.ratingService.updateBuildingRating(
-      building_id,
-      user.id,
-      stars
-    );
-  }
-
-  @Post('buildings/undo')
-  @UseGuards(JwtAuthGuard)
-  async undoBuildingRatingChanges(): Promise<UndoRatingUpdateSuccess> {
-    return await this.ratingService.undoLastBuildingReviewUpdate();
-  }
-
   @Get('/building/:building_id')
-  async getBuildingRatings(
+  async geti_BuildingReviewStats(
     @Param('building_id') building_id: string
-  ): Promise<BuildingRatings> {
+  ): Promise<i_BuildingReviewStats> {
     return await this.ratingService.getBuildingRating(building_id);
   }
 
-  @Post('/building/updates/clean/:building_id')
-  @UseGuards(JwtAuthGuard)
-  async cleanBuildingUpdates(
-    @Param('building_id') building_id: string,
-    @Req() req: Request
-  ) {
-    const user = req.user as JwtUser;
-    return await this.ratingService.cleanBuildingUpdates(building_id, user.id);
-  }
-
-  @Post('/building/delete/:building_id')
+  @Post('/building/delete/:building_review_id')
   @UseGuards(JwtAuthGuard)
   async deleteBuildingRating(
-    @Param('building_id') building_id: string,
-    @Req() req: Request
+    @Param('building_review_id') building_review_id: string
   ) {
-    const user = req.user as JwtUser;
-    return await this.ratingService.deleteBuildingRating(building_id, user.id);
+    return await this.ratingService.deleteBuildingRating(building_review_id);
   }
 }
