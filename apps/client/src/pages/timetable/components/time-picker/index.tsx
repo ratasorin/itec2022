@@ -11,10 +11,16 @@ import { fetchProtectedRoute } from '@client/api/fetch-protected';
 import { useNotificationPopup } from '../../widgets/notification-popup/notification.slice';
 import { useBookingModal } from '../../widgets/booking-modal/booking.slice';
 
+const HALF_HOUR = 36_000_00 / 2;
+
 const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
-  const [bookFrom, setBookFrom] = useState<Date | null>(new Date(start));
+  const [bookFrom, setBookFrom] = useState<Date | null>(
+    new Date(HALF_HOUR * Math.floor((start + HALF_HOUR) / HALF_HOUR))
+  );
   const [bookUntil, setBookUntil] = useState<Date | null>(
-    add(new Date(start), { hours: 2 })
+    add(new Date(HALF_HOUR * Math.floor((start + HALF_HOUR) / HALF_HOUR)), {
+      hours: 2,
+    })
   );
 
   const openNotification = useNotificationPopup((state) => state.open);
@@ -25,6 +31,11 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
     if (!user) return;
 
     closeBookingModal();
+
+    console.log({
+      book_from: new Date(bookFrom || 0).toLocaleString(),
+      bookUntil: new Date(bookUntil || 0).toLocaleString(),
+    });
 
     try {
       const response = await fetchProtectedRoute('/booking', {

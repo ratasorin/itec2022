@@ -590,3 +590,496 @@
 [NX Daemon Server] - 2024-06-14T14:24:36.812Z - [REQUEST]: apps/client/src/pages/home/components/notification/index.tsx
 [NX Daemon Server] - 2024-06-14T14:24:36.812Z - [REQUEST]: 
 [NX Daemon Server] - 2024-06-14T14:24:36.895Z - Time taken for 'hash changed files from watcher' 0.35599999129772186ms
+[NX Daemon Server] - 2024-06-14T14:26:37.228Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:26:37.231Z - [WATCHER]: apps/client/src/pages/timetable/widgets/booking-modal/Booking.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:26:42.293Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:26:42.327Z - [WATCHER]: apps/client/src/pages/timetable/widgets/booking-modal/Booking.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:26:43.661Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:26:43.661Z - [REQUEST]: apps/client/src/pages/timetable/widgets/booking-modal/Booking.tsx
+[NX Daemon Server] - 2024-06-14T14:26:43.662Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:26:43.798Z - Time taken for 'hash changed files from watcher' 0.6199000030755997ms
+[NX Daemon Server] - 2024-06-14T14:31:28.526Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:31:28.529Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:31:34.936Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:31:34.936Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:31:34.936Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:31:35.019Z - Time taken for 'hash changed files from watcher' 0.5333000123500824ms
+[NX Daemon Server] - 2024-06-14T14:31:36.753Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:31:36.755Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:31:43.170Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:31:43.170Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:31:43.170Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:31:43.258Z - Time taken for 'hash changed files from watcher' 0.4523000121116638ms
+[NX Daemon Server] - 2024-06-14T14:32:47.471Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:32:47.471Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:32:53.879Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:32:53.879Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:32:53.879Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:32:54.007Z - Time taken for 'hash changed files from watcher' 0.5217999964952469ms
+[NX Daemon Server] - 2024-06-14T14:32:59.066Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:32:59.066Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:05.474Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:33:05.474Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:33:05.474Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:33:05.578Z - Time taken for 'hash changed files from watcher' 0.4684000015258789ms
+[NX Daemon Server] - 2024-06-14T14:33:10.006Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:10.008Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:33:10.728Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:10.729Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:33:16.409Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:33:16.410Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:33:16.410Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:33:16.483Z - Time taken for 'hash changed files from watcher' 0.5745999962091446ms
+[NX Daemon Server] - 2024-06-14T14:33:23.533Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:23.535Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:33:29.949Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:33:29.949Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:33:29.949Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:33:30.042Z - Time taken for 'hash changed files from watcher' 0.4259999990463257ms
+[NX Daemon Server] - 2024-06-14T14:33:35.912Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:35.915Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:33:39.393Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:33:39.397Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:33:42.320Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:33:42.320Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:33:42.320Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:33:42.392Z - Time taken for 'hash changed files from watcher' 0.39180000126361847ms
+[NX Daemon Server] - 2024-06-14T14:34:41.713Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:34:41.715Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:34:42.345Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:34:42.356Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:34:48.122Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:34:48.122Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:34:48.122Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:34:48.218Z - Time taken for 'hash changed files from watcher' 0.4781999886035919ms
+[NX Daemon Server] - 2024-06-14T14:34:57.810Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:34:57.812Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:35:04.213Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:35:04.213Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:35:04.213Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:35:04.286Z - Time taken for 'hash changed files from watcher' 0.41110000014305115ms
+[NX Daemon Server] - 2024-06-14T14:35:19.420Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:35:19.421Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:35:25.827Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:35:25.827Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:35:25.827Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:35:25.934Z - Time taken for 'hash changed files from watcher' 0.4592999964952469ms
+[NX Daemon Server] - 2024-06-14T14:35:28.822Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:35:28.824Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:35:35.231Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:35:35.231Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:35:35.231Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:35:35.289Z - Time taken for 'hash changed files from watcher' 0.3669999986886978ms
+[NX Daemon Server] - 2024-06-14T14:36:14.392Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:14.395Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:16.052Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:16.057Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:16.766Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:16.766Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:20.844Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:36:20.844Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:36:20.844Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:36:21.043Z - Time taken for 'hash changed files from watcher' 0.4131999909877777ms
+[NX Daemon Server] - 2024-06-14T14:36:45.208Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:45.209Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:46.490Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:46.493Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:48.056Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:36:48.057Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:51.623Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:36:51.623Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:36:51.623Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:36:51.726Z - Time taken for 'hash changed files from watcher' 0.9220000058412552ms
+[NX Daemon Server] - 2024-06-14T14:36:57.475Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:36:57.475Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:37:01.217Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:37:01.218Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:37:03.888Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:37:03.888Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:37:03.888Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:37:03.967Z - Time taken for 'hash changed files from watcher' 0.5799999982118607ms
+[NX Daemon Server] - 2024-06-14T14:37:56.022Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:37:56.023Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:37:58.197Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:37:58.246Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:38:02.423Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:38:02.424Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:38:02.424Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:38:02.584Z - Time taken for 'hash changed files from watcher' 0.33789999783039093ms
+[NX Daemon Server] - 2024-06-14T14:38:03.803Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:38:03.803Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:38:10.209Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:38:10.210Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:38:10.210Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:38:10.303Z - Time taken for 'hash changed files from watcher' 0.4065999984741211ms
+[NX Daemon Server] - 2024-06-14T14:39:39.658Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:39:39.658Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:39:46.074Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:39:46.074Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:39:46.074Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:39:46.168Z - Time taken for 'hash changed files from watcher' 0.4879999905824661ms
+[NX Daemon Server] - 2024-06-14T14:39:57.166Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:39:57.167Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:39:59.345Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:39:59.345Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:02.057Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:02.059Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:03.569Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:40:03.569Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:40:03.569Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:40:03.661Z - Time taken for 'hash changed files from watcher' 0.5901000052690506ms
+[NX Daemon Server] - 2024-06-14T14:40:07.211Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:07.211Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:09.109Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:09.109Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:13.620Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:40:13.620Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:40:13.620Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:40:13.700Z - Time taken for 'hash changed files from watcher' 0.3942999988794327ms
+[NX Daemon Server] - 2024-06-14T14:40:15.996Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:15.996Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:20.596Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:20.596Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:22.403Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:40:22.403Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:40:22.403Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:40:22.572Z - Time taken for 'hash changed files from watcher' 0.6863000094890594ms
+[NX Daemon Server] - 2024-06-14T14:40:35.432Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:35.432Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:41.835Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:40:41.835Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:40:41.835Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:40:41.906Z - Time taken for 'hash changed files from watcher' 0.4105999916791916ms
+[NX Daemon Server] - 2024-06-14T14:40:42.811Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:42.812Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:45.061Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:40:45.063Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:40:49.217Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:40:49.218Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:40:49.218Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:40:49.294Z - Time taken for 'hash changed files from watcher' 0.40560001134872437ms
+[NX Daemon Server] - 2024-06-14T14:41:21.584Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:41:21.584Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:41:27.995Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:41:27.995Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:41:27.995Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:41:28.074Z - Time taken for 'hash changed files from watcher' 0.40459999442100525ms
+[NX Daemon Server] - 2024-06-14T14:41:39.238Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:41:39.241Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:41:45.642Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:41:45.642Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:41:45.642Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:41:45.735Z - Time taken for 'hash changed files from watcher' 0.3775999993085861ms
+[NX Daemon Server] - 2024-06-14T14:41:47.701Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:41:47.703Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:41:54.111Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:41:54.111Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:41:54.111Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:41:54.256Z - Time taken for 'hash changed files from watcher' 0.47109998762607574ms
+[NX Daemon Server] - 2024-06-14T14:41:57.285Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:41:57.285Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:42:03.693Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:42:03.693Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:42:03.693Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:42:03.810Z - Time taken for 'hash changed files from watcher' 0.4894999861717224ms
+[NX Daemon Server] - 2024-06-14T14:42:18.479Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:42:18.481Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:42:24.898Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:42:24.898Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:42:24.898Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:42:24.988Z - Time taken for 'hash changed files from watcher' 0.40710000693798065ms
+[NX Daemon Server] - 2024-06-14T14:42:34.447Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:42:34.449Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:42:40.855Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:42:40.855Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:42:40.855Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:42:40.947Z - Time taken for 'hash changed files from watcher' 0.5561999976634979ms
+[NX Daemon Server] - 2024-06-14T14:42:41.077Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:42:41.081Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:42:47.495Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:42:47.495Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:42:47.495Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:42:47.564Z - Time taken for 'hash changed files from watcher' 0.3798999935388565ms
+[NX Daemon Server] - 2024-06-14T14:42:58.243Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:42:58.244Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:43:04.651Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:43:04.651Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:43:04.651Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:43:04.747Z - Time taken for 'hash changed files from watcher' 0.43609999120235443ms
+[NX Daemon Server] - 2024-06-14T14:43:17.469Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:43:17.473Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:43:23.875Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:43:23.875Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:43:23.875Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:43:23.957Z - Time taken for 'hash changed files from watcher' 0.3579999953508377ms
+[NX Daemon Server] - 2024-06-14T14:43:24.189Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:43:24.190Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:43:28.989Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:43:28.990Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:43:30.592Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:43:30.592Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T14:43:30.592Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:43:30.702Z - Time taken for 'hash changed files from watcher' 0.4025000035762787ms
+[NX Daemon Server] - 2024-06-14T14:49:03.465Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:03.465Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:09.876Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:49:09.876Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T14:49:09.876Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:49:09.971Z - Time taken for 'hash changed files from watcher' 0.43129999935626984ms
+[NX Daemon Server] - 2024-06-14T14:49:13.830Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:13.832Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:17.651Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:17.651Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:20.240Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:49:20.240Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T14:49:20.240Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:49:20.313Z - Time taken for 'hash changed files from watcher' 0.4724999964237213ms
+[NX Daemon Server] - 2024-06-14T14:49:30.741Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:30.744Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:31.550Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:31.552Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:32.297Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:32.298Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:37.151Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:49:37.151Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T14:49:37.151Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:49:37.244Z - Time taken for 'hash changed files from watcher' 0.4681999981403351ms
+[NX Daemon Server] - 2024-06-14T14:49:39.158Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:49:39.160Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T14:49:45.575Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:49:45.575Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T14:49:45.575Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:49:45.678Z - Time taken for 'hash changed files from watcher' 0.4708999991416931ms
+[NX Daemon Server] - 2024-06-14T14:52:55.946Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:52:55.946Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:52:56.054Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:53:02.359Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:53:02.359Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:53:02.359Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:53:02.452Z - Time taken for 'hash changed files from watcher' 0.4164000004529953ms
+[NX Daemon Server] - 2024-06-14T14:53:16.886Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:53:16.887Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:53:23.291Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:53:23.291Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:53:23.291Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:53:23.352Z - Time taken for 'hash changed files from watcher' 0.3674999922513962ms
+[NX Daemon Server] - 2024-06-14T14:55:08.459Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:55:08.460Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:55:08.566Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:55:14.875Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:55:14.875Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:55:14.875Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:55:14.966Z - Time taken for 'hash changed files from watcher' 0.3833000063896179ms
+[NX Daemon Server] - 2024-06-14T14:56:12.983Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:56:12.983Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:56:13.147Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:56:19.388Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:56:19.388Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:56:19.388Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:56:19.484Z - Time taken for 'hash changed files from watcher' 0.39900000393390656ms
+[NX Daemon Server] - 2024-06-14T14:56:20.598Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:56:20.598Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:56:20.752Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:56:26.999Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:56:26.999Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:56:26.999Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:56:27.072Z - Time taken for 'hash changed files from watcher' 0.345100000500679ms
+[NX Daemon Server] - 2024-06-14T14:59:43.555Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T14:59:43.555Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:59:43.677Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T14:59:49.961Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T14:59:49.962Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T14:59:49.962Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T14:59:50.046Z - Time taken for 'hash changed files from watcher' 0.38350000977516174ms
+[NX Daemon Server] - 2024-06-14T15:00:18.855Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T15:00:18.856Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:00:18.947Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:00:25.259Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:00:25.259Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T15:00:25.259Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:00:25.419Z - Time taken for 'hash changed files from watcher' 0.4928999990224838ms
+[NX Daemon Server] - 2024-06-14T15:00:50.195Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:00:50.196Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:00:52.564Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:00:52.565Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:00:56.597Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:00:56.597Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T15:00:56.597Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:00:56.693Z - Time taken for 'hash changed files from watcher' 0.4381999969482422ms
+[NX Daemon Server] - 2024-06-14T15:00:59.247Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:00:59.250Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:01:05.665Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:01:05.665Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T15:01:05.665Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:01:05.750Z - Time taken for 'hash changed files from watcher' 0.35099999606609344ms
+[NX Daemon Server] - 2024-06-14T15:09:18.483Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:09:18.484Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:09:24.885Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:09:24.886Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T15:09:24.886Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:09:24.971Z - Time taken for 'hash changed files from watcher' 0.6348999887704849ms
+[NX Daemon Server] - 2024-06-14T15:12:45.320Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:12:45.320Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:12:51.731Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:12:51.731Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:12:51.731Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:12:51.846Z - Time taken for 'hash changed files from watcher' 0.38269999623298645ms
+[NX Daemon Server] - 2024-06-14T15:13:05.771Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:05.771Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:12.178Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:13:12.179Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:13:12.179Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:13:12.266Z - Time taken for 'hash changed files from watcher' 0.3668999969959259ms
+[NX Daemon Server] - 2024-06-14T15:13:12.406Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:12.406Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:13.283Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:13.283Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:14.699Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:14.699Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:18.807Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:13:18.807Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:13:18.807Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:13:18.887Z - Time taken for 'hash changed files from watcher' 0.3557000011205673ms
+[NX Daemon Server] - 2024-06-14T15:13:23.659Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:23.660Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:27.927Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:27.930Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:30.066Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:13:30.066Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:13:30.066Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:13:30.180Z - Time taken for 'hash changed files from watcher' 0.41990000009536743ms
+[NX Daemon Server] - 2024-06-14T15:13:32.542Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:32.571Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:33.317Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:33.333Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:35.157Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:35.159Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:38.483Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:13:38.483Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:13:38.976Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:13:38.976Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:13:38.976Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:13:39.063Z - Time taken for 'hash changed files from watcher' 0.5122999995946884ms
+[NX Daemon Server] - 2024-06-14T15:14:08.063Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:14:08.063Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:14:14.467Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:14:14.468Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:14:14.468Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:14:14.548Z - Time taken for 'hash changed files from watcher' 0.5348000079393387ms
+[NX Daemon Server] - 2024-06-14T15:14:28.493Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:14:28.495Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:14:34.489Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:14:34.489Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:14:34.906Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:14:34.907Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:14:34.907Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:14:35.023Z - Time taken for 'hash changed files from watcher' 0.38759998977184296ms
+[NX Daemon Server] - 2024-06-14T15:15:19.723Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:15:19.725Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:15:26.140Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:15:26.140Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:15:26.140Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:15:26.289Z - Time taken for 'hash changed files from watcher' 0.38500000536441803ms
+[NX Daemon Server] - 2024-06-14T15:15:52.018Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:15:52.020Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:15:55.204Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:15:55.206Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:15:58.421Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:15:58.421Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:15:58.421Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:15:58.514Z - Time taken for 'hash changed files from watcher' 0.3662000000476837ms
+[NX Daemon Server] - 2024-06-14T15:15:59.802Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:15:59.813Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:03.121Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:16:03.123Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:06.214Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:16:06.214Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:16:06.214Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:16:06.309Z - Time taken for 'hash changed files from watcher' 0.4296000003814697ms
+[NX Daemon Server] - 2024-06-14T15:16:32.151Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:16:32.154Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:38.558Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:16:38.558Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:16:38.559Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:16:38.650Z - Time taken for 'hash changed files from watcher' 0.3663000017404556ms
+[NX Daemon Server] - 2024-06-14T15:16:42.328Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:16:42.330Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:45.321Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:16:45.329Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:48.740Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:16:48.740Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:16:48.740Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:16:48.842Z - Time taken for 'hash changed files from watcher' 0.554299995303154ms
+[NX Daemon Server] - 2024-06-14T15:16:50.662Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:16:50.662Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:16:57.062Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:16:57.062Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:16:57.062Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:16:57.120Z - Time taken for 'hash changed files from watcher' 0.4453999996185303ms
+[NX Daemon Server] - 2024-06-14T15:17:21.135Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:17:21.137Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:17:22.423Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:17:22.423Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:17:27.541Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:17:27.541Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:17:27.541Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:17:27.627Z - Time taken for 'hash changed files from watcher' 0.3928000032901764ms
+[NX Daemon Server] - 2024-06-14T15:18:00.687Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:18:00.688Z - [WATCHER]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:18:07.090Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:18:07.090Z - [REQUEST]: apps/client/src/pages/timetable/widgets/picker-popup/index.tsx
+[NX Daemon Server] - 2024-06-14T15:18:07.090Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:18:07.152Z - Time taken for 'hash changed files from watcher' 0.5325000137090683ms
+[NX Daemon Server] - 2024-06-14T15:18:55.190Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:18:55.191Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:19:01.598Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:19:01.598Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:19:01.598Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:19:01.688Z - Time taken for 'hash changed files from watcher' 0.5059999972581863ms
+[NX Daemon Server] - 2024-06-14T15:19:53.490Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:19:53.491Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:19:59.896Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:19:59.896Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:19:59.896Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:19:59.998Z - Time taken for 'hash changed files from watcher' 0.43870000541210175ms
+[NX Daemon Server] - 2024-06-14T15:20:15.301Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:20:15.303Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:20:18.347Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:20:18.349Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:20:21.706Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:20:21.706Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:20:21.706Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:20:21.808Z - Time taken for 'hash changed files from watcher' 0.34790000319480896ms
+[NX Daemon Server] - 2024-06-14T15:22:27.862Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:22:27.862Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:22:34.269Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:22:34.269Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:22:34.269Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:22:34.337Z - Time taken for 'hash changed files from watcher' 0.43289999663829803ms
+[NX Daemon Server] - 2024-06-14T15:24:25.313Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-06-14T15:24:31.998Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-06-14T15:24:31.998Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-06-14T15:24:31.998Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-06-14T15:24:32.002Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-06-14T15:24:32.002Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-06-14T15:24:32.005Z - Time taken for 'total for creating and serializing project graph' 0.34620000422000885ms
+[NX Daemon Server] - 2024-06-14T15:24:32.005Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-06-14T15:24:32.005Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 3.
+[NX Daemon Server] - 2024-06-14T15:24:32.181Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-06-14T15:24:32.181Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-06-14T15:24:32.182Z - Handled HASH_TASKS. Handling time: 21. Response time: 1.
+[NX Daemon Server] - 2024-06-14T15:24:33.806Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:24:39.704Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:25:22.397Z - [WATCHER]: apps/client/src/pages/timetable/components/time-picker/index.tsx was modified
+[NX Daemon Server] - 2024-06-14T15:25:22.398Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:25:22.500Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:25:22.501Z - [REQUEST]: apps/client/src/pages/timetable/components/time-picker/index.tsx
+[NX Daemon Server] - 2024-06-14T15:25:22.501Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:25:22.634Z - Time taken for 'hash changed files from watcher' 0.6709000021219254ms
+[NX Daemon Server] - 2024-06-14T15:34:42.162Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:34:42.164Z - [WATCHER]: apps/server/src/booking/booking.service.ts was modified
+[NX Daemon Server] - 2024-06-14T15:34:42.354Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-06-14T15:34:42.378Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-06-14T15:34:42.379Z - [REQUEST]: apps/server/src/booking/booking.service.ts
+[NX Daemon Server] - 2024-06-14T15:34:42.379Z - [REQUEST]: 
+[NX Daemon Server] - 2024-06-14T15:34:42.468Z - Time taken for 'hash changed files from watcher' 0.4343000054359436ms
