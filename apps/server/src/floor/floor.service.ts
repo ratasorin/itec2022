@@ -104,7 +104,8 @@ export class FloorService {
       `--sql
         UPDATE floors SET level = updated_floors.level 
         FROM $1 as updated_floors
-        WHERE floors.id = updated_floors.id;
+        WHERE floors.id = updated_floors.id
+        RETURNING *;
       `,
 
       [floors]

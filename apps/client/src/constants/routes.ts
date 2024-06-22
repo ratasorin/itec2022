@@ -3,7 +3,8 @@ export const DEFAULT = '/';
 
 // PRIVATE ROUTES
 export const USER = '/:uid';
-export const BUILDING = '/Building/:name';
+export const BUILDING = '/building/:name';
+export const BUILDING_EDIT = '/building/:id/edit';
 export const OFFICE = '.office/:officeId';
 
 // PROTECTED ROUTES

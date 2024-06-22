@@ -9,7 +9,7 @@ type i_Views = 'BOOKINGS' | 'OFFICES';
 
 const Index = () => {
   const user = useUser();
-  const [view, setView] = useState<i_Views>('BOOKINGS');
+  const [view, setView] = useState<i_Views>('OFFICES');
   return (
     <LayoutWithNavbar>
       <div className="font-poppins flex w-screen flex-row items-start px-10">
@@ -43,11 +43,13 @@ const Index = () => {
           MY OFFICES
         </Button>
       </div>
-      {view === 'BOOKINGS' ? (
-        <BookingsView></BookingsView>
-      ) : (
-        <OfficesView></OfficesView>
-      )}
+      <div className="w-screen p-10">
+        {view === 'BOOKINGS' ? (
+          <BookingsView></BookingsView>
+        ) : (
+          <OfficesView></OfficesView>
+        )}
+      </div>
     </LayoutWithNavbar>
   );
 };

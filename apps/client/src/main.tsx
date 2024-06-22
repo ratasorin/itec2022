@@ -17,6 +17,7 @@ import TimetablePage from './pages/timetable';
 import AccountPage from './pages/account';
 import { theme } from './utils/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import EditBuilding from './pages/building/edit';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -37,6 +38,10 @@ root.render(
                 <Route path={ROUTES.TIMETABLE} element={<TimetablePage />} />
                 <Route path={ROUTES.ADMIN} element={<AdminPage />} />
                 <Route path={ROUTES.ACCOUNT} element={<AccountPage />}></Route>
+                <Route
+                  path={ROUTES.BUILDING_EDIT}
+                  element={<EditBuilding />}
+                ></Route>
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>

@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx run client:serve",
+    "startTime": "2024-06-20T12:44:14.089Z",
+    "endTime": "2024-06-20T22:04:00.509Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "client:serve:development",
+      "target": "serve",
+      "projectName": "client",
+      "hash": "14757728592508706958",
+      "startTime": "2024-06-20T12:44:14.099Z",
+      "endTime": "2024-06-20T22:04:00.504Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

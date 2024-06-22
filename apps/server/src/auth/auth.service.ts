@@ -35,12 +35,9 @@ export class AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
 
+    const jwtPayload: JwtUser = createdUser;
     return {
-      access_token: this.jwtService.sign({
-        name: createdUser.name,
-        email: createdUser.email,
-        id: createdUser.id,
-      } as JwtUser),
+      access_token: this.jwtService.sign(jwtPayload),
     };
   }
 }

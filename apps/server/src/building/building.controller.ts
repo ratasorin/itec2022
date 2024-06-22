@@ -1,7 +1,14 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BuildingService } from './building.service';
-import { JwtUser } from '@shared';
 
 @Controller('building')
 export class BuildingController {
@@ -18,10 +25,7 @@ export class BuildingController {
 
   @Post('')
   @UseGuards(JwtAuthGuard)
-  async createBuilding(
-    @Body('name') name: string,
-    @Body('user') user: JwtUser
-  ) {
-    return await this.buildingsService.createBuilding(user.id, name);
+  async createBuilding(@Body('name') name: string, @Request() req) {
+    return await this.buildingsService.createBuilding(req.user.id, name);
   }
 }

@@ -1,6 +1,5 @@
-import { Body, Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { JwtUser } from '@shared';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -9,17 +8,14 @@ export class UserController {
 
   @Get('')
   @UseGuards(JwtAuthGuard)
-  async getUser(@Body() attachedUser: JwtUser) {
-    const user = await this.service.getUserBy(attachedUser.id);
-    return user;
+  async getUser(@Request() req) {
+    return await this.service.getUserBy(req.user.id);
   }
 
   @Get('buildings')
   @UseGuards(JwtAuthGuard)
-  async getBuildingsOwnedByUser(@Body() attachedUser: JwtUser) {
-    const buildings = await this.service.getBuildingsOwnedByUser(
-      attachedUser.id
-    );
+  async getBuildingsOwnedByUser(@Request() req) {
+    const buildings = await this.service.getBuildingsOwnedByUser(req.user.id);
     return buildings;
   }
 }

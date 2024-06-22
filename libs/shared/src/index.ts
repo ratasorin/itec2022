@@ -5,3 +5,4 @@ export * from '../interfaces/error';
 export * from '../interfaces/generated/schema';
 export * from '../interfaces/user';
 export * from '../interfaces/rating';
+export * from '../interfaces/floor';
