@@ -32,7 +32,6 @@ const generateSchema = async () => {
     throw new Error('Database credentials missing!');
 
   const command = `schemats postgres postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE}?sslmode=require"&"sslrootcert=./apps/server/database/global-bundle.pem -o ./schema.ts -s public --no-throw-on-missing-type`;
-  console.log(command);
   exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);

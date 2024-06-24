@@ -62,7 +62,6 @@ const OfficesView = () => {
         flex: 4,
         type: 'actions',
         renderCell: (params) => {
-          console.log(params);
           return (
             <div className="flex flex-row items-center">
               <Button

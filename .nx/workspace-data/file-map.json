@@ -128,84 +128,84 @@
         "hash": "11532813898455409296"
       },
       {
-        "file": "jest.config.ts",
-        "hash": "3407785570333453138"
-      },
-      {
-        "file": "babel.config.json",
-        "hash": "6619451454968768629"
-      },
-      {
         "file": "schema.ts",
         "hash": "10542563304461606567"
       },
       {
-        "file": ".eslintignore",
-        "hash": "13404745306227114823"
-      },
-      {
-        "file": "README.md",
-        "hash": "6748844420118798709"
-      },
-      {
-        "file": "prettier.config.js",
-        "hash": "9656984136558838236"
-      },
-      {
-        "file": "libs/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "apps/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "13602343642884732833"
-      },
-      {
-        "file": "migrations.json",
-        "hash": "6950024373655032533"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "6820402234827505055"
-      },
-      {
-        "file": "nx.json",
-        "hash": "14695060950283349364"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "17207399594127257225"
-      },
-      {
-        "file": ".eslintrc.json",
-        "hash": "9188201835120897554"
+        "file": "tools/tsconfig.tools.json",
+        "hash": "11810713488198132402"
       },
       {
         "file": "jest.preset.js",
         "hash": "6481884873699543387"
       },
       {
-        "file": ".prettierignore",
-        "hash": "1324685984948235314"
+        "file": "nx.json",
+        "hash": "14695060950283349364"
       },
       {
-        "file": "tsconfig.base.json",
-        "hash": "3619375313827708720"
+        "file": ".eslintrc.json",
+        "hash": "9188201835120897554"
       },
       {
-        "file": "package.json",
-        "hash": "12239276666651881628"
+        "file": "package-lock.json",
+        "hash": "13602343642884732833"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "13404745306227114823"
+      },
+      {
+        "file": "migrations.json",
+        "hash": "6950024373655032533"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "17207399594127257225"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "6820402234827505055"
+      },
+      {
+        "file": "libs/.gitkeep",
+        "hash": "3244421341483603138"
       },
       {
         "file": ".vscode/settings.json",
         "hash": "334380260034571495"
       },
       {
-        "file": "tools/tsconfig.tools.json",
-        "hash": "11810713488198132402"
+        "file": "tsconfig.base.json",
+        "hash": "3619375313827708720"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "prettier.config.js",
+        "hash": "9656984136558838236"
+      },
+      {
+        "file": "README.md",
+        "hash": "6748844420118798709"
+      },
+      {
+        "file": "babel.config.json",
+        "hash": "6619451454968768629"
+      },
+      {
+        "file": "package.json",
+        "hash": "12239276666651881628"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "1324685984948235314"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "3407785570333453138"
       }
     ],
     "projectFileMap": {
@@ -347,7 +347,7 @@
         },
         {
           "file": "apps/client/src/pages/account/components/offices-view/index.tsx",
-          "hash": "15244469831311301632",
+          "hash": "10794590959739440279",
           "deps": [
             "shared",
             "npm:@tanstack/react-query",
@@ -418,7 +418,7 @@
         },
         {
           "file": "apps/client/src/pages/building/components/board/edit.tsx",
-          "hash": "9518172688300812523",
+          "hash": "14218196450708800729",
           "deps": [
             "npm:gojs",
             "npm:react"
@@ -585,7 +585,7 @@
         },
         {
           "file": "apps/client/src/pages/timetable/components/time-picker/index.tsx",
-          "hash": "1885288842671011908",
+          "hash": "11624973739003925598",
           "deps": [
             "npm:@mui/material",
             "npm:@mui/x-date-pickers",
@@ -727,7 +727,7 @@
         },
         {
           "file": "apps/client/tsconfig.app.json",
-          "hash": "18196350815015920765"
+          "hash": "8372638740678953874"
         },
         {
           "file": "apps/client/tsconfig.json",
@@ -736,6 +736,41 @@
         {
           "file": "apps/client/tsconfig.spec.json",
           "hash": "12295772200706027236"
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/utils/draggable-node.ts",
+          "hash": "16290255033821998756",
+          "deps": [
+            "npm:gojs"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/utils/highlight-group.ts",
+          "hash": "12624958187108717268",
+          "deps": [
+            "npm:gojs"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/constants/index.ts",
+          "hash": "16310902614954907486",
+          "deps": [
+            "npm:gojs"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/utils/is-draggable-node-in-container.ts",
+          "hash": "11254123994869577925",
+          "deps": [
+            "npm:gojs"
+          ]
+        },
+        {
+          "file": "apps/client/src/pages/building/components/board/utils/find-objects-in-node.ts",
+          "hash": "8714379279094664118",
+          "deps": [
+            "npm:gojs"
+          ]
         }
       ],
       "shared": [
@@ -861,7 +896,7 @@
         },
         {
           "file": "apps/server/database/generate-schema.ts",
-          "hash": "14493231629096110740",
+          "hash": "626616283180006608",
           "deps": [
             "npm:pg",
             "npm:dotenv"
@@ -980,7 +1015,7 @@
         },
         {
           "file": "apps/server/src/auth/strategies/jwt.strategy.ts",
-          "hash": "4034303706451126771",
+          "hash": "8351482870350336074",
           "deps": [
             "npm:passport-jwt",
             "npm:@nestjs/passport",

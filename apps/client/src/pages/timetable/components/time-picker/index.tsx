@@ -32,11 +32,6 @@ const Picker: FC<{ id: string; start: number }> = ({ id, start }) => {
 
     closeBookingModal();
 
-    console.log({
-      book_from: new Date(bookFrom || 0).toLocaleString(),
-      bookUntil: new Date(bookUntil || 0).toLocaleString(),
-    });
-
     try {
       const response = await fetchProtectedRoute('/booking', {
         method: 'POST',

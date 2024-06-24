@@ -30,6 +30,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../server/webpack.config.js"
+    "../server/webpack.config.js",
+    "src/pages/building/components/board/utils/is-draggable-node-in-container.ts"
   ]
 }
