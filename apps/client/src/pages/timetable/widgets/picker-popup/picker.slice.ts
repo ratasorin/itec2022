@@ -1,7 +1,7 @@
 import { OfficeTimeInterval } from '@shared';
 import { create } from 'zustand';
 
-interface Box {
+export interface Box {
   top: number;
   left: number;
   width: number;

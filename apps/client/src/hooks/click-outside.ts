@@ -132,11 +132,11 @@ const useHandleClickOutside = (
     };
 
     setTimeout(() => {
-      document.onclick = fn;
+      document.onmousedown = fn;
     });
 
     return () => {
-      document.onclick = null;
+      document.onmousedown = null;
     };
   }, [listeners]);
 };

@@ -7,6 +7,7 @@ import {
   FLOOR_CONTAINER_NAME,
 } from './constants';
 import { cursorState, draggableNode } from './utils/draggable-node';
+import Tooltip from './components/tooltip';
 
 const $ = go.GraphObject.make;
 
@@ -67,73 +68,76 @@ const EditBoard = () => {
   const diagram = useRef<go.Diagram | null>(null);
 
   return (
-    <div className="h-full border-2 border-slate-400">
-      <div
-        ref={(div) => {
-          if (!div || !document) return;
+    <>
+      <Tooltip></Tooltip>
+      <div className="h-full border-2 border-slate-400">
+        <div
+          ref={(div) => {
+            if (!div || !document) return;
 
-          if (diagram.current) return;
+            if (diagram.current) return;
 
-          const DIAGRAM = new go.Diagram('board-plan-diagram', {
-            allowZoom: false,
-            'undoManager.isEnabled': true,
-            'resizingTool.isGridSnapEnabled': true,
-            'draggingTool.gridSnapCellSpot': go.Spot.TopLeft,
-            'draggingTool.isGridSnapEnabled': true,
-            'toolManager.holdDelay': 0,
-            padding: 0,
-            scrollMargin: 0,
-            contentAlignment: go.Spot.Center,
-            mouseDrop: (e) => {
-              const canDrop = e.diagram.currentCursor !== 'not-allowed';
-              if (!canDrop) e.diagram.currentTool.doCancel();
-            },
-            mouseDragOver: (e) => {
-              diagram.current!.currentCursor = cursorState;
-            },
-          });
+            const DIAGRAM = new go.Diagram('board-plan-diagram', {
+              allowZoom: false,
+              'undoManager.isEnabled': true,
+              'resizingTool.isGridSnapEnabled': true,
+              'draggingTool.gridSnapCellSpot': go.Spot.TopLeft,
+              'draggingTool.isGridSnapEnabled': true,
+              'toolManager.holdDelay': 500,
+              padding: 0,
+              scrollMargin: 0,
+              contentAlignment: go.Spot.Center,
+              mouseDrop: (e) => {
+                const canDrop = e.diagram.currentCursor !== 'not-allowed';
+                if (!canDrop) e.diagram.currentTool.doCancel();
+              },
+              mouseDragOver: (e) => {
+                diagram.current!.currentCursor = cursorState;
+              },
+            });
 
-          diagram.current = DIAGRAM;
-          diagram.current.grid = GRID_BACKGROUND;
-          diagram.current.groupTemplate = GRID_FLOOR_CONTAINER;
+            diagram.current = DIAGRAM;
+            diagram.current.grid = GRID_BACKGROUND;
+            diagram.current.groupTemplate = GRID_FLOOR_CONTAINER;
 
-          // start off with four "racks" that are positioned next to each other
-          diagram.current.model = new go.GraphLinksModel([
-            {
-              key: FLOOR_CONTAINER_KEY,
-              isGroup: true,
-              pos: '0 0',
-              size: '600 600',
-            },
-          ]);
+            // start off with four "racks" that are positioned next to each other
+            diagram.current.model = new go.GraphLinksModel([
+              {
+                key: FLOOR_CONTAINER_KEY,
+                isGroup: true,
+                pos: '0 0',
+                size: '600 600',
+              },
+            ]);
 
-          diagram.current.commandHandler.memberValidation = (grp, node) => {
-            if (grp instanceof go.Group && node instanceof go.Group)
-              return false; // cannot add Groups to Groups
+            diagram.current.commandHandler.memberValidation = (grp, node) => {
+              if (grp instanceof go.Group && node instanceof go.Group)
+                return false; // cannot add Groups to Groups
 
-            // but dropping a Group onto the background is always OK
-            return true;
-          };
+              // but dropping a Group onto the background is always OK
+              return true;
+            };
 
-          diagram.current.nodeTemplate = draggableNode;
+            diagram.current.nodeTemplate = draggableNode;
 
-          // initialize the first Palette
-          const palette = new go.Palette('palette', {
-            // share the templates with the main Diagram
-            nodeTemplate: diagram.current.nodeTemplate,
-            groupTemplate: diagram.current.groupTemplate,
-          });
+            // initialize the first Palette
+            const palette = new go.Palette('palette', {
+              // share the templates with the main Diagram
+              nodeTemplate: diagram.current.nodeTemplate,
+              groupTemplate: diagram.current.groupTemplate,
+            });
 
-          // specify the contents of the Palette
-          palette.model = new go.GraphLinksModel([
-            { key: 'default', color: '#a1a1aa' },
-          ]);
-        }}
-        id="board-plan-diagram"
-        className="h-full w-full rounded-lg bg-slate-100"
-      ></div>
-      <div id="palette" style={{ width: 140, height: 340 }}></div>
-    </div>
+            // specify the contents of the Palette
+            palette.model = new go.GraphLinksModel([
+              { key: 'default', color: '#a1a1aa' },
+            ]);
+          }}
+          id="board-plan-diagram"
+          className="h-full w-full rounded-lg bg-slate-100"
+        ></div>
+        <div id="palette" style={{ width: 140, height: 340 }}></div>
+      </div>
+    </>
   );
 };
 

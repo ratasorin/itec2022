@@ -41,3 +41,4 @@ apps/server/prisma/migrations
 node_modules
 
 .env
+.nx
