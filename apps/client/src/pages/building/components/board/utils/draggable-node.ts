@@ -1,13 +1,15 @@
-import { CELL_SIZE } from '../constants';
+import { CELL_SIZE, DRAGGABLE_DESK_NODE_NAME } from '../constants';
 import * as go from 'gojs';
 import { isDraggableNodeInContainer } from './is-draggable-node-in-container';
 import { atom } from 'jotai';
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { jotaiStore } from '@client/main';
+import { computeNodePosition } from './compute-node-position';
+import { popupSignal } from '../components/popups';
 
 export let cursorState: 'not-allowed' | '' = '';
 
-export const deskRectangleAtom = atom<(Box & { render: boolean }) | null>(null);
+export const deskRectangleAtom = atom<Box | null>(null);
 
 const $ = go.GraphObject.make;
 export const draggableNode = $(
@@ -16,7 +18,8 @@ export const draggableNode = $(
   {
     resizable: true,
     resizeObjectName: 'SHAPE',
-    name: 'DRAGGABLE-NODE',
+    name: DRAGGABLE_DESK_NODE_NAME,
+
     dragComputation: (node: go.Part, pt: go.Point, gridpt: go.Point) => {
       if (!node.diagram) return gridpt;
       if (node.diagram instanceof go.Palette) return gridpt;
@@ -35,25 +38,15 @@ export const draggableNode = $(
     },
 
     mouseHold: (e, obj) => {
-      const diagram = obj.diagram;
-      if (!diagram) return;
+      const { x, y } = computeNodePosition(obj);
 
-      const nodeLocation_doc = obj.part?.location; // in document coordinates
-      if (!nodeLocation_doc) return;
-      const nodeLocation_viewport =
-        diagram.transformDocToView(nodeLocation_doc); // in viewport coordinates
-
-      if (!diagram.div) return;
-
-      const left = diagram.div.offsetLeft;
-      const top = diagram.div.offsetTop;
+      jotaiStore.set(popupSignal, () => 'HOLD');
 
       jotaiStore.set(deskRectangleAtom, () => ({
-        top: nodeLocation_viewport.y + top,
-        left: nodeLocation_viewport.x + left,
+        top: y || 0,
+        left: x || 0,
         width: obj.actualBounds.width,
         height: obj.actualBounds.height,
-        render: true,
       }));
     },
   },

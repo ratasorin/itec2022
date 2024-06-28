@@ -2,12 +2,19 @@ import * as go from 'gojs';
 import { useRef } from 'react';
 import {
   CELL_SIZE,
+  DRAGGABLE_DESK_NODE_NAME,
   FLOOR_CONTAINER_BORDERS_NAME,
   FLOOR_CONTAINER_KEY,
   FLOOR_CONTAINER_NAME,
 } from './constants';
-import { cursorState, draggableNode } from './utils/draggable-node';
-import Tooltip from './components/tooltip';
+import {
+  cursorState,
+  deskRectangleAtom,
+  draggableNode,
+} from './utils/draggable-node';
+import { jotaiStore } from '@client/main';
+import { computeNodePosition } from './utils/compute-node-position';
+import Popups, { popupSignal } from './components/popups';
 
 const $ = go.GraphObject.make;
 
@@ -33,6 +40,11 @@ const GRID_FLOOR_CONTAINER = $(
     go.Point.stringify
   ),
   {
+    mouseDragEnter: (event, obj) => {
+      const target = obj.diagram?.findPartAt(event.documentPoint);
+      if (target && target.name === DRAGGABLE_DESK_NODE_NAME)
+        jotaiStore.set(popupSignal, () => 'DRAG');
+    },
     mouseDrop: (e, grp) => {
       const group = grp as go.Group;
 
@@ -69,7 +81,7 @@ const EditBoard = () => {
 
   return (
     <>
-      <Tooltip></Tooltip>
+      <Popups />
       <div className="h-full border-2 border-slate-400">
         <div
           ref={(div) => {
@@ -99,6 +111,37 @@ const EditBoard = () => {
             diagram.current = DIAGRAM;
             diagram.current.grid = GRID_BACKGROUND;
             diagram.current.groupTemplate = GRID_FLOOR_CONTAINER;
+
+            diagram.current.doMouseDown = function () {
+              if (!diagram.current) return;
+              const e = diagram.current.lastInput;
+
+              const target = diagram.current.findPartAt(e.documentPoint);
+              if (target && target.name === DRAGGABLE_DESK_NODE_NAME) {
+                jotaiStore.set(popupSignal, () => 'MOUSE-DOWN');
+                const { x, y } = computeNodePosition(target);
+
+                jotaiStore.set(deskRectangleAtom, () => ({
+                  top: y || 0,
+                  left: x || 0,
+                  width: target.actualBounds.width,
+                  height: target.actualBounds.height,
+                }));
+              }
+
+              go.Diagram.prototype.doMouseDown.call(this);
+            };
+
+            diagram.current.doMouseUp = function () {
+              if (!diagram.current) return;
+
+              const e = diagram.current.lastInput;
+              const target = diagram.current.findPartAt(e.documentPoint);
+              if (target && target.name === DRAGGABLE_DESK_NODE_NAME)
+                jotaiStore.set(popupSignal, () => 'MOUSE-UP');
+
+              go.Diagram.prototype.doMouseUp.call(this);
+            };
 
             // start off with four "racks" that are positioned next to each other
             diagram.current.model = new go.GraphLinksModel([

@@ -1,33 +1,30 @@
 import { useAtom } from 'jotai';
 import { createPortal } from 'react-dom';
-import { deskRectangleAtom } from '../utils/draggable-node';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import useHandleClickOutside from '@client/hooks/click-outside';
+import { popupStateMachine } from './popups';
+import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 
-const Tooltip = () => {
-  const [deskRectangle, setDeskRectangle] = useAtom(deskRectangleAtom);
+const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
+  const [, setPopupState] = useAtom(popupStateMachine);
 
   const closeDeskTooltip = useCallback(() => {
-    if (deskRectangle) setDeskRectangle({ ...deskRectangle, render: false });
-  }, [deskRectangle]);
+    setPopupState('IDLE');
+  }, [setPopupState]);
 
   const tooltip = useRef<HTMLDivElement | null>(null);
   const [[left, top], setDimensions] = useState<[number | null, number | null]>(
     [null, null]
   );
 
-  useHandleClickOutside(
-    'desk-tooltip',
-    closeDeskTooltip,
-    deskRectangle?.render || false
-  );
+  useHandleClickOutside('desk-tooltip', closeDeskTooltip, render);
 
   useEffect(() => {
-    if (!tooltip.current || !deskRectangle) return setDimensions([null, null]);
+    if (!tooltip.current || !box) return setDimensions([null, null]);
     const dimensions = tooltip.current.getBoundingClientRect();
 
     const { height: tooltipHeight, width: tooltipWidth } = dimensions;
-    const { left: leftBox, top: topBox, width: widthBox } = deskRectangle;
+    const { left: leftBox, top: topBox, width: widthBox } = box;
 
     let left = leftBox + widthBox / 2 - tooltipWidth / 2;
     let top = topBox - tooltipHeight - 10;
@@ -36,11 +33,7 @@ const Tooltip = () => {
     if (top <= 0) top = 0.1;
 
     setDimensions([left, top]);
-  }, [deskRectangle]);
-
-  useEffect(() => {
-    if (deskRectangle) console.log({ deskRectangle });
-  }, [deskRectangle]);
+  }, [box]);
 
   return createPortal(
     <p
@@ -48,7 +41,7 @@ const Tooltip = () => {
       ref={tooltip}
       className="font-poppins absolute z-50 rounded-md bg-white p-2 text-lg font-black shadow-md"
       style={{
-        visibility: deskRectangle?.render ? 'visible' : 'hidden',
+        visibility: render ? 'visible' : 'hidden',
         top: top || 0,
         left: left || 0,
       }}
