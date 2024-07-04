@@ -1,5 +1,5 @@
 import * as go from 'gojs';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   CELL_SIZE,
   DRAGGABLE_DESK_NODE_NAME,
@@ -11,10 +11,13 @@ import {
   cursorState,
   deskRectangleAtom,
   draggableNode,
+  strokeColorBasedOnFill,
 } from './utils/draggable-node';
 import { jotaiStore } from '@client/main';
 import { computeNodePosition } from './utils/compute-node-position';
 import Popups, { popupSignal } from './components/popups';
+import { useAtomValue } from 'jotai';
+import { colorAtom, nodeKeyAtom } from './components/tooltip';
 
 const $ = go.GraphObject.make;
 
@@ -78,6 +81,26 @@ const GRID_FLOOR_CONTAINER = $(
 
 const EditBoard = () => {
   const diagram = useRef<go.Diagram | null>(null);
+
+  const color = useAtomValue(colorAtom);
+  const nodeKey = useAtomValue(nodeKeyAtom);
+
+  useEffect(() => {
+    if (!diagram.current || !nodeKey) return;
+
+    const data = diagram.current.model.findNodeDataForKey(nodeKey);
+
+    console.log({ data, color });
+
+    if (!data || !color) return;
+    diagram.current.model.commit((model) => {
+      model.set(data, 'fill', color);
+    }, 'Tooltip modify fill color');
+
+    diagram.current.model.commit((model) => {
+      model.set(data, 'stroke', strokeColorBasedOnFill(color));
+    }, 'Tooltip modify stroke color');
+  }, [color, nodeKey]);
 
   return (
     <>

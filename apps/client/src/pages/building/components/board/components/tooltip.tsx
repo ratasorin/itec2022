@@ -1,12 +1,17 @@
-import { useAtom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import { createPortal } from 'react-dom';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import useHandleClickOutside from '@client/hooks/click-outside';
 import { popupStateMachine } from './popups';
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
+import { TwitterPicker } from 'react-color';
+
+export const colorAtom = atom<string | null>(null);
+export const nodeKeyAtom = atom<go.Key | null>(null);
 
 const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
   const [, setPopupState] = useAtom(popupStateMachine);
+  const [, setColor] = useAtom(colorAtom);
 
   const closeDeskTooltip = useCallback(() => {
     setPopupState('IDLE');
@@ -36,7 +41,7 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
   }, [box]);
 
   return createPortal(
-    <p
+    <div
       id="desk-tooltip"
       ref={tooltip}
       className="font-poppins absolute z-50 rounded-md bg-white p-2 text-lg font-black shadow-md"
@@ -46,8 +51,14 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
         left: left || 0,
       }}
     >
-      This is a tooltip! Cool huh?
-    </p>,
+      <TwitterPicker
+        triangle="hide"
+        onChange={(color) => {
+          console.log({ hex: color.hex });
+          setColor(color.hex);
+        }}
+      />
+    </div>,
     document.body
   );
 };

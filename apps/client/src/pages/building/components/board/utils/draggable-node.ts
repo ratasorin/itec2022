@@ -6,8 +6,15 @@ import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { jotaiStore } from '@client/main';
 import { computeNodePosition } from './compute-node-position';
 import { popupSignal } from '../components/popups';
+import { nodeKeyAtom } from '../components/tooltip';
+import { darken } from '@mui/material';
 
 export let cursorState: 'not-allowed' | '' = '';
+const STROKE_COLOR_DARKEN_COEFFICIENT = 0.25;
+
+const initialFillColor = '#60a5fa';
+export const strokeColorBasedOnFill = (fill: string) =>
+  darken(fill, STROKE_COLOR_DARKEN_COEFFICIENT);
 
 export const deskRectangleAtom = atom<Box | null>(null);
 
@@ -39,9 +46,10 @@ export const draggableNode = $(
 
     mouseHold: (e, obj) => {
       const { x, y } = computeNodePosition(obj);
+      const node = obj as go.Node;
 
+      jotaiStore.set(nodeKeyAtom, () => node.key);
       jotaiStore.set(popupSignal, () => 'HOLD');
-
       jotaiStore.set(deskRectangleAtom, () => ({
         top: y || 0,
         left: x || 0,
@@ -60,9 +68,9 @@ export const draggableNode = $(
     'RoundedRectangle',
     {
       name: 'SHAPE',
-      fill: '#60a5fa',
-      stroke: '#3b82f6',
-      strokeWidth: 3,
+      fill: initialFillColor,
+      stroke: strokeColorBasedOnFill(initialFillColor),
+      strokeWidth: 4,
       strokeCap: 'round',
       strokeJoin: 'round',
       minSize: CELL_SIZE,
@@ -70,6 +78,8 @@ export const draggableNode = $(
     },
     new go.Binding('desiredSize', 'size', go.Size.parse).makeTwoWay(
       go.Size.stringify
-    )
+    ),
+    new go.Binding('fill', 'fill').makeTwoWay(go.Brush.toString),
+    new go.Binding('stroke', 'stroke').makeTwoWay(go.Brush.toString)
   )
 ); // end Node

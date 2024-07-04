@@ -1,6 +1,5 @@
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
-import Spinner from './spinner';
 import { deskRectangleAtom } from '../utils/draggable-node';
 import Tooltip from './tooltip';
 
@@ -46,11 +45,7 @@ const Popups = () => {
 
   return (
     <>
-      <Spinner
-        render={state === 'COUNTDOWN' || state === 'TOOLTIP-START'}
-        box={nodeBox}
-      ></Spinner>
-      <Tooltip render={state === 'TOOLTIP'} box={nodeBox}></Tooltip>
+      <Tooltip render={true} box={nodeBox}></Tooltip>
     </>
   );
 };
