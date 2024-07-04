@@ -18,6 +18,7 @@ import { computeNodePosition } from './utils/compute-node-position';
 import Popups, { popupSignal } from './components/popups';
 import { useAtomValue } from 'jotai';
 import { colorAtom, nodeKeyAtom } from './components/tooltip';
+import { Resizable } from 're-resizable';
 
 const $ = go.GraphObject.make;
 
@@ -105,7 +106,7 @@ const EditBoard = () => {
   return (
     <>
       <Popups />
-      <div className="h-full border-2 border-slate-400">
+      <div className="flex h-full flex-row-reverse rounded-lg border-4 border-slate-400">
         <div
           ref={(div) => {
             if (!div || !document) return;
@@ -191,6 +192,7 @@ const EditBoard = () => {
               // share the templates with the main Diagram
               nodeTemplate: diagram.current.nodeTemplate,
               groupTemplate: diagram.current.groupTemplate,
+              padding: new go.Margin(100, 20, 20, 20),
             });
 
             // specify the contents of the Palette
@@ -201,7 +203,13 @@ const EditBoard = () => {
           id="board-plan-diagram"
           className="h-full w-full rounded-lg bg-slate-100"
         ></div>
-        <div id="palette" style={{ width: 140, height: 340 }}></div>
+        <Resizable
+          defaultSize={{ width: 140 }}
+          className="relative z-20 h-full border-r-4 border-slate-400"
+          enable={{ right: true }}
+        >
+          <div id="palette" className="h-full"></div>
+        </Resizable>
       </div>
     </>
   );

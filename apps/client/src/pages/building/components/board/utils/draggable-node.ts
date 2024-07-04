@@ -1,4 +1,8 @@
-import { CELL_SIZE, DRAGGABLE_DESK_NODE_NAME } from '../constants';
+import {
+  CELL_SIZE,
+  DEFAULT_PALETTE_CELL_SIZE,
+  DRAGGABLE_DESK_NODE_NAME,
+} from '../constants';
 import * as go from 'gojs';
 import { isDraggableNodeInContainer } from './is-draggable-node-in-container';
 import { atom } from 'jotai';
@@ -24,9 +28,9 @@ export const draggableNode = $(
   'Auto',
   {
     resizable: true,
-    resizeObjectName: 'SHAPE',
     name: DRAGGABLE_DESK_NODE_NAME,
-
+    minSize: CELL_SIZE,
+    desiredSize: DEFAULT_PALETTE_CELL_SIZE, // initially 1x1 cell
     dragComputation: (node: go.Part, pt: go.Point, gridpt: go.Point) => {
       if (!node.diagram) return gridpt;
       if (node.diagram instanceof go.Palette) return gridpt;
@@ -73,8 +77,6 @@ export const draggableNode = $(
       strokeWidth: 4,
       strokeCap: 'round',
       strokeJoin: 'round',
-      minSize: CELL_SIZE,
-      desiredSize: CELL_SIZE, // initially 1x1 cell
     },
     new go.Binding('desiredSize', 'size', go.Size.parse).makeTwoWay(
       go.Size.stringify
