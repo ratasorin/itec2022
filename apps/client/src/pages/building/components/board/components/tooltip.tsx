@@ -1,10 +1,12 @@
-import { atom, useAtom } from 'jotai';
+import { atom, useAtom, useSetAtom } from 'jotai';
 import { createPortal } from 'react-dom';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import useHandleClickOutside from '@client/hooks/click-outside';
 import { popupStateMachine } from './popups';
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { TwitterPicker } from 'react-color';
+import { Button } from '@mui/material';
+import { modalOpenAtom } from '../edit';
 
 export const colorAtom = atom<string | null>(null);
 export const nodeKeyAtom = atom<go.Key | null>(null);
@@ -23,6 +25,7 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
   );
 
   useHandleClickOutside('desk-tooltip', closeDeskTooltip, render);
+  const setModalOpen = useSetAtom(modalOpenAtom);
 
   useEffect(() => {
     if (!tooltip.current || !box) return setDimensions([null, null]);
@@ -44,13 +47,22 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
     <div
       id="desk-tooltip"
       ref={tooltip}
-      className="font-poppins absolute z-50 rounded-md bg-white p-2 text-lg font-black shadow-md"
+      className="font-poppins absolute z-50 flex flex-col items-center rounded-md bg-white p-4 text-lg font-black shadow-md"
       style={{
         visibility: render ? 'visible' : 'hidden',
         top: top || 0,
         left: left || 0,
       }}
     >
+      <Button
+        variant="outlined"
+        className="font-poppins row-start-2 mb-3 border-black text-black hover:border-black hover:bg-black/5"
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        RESHAPE
+      </Button>
       <TwitterPicker
         triangle="hide"
         onChange={(color) => {

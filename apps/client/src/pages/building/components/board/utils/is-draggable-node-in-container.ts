@@ -13,7 +13,6 @@ export const isDraggableNodeInContainer = (
   }
 
   const objects = findObjectsInNode(floorContainer, diagram);
-  console.log({ objects });
 
   return (
     !!objects['Tool'].find((n) => n === node) ||

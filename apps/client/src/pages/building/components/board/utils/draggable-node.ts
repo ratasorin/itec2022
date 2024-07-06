@@ -16,7 +16,7 @@ import { darken } from '@mui/material';
 export let cursorState: 'not-allowed' | '' = '';
 const STROKE_COLOR_DARKEN_COEFFICIENT = 0.25;
 
-const initialFillColor = '#60a5fa';
+export const INITIAL_FILL_COLOR = '#60a5fa';
 export const strokeColorBasedOnFill = (fill: string) =>
   darken(fill, STROKE_COLOR_DARKEN_COEFFICIENT);
 
@@ -72,8 +72,8 @@ export const draggableNode = $(
     'RoundedRectangle',
     {
       name: 'SHAPE',
-      fill: initialFillColor,
-      stroke: strokeColorBasedOnFill(initialFillColor),
+      fill: INITIAL_FILL_COLOR,
+      stroke: strokeColorBasedOnFill(INITIAL_FILL_COLOR),
       strokeWidth: 4,
       strokeCap: 'round',
       strokeJoin: 'round',

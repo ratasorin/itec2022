@@ -1,5 +1,5 @@
 import * as go from 'gojs';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   CELL_SIZE,
   DRAGGABLE_DESK_NODE_NAME,
@@ -16,10 +16,13 @@ import {
 import { jotaiStore } from '@client/main';
 import { computeNodePosition } from './utils/compute-node-position';
 import Popups, { popupSignal } from './components/popups';
-import { useAtomValue } from 'jotai';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { colorAtom, nodeKeyAtom } from './components/tooltip';
 import { Resizable } from 're-resizable';
+import { Modal } from '@mui/material';
+import ModifyShapeModal from './components/modify-shape-modal';
 
+export const modalOpenAtom = atom(false);
 const $ = go.GraphObject.make;
 
 const GRID_BACKGROUND = new go.Panel('Grid', {
@@ -82,6 +85,7 @@ const GRID_FLOOR_CONTAINER = $(
 
 const EditBoard = () => {
   const diagram = useRef<go.Diagram | null>(null);
+  const [modalOpen, setModalOpen] = useAtom(modalOpenAtom);
 
   const color = useAtomValue(colorAtom);
   const nodeKey = useAtomValue(nodeKeyAtom);
@@ -105,6 +109,13 @@ const EditBoard = () => {
 
   return (
     <>
+      <Modal
+        open={true}
+        className="flex items-center justify-center"
+        onClose={() => setModalOpen(false)}
+      >
+        <ModifyShapeModal />
+      </Modal>
       <Popups />
       <div className="flex h-full flex-row-reverse rounded-lg border-4 border-slate-400">
         <div
