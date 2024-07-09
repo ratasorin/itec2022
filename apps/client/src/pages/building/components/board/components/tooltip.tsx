@@ -6,17 +6,23 @@ import { popupStateMachine } from './popups';
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { TwitterPicker } from 'react-color';
 import { Button } from '@mui/material';
-import { modalOpenAtom } from '../edit';
+import { modifyShapeModalAtom } from '../edit';
+import { INITIAL_FILL_COLOR } from '../constants';
 
-export const colorAtom = atom<string | null>(null);
+export const colorAtom = atom<string | null>(INITIAL_FILL_COLOR);
 export const nodeKeyAtom = atom<go.Key | null>(null);
 
-const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
+const Tooltip: FC<{
+  render: boolean;
+  box: Box | null;
+  nodePath: string | undefined;
+}> = ({ render, box, nodePath }) => {
   const [, setPopupState] = useAtom(popupStateMachine);
-  const [, setColor] = useAtom(colorAtom);
+  const [color, setColor] = useAtom(colorAtom);
 
   const closeDeskTooltip = useCallback(() => {
     setPopupState('IDLE');
+    setColor(null);
   }, [setPopupState]);
 
   const tooltip = useRef<HTMLDivElement | null>(null);
@@ -25,7 +31,7 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
   );
 
   useHandleClickOutside('desk-tooltip', closeDeskTooltip, render);
-  const setModalOpen = useSetAtom(modalOpenAtom);
+  const setModalOpen = useSetAtom(modifyShapeModalAtom);
 
   useEffect(() => {
     if (!tooltip.current || !box) return setDimensions([null, null]);
@@ -58,7 +64,12 @@ const Tooltip: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
         variant="outlined"
         className="font-poppins row-start-2 mb-3 border-black text-black hover:border-black hover:bg-black/5"
         onClick={() => {
-          setModalOpen(true);
+          console.log({ color });
+          setModalOpen({
+            render: true,
+            nodePath,
+            color: color ? color : undefined,
+          });
         }}
       >
         RESHAPE

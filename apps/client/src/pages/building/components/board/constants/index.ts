@@ -7,4 +7,5 @@ export const DRAGGABLE_DESK_NODE_NAME = 'DRAGGABLE_DESK_NODE';
 export const ALLOW_DROP_OUTSIDE_HIGHLIGHTED_AREA = false;
 export const CELL_SIZE = new go.Size(20, 20);
 
-export const DEFAULT_PALETTE_CELL_SIZE = new go.Size(400, 60);
+export const DEFAULT_PALETTE_CELL_SIZE = new go.Size(60, 60);
+export const INITIAL_FILL_COLOR = '#60a5fa';

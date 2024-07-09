@@ -1,7 +1,7 @@
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';
-import { deskRectangleAtom } from '../utils/draggable-node';
-import Tooltip from './tooltip';
+import { deskRectangleAtom, nodePathAtom } from '../utils/draggable-node';
+import Tooltip, { colorAtom } from './tooltip';
 import Spinner from './spinner';
 
 export type popupStates =
@@ -21,6 +21,8 @@ const Popups = () => {
   const [state, setState] = useAtom(popupStateMachine);
   const signal = useAtomValue(popupSignal);
   const nodeBox = useAtomValue(deskRectangleAtom);
+  const nodePath = useAtomValue(nodePathAtom);
+  const color = useAtomValue(colorAtom);
 
   useEffect(() => {
     console.log({ state, signal });
@@ -50,7 +52,11 @@ const Popups = () => {
         render={state === 'COUNTDOWN' || state === 'TOOLTIP-START'}
         box={nodeBox}
       ></Spinner>
-      <Tooltip render={state === 'TOOLTIP'} box={nodeBox}></Tooltip>
+      <Tooltip
+        render={state === 'TOOLTIP'}
+        box={nodeBox}
+        nodePath={nodePath}
+      ></Tooltip>
     </>
   );
 };

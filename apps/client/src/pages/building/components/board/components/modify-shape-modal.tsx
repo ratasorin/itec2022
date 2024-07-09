@@ -1,11 +1,12 @@
 import { Resizable } from 're-resizable';
-import {
-  INITIAL_FILL_COLOR,
-  strokeColorBasedOnFill,
-} from '../utils/draggable-node';
-import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { strokeColorBasedOnFill } from '../utils/draggable-node';
+import { FC, useState } from 'react';
+import { Button, CircularProgress } from '@mui/material';
 import * as paper from 'paper';
+import { atom, useAtom } from 'jotai';
+import { jotaiStore } from '@client/main';
+import { FaEraser } from 'react-icons/fa';
+import svg from '!!svg-url-loader?noquotes!@client/assets/eraser-cursor.raw.svg';
 
 const CELL_SIZE = 30;
 
@@ -34,11 +35,6 @@ let flag = false,
   prevY = 0,
   currY = 0,
   dot_flag = false;
-
-let color = INITIAL_FILL_COLOR,
-  y = 2;
-
-let rect: paper.Path.Rectangle | null = null;
 
 const findXY = (
   action: CanvasUserAction,
@@ -76,6 +72,8 @@ const findXY = (
 let path: null | paper.PathItem = null;
 
 let prevClosestCell: { x: number; y: number } | undefined = undefined;
+const eraserActiveAtom = atom(false);
+
 function draw() {
   const closestCell = {
     x: Math.floor(currX / CELL_SIZE),
@@ -96,32 +94,47 @@ function draw() {
   const x = closestCell.x * CELL_SIZE;
   const y = closestCell.y * CELL_SIZE;
 
-  rect = new paper.Path.Rectangle(
+  const rect = new paper.Path.Rectangle(
     new paper.Point(x, y),
     new paper.Size(CELL_SIZE, CELL_SIZE)
   );
 
   if (!path) return;
 
-  path = path.unite(rect);
-  console.log(path.pathData);
+  const eraserActive = jotaiStore.get(eraserActiveAtom);
+  console.log({ eraserActive });
+
+  let prevPath = path;
+
+  if (eraserActive) {
+    path = path.subtract(rect);
+  } else {
+    path = path.unite(rect);
+  }
+
+  prevPath.remove();
+  rect.remove();
 }
 
+console.log({ url: `url(${decodeURIComponent(svg)})` });
 const DEFAULT_CANVAS_SIZE = { width: 420, height: 420 };
-
-let hasPlacedEventListeners = false;
-
-const ModifyShapeModal = () => {
+const ModifyShapeModal: FC<{
+  nodePath: string | undefined;
+  color: string | undefined;
+}> = ({ nodePath, color }) => {
   const [canvasSize, setCanvasSize] = useState(DEFAULT_CANVAS_SIZE);
   const [showLoader, setShowLoader] = useState(false);
+  const [hasPlacedListeners, setHasPlacedListeners] = useState(false);
+  const [eraserActive, setEraserActive] = useAtom(eraserActiveAtom);
+
   return (
     <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-md">
       <h1 className="font-poppins mb-3 text-lg font-bold">
         Prototype New Shape
       </h1>
-      <div className="overflow-hidden rounded-md border-4 border-slate-300">
+      <div className="overflow-hidden rounded-md">
         <Resizable
-          className="relative flex items-center justify-center"
+          className="relative mb-3 flex items-center justify-center"
           defaultSize={DEFAULT_CANVAS_SIZE}
           onResizeStart={() => {
             setShowLoader(true);
@@ -156,18 +169,29 @@ const ModifyShapeModal = () => {
               ></canvas>
               <canvas
                 className="absolute top-0 left-0 z-10 h-full w-full"
+                style={{
+                  cursor: eraserActive
+                    ? `url("${svg}") 20 20, auto`
+                    : 'crosshair',
+                }}
                 width={canvasSize.width}
                 height={canvasSize.height}
                 ref={(canvas) => {
-                  if (!canvas || hasPlacedEventListeners) return;
+                  console.log({ color });
+                  if (!canvas || hasPlacedListeners || !nodePath || !color)
+                    return;
 
-                  hasPlacedEventListeners = true;
+                  setHasPlacedListeners(true);
                   paper.setup(canvas);
 
-                  path = new paper.Path();
+                  path = new paper.Path(nodePath);
+                  path = path.unite(new paper.Path());
 
-                  path.fillColor = new paper.Color('black');
-                  path.strokeColor = new paper.Color('red');
+                  path.fillColor = new paper.Color(color);
+                  path.strokeColor = new paper.Color(
+                    strokeColorBasedOnFill(color)
+                  );
+                  path.strokeWidth = 4;
 
                   canvas.addEventListener(
                     'mousemove',
@@ -199,13 +223,32 @@ const ModifyShapeModal = () => {
                   );
                 }}
               ></canvas>
-
-              {/* <svg className="absolute top-0 left-0 z-10 h-full w-full">
-                <path d="M150,180v-30h30v30z" fill="black" stroke="red"></path>
-              </svg> */}
             </>
           )}
         </Resizable>
+        {eraserActive ? (
+          <Button
+            onClick={() => {
+              setEraserActive(false);
+            }}
+            variant="outlined"
+            className="font-poppins mb-3 border-2 border-black font-semibold text-black hover:border-2 hover:border-black hover:bg-black/5"
+          >
+            ERASER
+            <FaEraser className="ml-2 text-base" />
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setEraserActive(true);
+            }}
+            variant="outlined"
+            className="font-poppins mb-3 border-2 border-gray-500 font-semibold text-gray-500 hover:border-2 hover:border-gray-500 hover:bg-gray-500/5"
+          >
+            ERASER
+            <FaEraser className="ml-2 text-base" />
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@
         "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nx/react/plugins/webpack"
+        "webpackConfig": "apps/client/webpack.config.js"
       },
       "configurations": {
         "development": {

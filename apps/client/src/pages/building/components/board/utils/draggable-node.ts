@@ -2,6 +2,7 @@ import {
   CELL_SIZE,
   DEFAULT_PALETTE_CELL_SIZE,
   DRAGGABLE_DESK_NODE_NAME,
+  INITIAL_FILL_COLOR,
 } from '../constants';
 import * as go from 'gojs';
 import { isDraggableNodeInContainer } from './is-draggable-node-in-container';
@@ -16,11 +17,11 @@ import { darken } from '@mui/material';
 export let cursorState: 'not-allowed' | '' = '';
 const STROKE_COLOR_DARKEN_COEFFICIENT = 0.25;
 
-export const INITIAL_FILL_COLOR = '#60a5fa';
 export const strokeColorBasedOnFill = (fill: string) =>
   darken(fill, STROKE_COLOR_DARKEN_COEFFICIENT);
 
 export const deskRectangleAtom = atom<Box | null>(null);
+export const nodePathAtom = atom<string | undefined>(undefined);
 
 const $ = go.GraphObject.make;
 export const draggableNode = $(
@@ -29,8 +30,6 @@ export const draggableNode = $(
   {
     resizable: true,
     name: DRAGGABLE_DESK_NODE_NAME,
-    minSize: CELL_SIZE,
-    desiredSize: DEFAULT_PALETTE_CELL_SIZE, // initially 1x1 cell
     dragComputation: (node: go.Part, pt: go.Point, gridpt: go.Point) => {
       if (!node.diagram) return gridpt;
       if (node.diagram instanceof go.Palette) return gridpt;
@@ -52,7 +51,19 @@ export const draggableNode = $(
       const { x, y } = computeNodePosition(obj);
       const node = obj as go.Node;
 
+      console.log({ node });
+
+      const shape = node.elements.first() as go.Shape;
+      const geometry = shape.geometry;
+      if (!geometry) {
+        console.error('GEOMETRY OBJECT NOT FOUND ON NODE: ', node.key);
+        return;
+      }
+
+      console.log(go.Geometry.stringify(geometry));
+
       jotaiStore.set(nodeKeyAtom, () => node.key);
+      jotaiStore.set(nodePathAtom, () => go.Geometry.stringify(geometry));
       jotaiStore.set(popupSignal, () => 'HOLD');
       jotaiStore.set(deskRectangleAtom, () => ({
         top: y || 0,
@@ -69,12 +80,14 @@ export const draggableNode = $(
   // this is the primary thing people see
   $(
     go.Shape,
-    'RoundedRectangle',
+    'Rectangle',
     {
       name: 'SHAPE',
       fill: INITIAL_FILL_COLOR,
       stroke: strokeColorBasedOnFill(INITIAL_FILL_COLOR),
       strokeWidth: 4,
+      minSize: CELL_SIZE,
+      desiredSize: DEFAULT_PALETTE_CELL_SIZE,
       strokeCap: 'round',
       strokeJoin: 'round',
     },

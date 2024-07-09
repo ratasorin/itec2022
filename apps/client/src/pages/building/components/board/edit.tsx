@@ -22,7 +22,16 @@ import { Resizable } from 're-resizable';
 import { Modal } from '@mui/material';
 import ModifyShapeModal from './components/modify-shape-modal';
 
-export const modalOpenAtom = atom(false);
+export const modifyShapeModalAtom = atom<{
+  render: boolean;
+  nodePath: string | undefined;
+  color: string | undefined;
+}>({
+  render: false,
+  nodePath: undefined,
+  color: undefined,
+});
+
 const $ = go.GraphObject.make;
 
 const GRID_BACKGROUND = new go.Panel('Grid', {
@@ -85,7 +94,7 @@ const GRID_FLOOR_CONTAINER = $(
 
 const EditBoard = () => {
   const diagram = useRef<go.Diagram | null>(null);
-  const [modalOpen, setModalOpen] = useAtom(modalOpenAtom);
+  const [modal, setModal] = useAtom(modifyShapeModalAtom);
 
   const color = useAtomValue(colorAtom);
   const nodeKey = useAtomValue(nodeKeyAtom);
@@ -110,11 +119,13 @@ const EditBoard = () => {
   return (
     <>
       <Modal
-        open={true}
+        open={modal.render}
         className="flex items-center justify-center"
-        onClose={() => setModalOpen(false)}
+        onClose={() =>
+          setModal({ render: false, nodePath: undefined, color: undefined })
+        }
       >
-        <ModifyShapeModal />
+        <ModifyShapeModal nodePath={modal.nodePath} color={modal.color} />
       </Modal>
       <Popups />
       <div className="flex h-full flex-row-reverse rounded-lg border-4 border-slate-400">
