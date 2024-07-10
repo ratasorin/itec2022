@@ -30,6 +30,7 @@ export const draggableNode = $(
   {
     resizable: true,
     name: DRAGGABLE_DESK_NODE_NAME,
+    resizeObjectName: 'SHAPE',
     dragComputation: (node: go.Part, pt: go.Point, gridpt: go.Point) => {
       if (!node.diagram) return gridpt;
       if (node.diagram instanceof go.Palette) return gridpt;
@@ -60,8 +61,7 @@ export const draggableNode = $(
         return;
       }
 
-      console.log(go.Geometry.stringify(geometry));
-
+      jotaiStore.set(colorAtom, () => shape.fill?.toString() || null);
       jotaiStore.set(nodeKeyAtom, () => node.key);
       jotaiStore.set(nodePathAtom, () => go.Geometry.stringify(geometry));
       jotaiStore.set(popupSignal, () => 'HOLD');
@@ -95,6 +95,7 @@ export const draggableNode = $(
       go.Size.stringify
     ),
     new go.Binding('fill', 'fill').makeTwoWay(go.Brush.toString),
+    new go.Binding('stroke', 'stroke').makeTwoWay(go.Brush.toString),
     new go.Binding('geometryString', 'geometryString').makeTwoWay(
       go.Geometry.parse
     )
