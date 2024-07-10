@@ -11,7 +11,7 @@ import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { jotaiStore } from '@client/main';
 import { computeNodePosition } from './compute-node-position';
 import { popupSignal } from '../components/popups';
-import { nodeKeyAtom } from '../components/tooltip';
+import { colorAtom, nodeKeyAtom } from '../components/tooltip';
 import { darken } from '@mui/material';
 
 export let cursorState: 'not-allowed' | '' = '';
@@ -22,6 +22,7 @@ export const strokeColorBasedOnFill = (fill: string) =>
 
 export const deskRectangleAtom = atom<Box | null>(null);
 export const nodePathAtom = atom<string | undefined>(undefined);
+export const nodeDataAtom = atom<any>(undefined);
 
 const $ = go.GraphObject.make;
 export const draggableNode = $(
@@ -46,6 +47,27 @@ export const draggableNode = $(
       }
 
       return gridpt;
+    },
+
+    mouseEnter: (ev, obj) => {
+      const node = obj as go.Node;
+      const { x, y } = computeNodePosition(obj);
+
+      console.log(node.key);
+      if (node.key?.toString().includes('palette')) return;
+
+      jotaiStore.set(popupSignal, () => 'MOUSE-IN');
+      jotaiStore.set(nodeDataAtom, () => node.data);
+      jotaiStore.set(deskRectangleAtom, () => ({
+        top: y || 0,
+        left: x || 0,
+        width: obj.actualBounds.width,
+        height: obj.actualBounds.height,
+      }));
+    },
+
+    mouseLeave: () => {
+      jotaiStore.set(popupSignal, () => 'MOUSE-OUT');
     },
 
     mouseHold: (e, obj) => {
@@ -86,8 +108,6 @@ export const draggableNode = $(
       fill: INITIAL_FILL_COLOR,
       stroke: strokeColorBasedOnFill(INITIAL_FILL_COLOR),
       strokeWidth: 4,
-      minSize: CELL_SIZE,
-      desiredSize: DEFAULT_PALETTE_CELL_SIZE,
       strokeCap: 'round',
       strokeJoin: 'round',
     },

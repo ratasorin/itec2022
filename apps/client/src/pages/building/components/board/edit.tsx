@@ -6,6 +6,7 @@ import {
   FLOOR_CONTAINER_BORDERS_NAME,
   FLOOR_CONTAINER_KEY,
   FLOOR_CONTAINER_NAME,
+  INITIAL_FILL_COLOR,
 } from './constants';
 import {
   cursorState,
@@ -202,6 +203,12 @@ const EditBoard = () => {
               },
             ]);
 
+            diagram.current.model.makeUniqueKeyFunction = (model, data) => {
+              data['order'] = model.nodeDataArray.length;
+
+              return model.nodeDataArray.length || 0;
+            };
+
             diagram.current.commandHandler.memberValidation = (grp, node) => {
               if (grp instanceof go.Group && node instanceof go.Group)
                 return false; // cannot add Groups to Groups
@@ -221,9 +228,7 @@ const EditBoard = () => {
             });
 
             // specify the contents of the Palette
-            palette.model = new go.GraphLinksModel([
-              { key: 'default', color: '#a1a1aa' },
-            ]);
+            palette.model = new go.GraphLinksModel([{ key: 'palette-1' }]);
           }}
           id="board-plan-diagram"
           className="h-full w-full rounded-lg bg-slate-100"

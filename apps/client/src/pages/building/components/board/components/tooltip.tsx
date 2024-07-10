@@ -10,6 +10,7 @@ import {
   ClickAwayListener,
   Divider,
   IconButton,
+  Popper,
   TextField,
 } from '@mui/material';
 import { modifyShapeModalAtom } from '../edit';
@@ -18,6 +19,8 @@ import { LuTextCursorInput } from 'react-icons/lu';
 import { Tooltip as TooltipMUI } from '@mui/material';
 import { LuShapes } from 'react-icons/lu';
 import { strokeColorBasedOnFill } from '../utils/draggable-node';
+import { FiSave } from 'react-icons/fi';
+import * as go from 'gojs';
 
 export const colorAtom = atom<string | null>(INITIAL_FILL_COLOR);
 export const nodeKeyAtom = atom<go.Key | null>(null);
@@ -29,6 +32,14 @@ const Tooltip: FC<{
 }> = ({ render, box, nodePath }) => {
   const [, setPopupState] = useAtom(popupStateMachine);
   const [color, setColor] = useAtom(colorAtom);
+  const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const [nodeKey] = useAtom(nodeKeyAtom);
+
+  const [openEditTooltip, setOpenEditTooltip] = useState(false);
+  const [officeName, setOfficeName] = useState('');
 
   const closeDeskTooltip = useCallback(() => {
     setPopupState('IDLE');
@@ -72,6 +83,10 @@ const Tooltip: FC<{
     setDimensions([left, top]);
   }, [box]);
 
+  useEffect(() => {
+    if (openEditTooltip && anchorElement) setOpenEditTooltip(false);
+  }, [anchorElement, openEditTooltip]);
+
   return createPortal(
     <div
       id="desk-tooltip"
@@ -83,8 +98,53 @@ const Tooltip: FC<{
         left: left || 0,
       }}
     >
-      <TooltipMUI title="EDIT THE NAME">
-        <IconButton className="rounded-lg p-2 text-gray-800">
+      <Popper
+        open={!!anchorElement}
+        anchorEl={anchorElement}
+        placement="bottom"
+        className="absolute z-[1000]"
+      >
+        <ClickAwayListener onClickAway={() => setAnchorElement(null)}>
+          <div className="mt-2 flex flex-row items-center rounded-lg border-2 border-slate-300 bg-white py-1 px-2">
+            <TextField
+              value={officeName}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setOfficeName(event.target.value);
+              }}
+              size="small"
+              margin="dense"
+              label="Office Name"
+            ></TextField>
+            <IconButton
+              className="ml-2 text-black"
+              onClick={() => {
+                console.log(officeName);
+
+                const diagram = go.Diagram.fromDiv('board-plan-diagram');
+                if (!diagram || !nodeKey) return;
+                const node = diagram.findNodeForKey(nodeKey);
+
+                diagram.model.setDataProperty(node?.data, 'name', officeName);
+              }}
+            >
+              <FiSave />
+            </IconButton>
+          </div>
+        </ClickAwayListener>
+      </Popper>
+
+      <TooltipMUI
+        title="EDIT THE NAME"
+        open={openEditTooltip}
+        onClose={() => setOpenEditTooltip(false)}
+        onOpen={() => setOpenEditTooltip(true)}
+      >
+        <IconButton
+          className="rounded-lg p-2 text-gray-800"
+          onClick={(event) => {
+            setAnchorElement(event.currentTarget);
+          }}
+        >
           <LuTextCursorInput />
         </IconButton>
       </TooltipMUI>
