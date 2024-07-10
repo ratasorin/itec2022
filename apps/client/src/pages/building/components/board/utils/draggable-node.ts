@@ -95,6 +95,8 @@ export const draggableNode = $(
       go.Size.stringify
     ),
     new go.Binding('fill', 'fill').makeTwoWay(go.Brush.toString),
-    new go.Binding('stroke', 'stroke').makeTwoWay(go.Brush.toString)
+    new go.Binding('geometryString', 'geometryString').makeTwoWay(
+      go.Geometry.parse
+    )
   )
 ); // end Node

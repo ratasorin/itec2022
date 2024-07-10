@@ -1,14 +1,16 @@
 import { Resizable } from 're-resizable';
 import { strokeColorBasedOnFill } from '../utils/draggable-node';
 import { FC, useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import * as paper from 'paper';
 import { atom, useAtom } from 'jotai';
 import { jotaiStore } from '@client/main';
 import { FaEraser } from 'react-icons/fa';
 import svg from '!!svg-url-loader?noquotes!@client/assets/eraser-cursor.raw.svg';
+import { nodeKeyAtom } from './tooltip';
+import * as go from 'gojs';
 
-const CELL_SIZE = 30;
+const CELL_SIZE = 20;
 
 const drawGrid = (
   ctx: CanvasRenderingContext2D,
@@ -120,21 +122,27 @@ console.log({ url: `url(${decodeURIComponent(svg)})` });
 const DEFAULT_CANVAS_SIZE = { width: 420, height: 420 };
 const ModifyShapeModal: FC<{
   nodePath: string | undefined;
-  color: string | undefined;
+  color: string;
 }> = ({ nodePath, color }) => {
   const [canvasSize, setCanvasSize] = useState(DEFAULT_CANVAS_SIZE);
   const [showLoader, setShowLoader] = useState(false);
   const [hasPlacedListeners, setHasPlacedListeners] = useState(false);
   const [eraserActive, setEraserActive] = useAtom(eraserActiveAtom);
+  const [nodeKey] = useAtom(nodeKeyAtom);
 
   return (
-    <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-md">
-      <h1 className="font-poppins mb-3 text-lg font-bold">
-        Prototype New Shape
-      </h1>
-      <div className="overflow-hidden rounded-md">
+    <div className="font-poppins flex flex-col items-center rounded-lg bg-white p-6 shadow-md">
+      <h1 className="mb-3 text-lg font-bold">Prototype New Shape</h1>
+      <div className="mb-4">
+        Editing Shape with Id:{' '}
+        <span className="rounded-md border-2 border-slate-500 bg-slate-100 px-2 py-1 font-black text-slate-800">
+          {nodeKey}
+        </span>
+      </div>
+
+      <div className="overflow-hidden rounded-md border-4 border-slate-300">
         <Resizable
-          className="relative mb-3 flex items-center justify-center"
+          className="relative flex items-center justify-center"
           defaultSize={DEFAULT_CANVAS_SIZE}
           onResizeStart={() => {
             setShowLoader(true);
@@ -184,14 +192,26 @@ const ModifyShapeModal: FC<{
                   setHasPlacedListeners(true);
                   paper.setup(canvas);
 
-                  path = new paper.Path(nodePath);
-                  path = path.unite(new paper.Path());
-
+                  path = new paper.Path();
+                  path.strokeWidth = 4;
                   path.fillColor = new paper.Color(color);
                   path.strokeColor = new paper.Color(
                     strokeColorBasedOnFill(color)
                   );
-                  path.strokeWidth = 4;
+
+                  const importedPath = document.createElementNS(
+                    'http://www.w3.org/2000/svg',
+                    'path'
+                  );
+                  importedPath.setAttribute('d', nodePath);
+                  const p = path.importSVG(importedPath, {
+                    insert: false,
+                  }) as paper.Path;
+
+                  let prevPath = path;
+                  path = path.unite(p);
+                  prevPath.remove();
+                  p.remove();
 
                   canvas.addEventListener(
                     'mousemove',
@@ -226,13 +246,15 @@ const ModifyShapeModal: FC<{
             </>
           )}
         </Resizable>
+      </div>
+      <div className="mt-3 flex w-full justify-between">
         {eraserActive ? (
           <Button
             onClick={() => {
               setEraserActive(false);
             }}
             variant="outlined"
-            className="font-poppins mb-3 border-2 border-black font-semibold text-black hover:border-2 hover:border-black hover:bg-black/5"
+            className="font-poppins border-2 border-black font-semibold text-black hover:border-2 hover:border-black hover:bg-black/5"
           >
             ERASER
             <FaEraser className="ml-2 text-base" />
@@ -243,12 +265,48 @@ const ModifyShapeModal: FC<{
               setEraserActive(true);
             }}
             variant="outlined"
-            className="font-poppins mb-3 border-2 border-gray-500 font-semibold text-gray-500 hover:border-2 hover:border-gray-500 hover:bg-gray-500/5"
+            className="font-poppins border-2 border-gray-500 font-semibold text-gray-500 hover:border-2 hover:border-gray-500 hover:bg-gray-500/5"
           >
             ERASER
             <FaEraser className="ml-2 text-base" />
           </Button>
         )}
+
+        <Button
+          onClick={() => {
+            if (!path) return;
+
+            const pathSVG = path.exportSVG() as SVGPathElement;
+            const bounds = path.strokeBounds;
+            const d = pathSVG.getAttribute('d');
+
+            console.log({ bounds });
+            if (!d) return;
+
+            const diagram = go.Diagram.fromDiv('board-plan-diagram');
+            if (!diagram || !nodeKey) return;
+
+            const width = bounds.width - 2 * 4;
+            const height = bounds.height - 2 * 4;
+
+            const node = diagram.findNodeForKey(nodeKey);
+            diagram.model.setDataProperty(
+              node?.data,
+              'geometryString',
+              'F ' + d
+            );
+
+            diagram.model.setDataProperty(
+              node?.data,
+              'size',
+              `${width + 4}, ${height + 4}`
+            );
+          }}
+          variant="outlined"
+          className="font-poppins border-2 border-green-500 font-semibold text-green-800 hover:border-2 hover:border-green-500 hover:bg-green-500/5"
+        >
+          SAVE CHANGES
+        </Button>
       </div>
     </div>
   );

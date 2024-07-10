@@ -125,7 +125,10 @@ const EditBoard = () => {
           setModal({ render: false, nodePath: undefined, color: undefined })
         }
       >
-        <ModifyShapeModal nodePath={modal.nodePath} color={modal.color} />
+        <ModifyShapeModal
+          nodePath={modal.nodePath}
+          color={modal.color || INITIAL_FILL_COLOR}
+        />
       </Modal>
       <Popups />
       <div className="flex h-full flex-row-reverse rounded-lg border-4 border-slate-400">
