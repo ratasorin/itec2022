@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import Form from './form';
 import { useNavigate } from 'react-router';
 import { UserDTO } from '@shared';
+import { fetchRegular } from '@client/api/fetch-regular';
 
 function SignUpForm(): ReactElement {
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ function SignUpForm(): ReactElement {
     try {
       const user: UserDTO = { name: username, password, email };
 
-      const response = await fetch('http://localhost:3000/auth/signup', {
+      const response = await fetchRegular('/auth/signup', {
         method: 'POST',
         body: JSON.stringify(user),
         headers: { 'Content-Type': 'application/json' },

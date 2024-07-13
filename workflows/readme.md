@@ -1,0 +1,9 @@
+To make sure you can connect via CLI and use the `deploy-frontend.sh` or `deploy-backend.sh` scripts make sure to include ALL properties:
+
+```
+aws_access_key_id = ...
+aws_secret_access_key = ...
+aws_session_token= ...
+```
+
+in the `~/.aws/config` directory.

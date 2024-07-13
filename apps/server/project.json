@@ -10,12 +10,17 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "assets": ["apps/server/src/.env"],
+        "assets": [
+          "apps/server/src/.env",
+          "apps/server/src/database/global-bundle.pem",
+          "apps/server/src/mail/templates"
+        ],
         "outputPath": "dist/apps/server",
         "main": "apps/server/src/main.ts",
         "tsConfig": "apps/server/tsconfig.app.json",
         "isolatedConfig": true,
-        "webpackConfig": "apps/server/webpack.config.js"
+        "webpackConfig": "apps/server/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {

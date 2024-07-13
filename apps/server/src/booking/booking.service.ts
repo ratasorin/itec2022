@@ -129,7 +129,10 @@ export class BookingService {
     const confirmationTemplate = compile(confirmationTemplateSource);
     const confirmationHTML = confirmationTemplate({
       name,
-      url: `http://localhost:3000/booking/verify/${unverifiedId}`,
+      url:
+        process.env.NODE_ENV === 'production'
+          ? `/api/booking/verify/${unverifiedId}`
+          : `http://localhost:3000/booking/verify/${unverifiedId}`,
     });
 
     await this.mailService.sendMailTo(

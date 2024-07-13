@@ -2,6 +2,7 @@ import { ReactElement, useCallback, useState } from 'react';
 import { Button } from '@mui/material';
 import Form from './form';
 import { useNavigate } from 'react-router';
+import { fetchRegular } from '@client/api/fetch-regular';
 
 function LoginForm(): ReactElement {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ function LoginForm(): ReactElement {
   const navigate = useNavigate();
 
   const login = useCallback(async () => {
-    const response = await fetch('http://localhost:3000/auth/login', {
+    const response = await fetchRegular('/auth/login', {
       body: JSON.stringify({ email, password }),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

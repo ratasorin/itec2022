@@ -10,8 +10,13 @@ import { Pool } from 'pg';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const ca = (
-          await readFile('apps/server/database/global-bundle.pem')
+          await readFile(
+            process.env.NODE_ENV === 'production'
+              ? 'database/global-bundle.pem'
+              : 'apps/server/database/global-bundle.pem'
+          )
         ).toString();
+
         if (!ca)
           throw new Error(
             "Certificate Authority missing, please visit https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html and download a valid certificate and save it in the database folder as: 'aws-ca.pem'"
