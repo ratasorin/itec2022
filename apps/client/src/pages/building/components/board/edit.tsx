@@ -146,6 +146,7 @@ const EditBoard = () => {
               'draggingTool.gridSnapCellSpot': go.Spot.TopLeft,
               'draggingTool.isGridSnapEnabled': true,
               'toolManager.holdDelay': 500,
+              'contextMenuTool.defaultTouchContextMenu': null,
               padding: 0,
               scrollMargin: 0,
               contentAlignment: go.Spot.Center,
@@ -187,8 +188,8 @@ const EditBoard = () => {
 
               const e = diagram.current.lastInput;
               const target = diagram.current.findPartAt(e.documentPoint);
-              if (target && target.name === DRAGGABLE_DESK_NODE_NAME)
-                jotaiStore.set(popupSignal, () => 'MOUSE-UP');
+              if (target && target.name === DRAGGABLE_DESK_NODE_NAME) {
+              } else jotaiStore.set(popupSignal, () => 'MOUSE-UP');
 
               go.Diagram.prototype.doMouseUp.call(this);
             };

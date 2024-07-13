@@ -74,19 +74,21 @@ export const draggableNode = $(
       const { x, y } = computeNodePosition(obj);
       const node = obj as go.Node;
 
-      console.log({ node });
-
       const shape = node.elements.first() as go.Shape;
       const geometry = shape.geometry;
+
       if (!geometry) {
         console.error('GEOMETRY OBJECT NOT FOUND ON NODE: ', node.key);
         return;
       }
 
-      jotaiStore.set(colorAtom, () => shape.fill?.toString() || null);
+      jotaiStore.set(popupSignal, () => 'HOLD');
+      jotaiStore.set(
+        colorAtom,
+        () => shape.fill?.toString() || INITIAL_FILL_COLOR
+      );
       jotaiStore.set(nodeKeyAtom, () => node.key);
       jotaiStore.set(nodePathAtom, () => go.Geometry.stringify(geometry));
-      jotaiStore.set(popupSignal, () => 'HOLD');
       jotaiStore.set(deskRectangleAtom, () => ({
         top: y || 0,
         left: x || 0,
