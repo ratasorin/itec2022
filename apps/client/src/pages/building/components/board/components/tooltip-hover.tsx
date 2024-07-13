@@ -16,10 +16,14 @@ const TooltipHover: FC<{ box: Box | null; render: boolean }> = ({
   const [nodeData] = useAtom(nodeDataAtom);
 
   useEffect(() => {
+    console.log(nodeData);
+  }, nodeData);
+
+  useEffect(() => {
     if (!tooltip.current || !box) return setDimensions([null, null]);
     const dimensions = tooltip.current.getBoundingClientRect();
-
     console.log(dimensions, box);
+
     const { height: tooltipHeight, width: tooltipWidth } = dimensions;
     const {
       left: leftBox,
@@ -42,9 +46,7 @@ const TooltipHover: FC<{ box: Box | null; render: boolean }> = ({
     }
 
     setDimensions([left, top]);
-  }, [box]);
-
-  if (!nodeData || (!nodeData.name && !nodeData.order)) return null;
+  }, [box, nodeData]);
 
   return createPortal(
     <div
@@ -57,9 +59,11 @@ const TooltipHover: FC<{ box: Box | null; render: boolean }> = ({
       }}
     >
       {nodeData
-        ? nodeData.name
+        ? nodeData.order && !nodeData.name
+          ? `Office ${nodeData.order}`
+          : nodeData.name
           ? nodeData.name
-          : `Office ${nodeData.order}`
+          : ''
         : ''}
     </div>,
     document.body

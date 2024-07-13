@@ -12,6 +12,7 @@ import {
   cursorState,
   deskRectangleAtom,
   draggableNode,
+  nodeDataAtom,
   strokeColorBasedOnFill,
 } from './utils/draggable-node';
 import { jotaiStore } from '@client/main';
@@ -171,7 +172,7 @@ const EditBoard = () => {
               if (target && target.name === DRAGGABLE_DESK_NODE_NAME) {
                 jotaiStore.set(popupSignal, () => 'MOUSE-DOWN');
                 const { x, y } = computeNodePosition(target);
-
+                jotaiStore.set(nodeDataAtom, () => target.data);
                 jotaiStore.set(deskRectangleAtom, () => ({
                   top: y || 0,
                   left: x || 0,

@@ -27,6 +27,7 @@ export const popupStateMachine = atom<popupStates>('IDLE');
 export const popupSignal = atom<popupSignals>('NONE');
 
 let timeout: NodeJS.Timeout | undefined = undefined;
+let hoverTimeout: NodeJS.Timeout | undefined = undefined;
 
 const Popups = () => {
   const [state, setState] = useAtom(popupStateMachine);
@@ -34,6 +35,7 @@ const Popups = () => {
   const nodeBox = useAtomValue(deskRectangleAtom);
   const nodePath = useAtomValue(nodePathAtom);
   const hoverCountdown = useRef<NodeJS.Timeout | undefined>();
+  const [, setSignal] = useAtom(popupSignal);
 
   useEffect(() => {
     console.log({ state, signal });
@@ -55,8 +57,21 @@ const Popups = () => {
         clearTimeout(timeout);
       }
     }
-    if (state === 'COUNTDOWN' && signal === 'MOUSE-UP') setState('IDLE');
-    if (state === 'COUNTDOWN' && signal === 'HOLD') setState('TOOLTIP-START');
+
+    if (state === 'COUNTDOWN') {
+      if (signal === 'MOUSE-UP') {
+        setState('IDLE');
+        clearTimeout(hoverTimeout);
+      } else if (signal === 'HOLD') {
+        setState('TOOLTIP-START');
+        clearTimeout(hoverTimeout);
+      } else
+        hoverTimeout = setTimeout(() => {
+          setState('HOVER');
+          setSignal('NONE');
+        }, 450);
+    }
+
     if (state === 'TOOLTIP-START')
       setTimeout(() => {
         setState('TOOLTIP');
