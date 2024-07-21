@@ -29,6 +29,8 @@ export const popupSignal = atom<popupSignals>('NONE');
 let timeout: NodeJS.Timeout | undefined = undefined;
 let hoverTimeout: NodeJS.Timeout | undefined = undefined;
 
+export const POPUPS_MARGIN = 20;
+
 const Popups = () => {
   const [state, setState] = useAtom(popupStateMachine);
   const signal = useAtomValue(popupSignal);

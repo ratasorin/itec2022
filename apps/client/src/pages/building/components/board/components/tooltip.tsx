@@ -2,7 +2,7 @@ import { atom, useAtom, useSetAtom } from 'jotai';
 import { createPortal } from 'react-dom';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import useHandleClickOutside from '@client/hooks/click-outside';
-import { popupStateMachine } from './popups';
+import { POPUPS_MARGIN, popupStateMachine } from './popups';
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { TwitterPicker } from 'react-color';
 import {
@@ -69,14 +69,14 @@ const Tooltip: FC<{
     } = box;
 
     let left = leftBox + widthBox / 2 - tooltipWidth / 2;
-    let top = topBox - tooltipHeight - 10;
+    let top = topBox - tooltipHeight - POPUPS_MARGIN;
 
     if (top <= 0 || left <= 0) {
-      left = leftBox + widthBox + 10;
+      left = leftBox + widthBox + POPUPS_MARGIN;
       top = topBox + heightBox / 2 - tooltipHeight / 2;
     }
-    if (leftBox + widthBox + 10 + tooltipWidth > window.innerWidth) {
-      left = leftBox - tooltipWidth - 10;
+    if (leftBox + widthBox + POPUPS_MARGIN + tooltipWidth > window.innerWidth) {
+      left = leftBox - tooltipWidth - POPUPS_MARGIN;
       top = topBox + heightBox / 2 - tooltipHeight / 2;
     }
 

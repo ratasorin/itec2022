@@ -146,6 +146,8 @@ const EditBoard = () => {
               'resizingTool.isGridSnapEnabled': true,
               'draggingTool.gridSnapCellSpot': go.Spot.TopLeft,
               'draggingTool.isGridSnapEnabled': true,
+              'rotatingTool.snapAngleEpsilon': 30,
+              'rotatingTool.snapAngleMultiple': 30,
               'toolManager.holdDelay': 500,
               'contextMenuTool.defaultTouchContextMenu': null,
               padding: 0,

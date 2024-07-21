@@ -1,6 +1,7 @@
 import { Box } from '@client/pages/timetable/widgets/picker-popup/picker.slice';
 import { FC, useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { POPUPS_MARGIN } from './popups';
 
 const Spinner: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
   const spinner = useRef<HTMLDivElement | null>(null);
@@ -16,7 +17,7 @@ const Spinner: FC<{ render: boolean; box: Box | null }> = ({ render, box }) => {
     const { left: leftBox, top: topBox, width: widthBox } = box;
 
     let left = leftBox + widthBox / 2 - tooltipWidth / 2;
-    let top = topBox - tooltipHeight - 10;
+    let top = topBox - tooltipHeight - POPUPS_MARGIN;
 
     if (left <= 0) left = 0.1;
     if (top <= 0) top = 0.1;
