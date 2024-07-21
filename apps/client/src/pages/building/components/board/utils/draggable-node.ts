@@ -1,9 +1,4 @@
-import {
-  CELL_SIZE,
-  DEFAULT_PALETTE_CELL_SIZE,
-  DRAGGABLE_DESK_NODE_NAME,
-  INITIAL_FILL_COLOR,
-} from '../constants';
+import { DRAGGABLE_DESK_NODE_NAME, INITIAL_FILL_COLOR } from '../constants';
 import * as go from 'gojs';
 import { isDraggableNodeInContainer } from './is-draggable-node-in-container';
 import { atom } from 'jotai';
@@ -56,7 +51,7 @@ export const draggableNode = $(
     selectable: true,
     resizeObjectName: DESK_SHAPE_NAME,
     selectionObjectName: DESK_SHAPE_NAME,
-    rotationSpot: go.Spot.Center,
+    locationSpot: go.Spot.Center,
     selectionAdornmentTemplate: $(
       go.Adornment,
       'Auto',
@@ -69,7 +64,7 @@ export const draggableNode = $(
         strokeCap: 'round',
       }),
 
-      $(go.Placeholder, { margin: 10 })
+      $(go.Placeholder, { margin: 5 })
     ),
     resizeAdornmentTemplate: $(
       go.Adornment,
@@ -84,7 +79,7 @@ export const draggableNode = $(
       createResizeHandle(go.Spot.Bottom, 's-resize'),
       createResizeHandle(go.Spot.BottomRight, 'sw-resize'),
 
-      $(go.Placeholder, { margin: 15 })
+      $(go.Placeholder, { margin: 10 })
     ),
     rotateAdornmentTemplate: $(
       go.Adornment,
@@ -116,7 +111,11 @@ export const draggableNode = $(
       if (!node.diagram) return gridpt;
       if (node.diagram instanceof go.Palette) return gridpt;
 
-      const isNodeInContainer = isDraggableNodeInContainer(node, node.diagram);
+      console.log({ el: node.elements.first()! });
+      const isNodeInContainer = isDraggableNodeInContainer(
+        node.elements.first()!,
+        node.diagram
+      );
 
       if (!isNodeInContainer) {
         node.diagram.currentCursor = 'not-allowed';

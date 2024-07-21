@@ -3,7 +3,7 @@ import * as go from 'gojs';
 import { findObjectsInNode } from './find-objects-in-node';
 
 export const isDraggableNodeInContainer = (
-  node: go.Part,
+  node: go.GraphObject,
   diagram: go.Diagram
 ) => {
   const floorContainer = diagram.findNodeForKey(FLOOR_CONTAINER_KEY);

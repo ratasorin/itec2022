@@ -17,7 +17,7 @@ export const computeNodePosition = (node: go.GraphObject) => {
   const top = diagram.div.offsetTop;
 
   return {
-    y: nodeLocation_viewport.y + top,
-    x: nodeLocation_viewport.x + left,
+    y: nodeLocation_viewport.y + top - node.actualBounds.height / 2,
+    x: nodeLocation_viewport.x + left - node.actualBounds.width / 2,
   };
 };
