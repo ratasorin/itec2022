@@ -1,6 +1,6 @@
 import { Resizable } from 're-resizable';
 import { strokeColorBasedOnFill } from '../utils/draggable-node';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import * as paper from 'paper';
 import { atom, useAtom } from 'jotai';
@@ -31,16 +31,29 @@ const drawGrid = (
 };
 
 let currX = 0,
-  currY = 0;
+  currY = 0,
+  canDraw = false;
 
 const handleMouseMovement = (
+  eventType: typeof DRAW_ON_EVENTS[number],
   e: MouseEvent,
   canvasTop: number,
   canvasLeft: number
 ) => {
-  currX = e.clientX - canvasLeft;
-  currY = e.clientY - canvasTop;
-  draw();
+  if (eventType === 'mousedown') {
+    canDraw = true;
+    currX = e.clientX - canvasLeft;
+    currY = e.clientY - canvasTop;
+    draw();
+  }
+
+  if (eventType === 'mousemove' && canDraw) {
+    currX = e.clientX - canvasLeft;
+    currY = e.clientY - canvasTop;
+    draw();
+  }
+
+  if (eventType === 'mouseup' || eventType === 'mouseout') canDraw = false;
 };
 
 const handleTouchMovement = (
@@ -56,12 +69,14 @@ const handleTouchMovement = (
 };
 
 const handleMovement = (
+  eventType: typeof DRAW_ON_EVENTS[number],
   e: TouchEvent | MouseEvent,
   canvas: HTMLCanvasElement
 ) => {
   const { top: canvasTop, left: canvasLeft } = canvas.getBoundingClientRect();
 
-  if (e instanceof MouseEvent) handleMouseMovement(e, canvasTop, canvasLeft);
+  if (e instanceof MouseEvent)
+    handleMouseMovement(eventType, e, canvasTop, canvasLeft);
   if (e instanceof TouchEvent) handleTouchMovement(e, canvasLeft, canvasTop);
 };
 
@@ -117,6 +132,8 @@ const DRAW_ON_EVENTS = [
   'touchmove',
   'mousedown',
   'mousemove',
+  'mouseup',
+  'mouseout',
 ] as const;
 
 console.log({ url: `url(${decodeURIComponent(svg)})` });
@@ -127,9 +144,17 @@ const ModifyShapeModal: FC<{
 }> = ({ nodePath, color }) => {
   const [canvasSize, setCanvasSize] = useState(DEFAULT_CANVAS_SIZE);
   const [showLoader, setShowLoader] = useState(false);
-  const [hasPlacedListeners, setHasPlacedListeners] = useState(false);
   const [eraserActive, setEraserActive] = useAtom(eraserActiveAtom);
   const [nodeKey] = useAtom(nodeKeyAtom);
+
+  const drawingCanvas = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (drawingCanvas.current && path) {
+      paper.setup(drawingCanvas.current);
+      path.position = paper.view.center;
+    }
+  }, [canvasSize]);
 
   return (
     <div className="font-poppins flex flex-col items-center rounded-lg bg-white p-6 shadow-md">
@@ -141,15 +166,16 @@ const ModifyShapeModal: FC<{
         </span>
       </div>
 
-      <div className="overflow-hidden rounded-md border-4 border-slate-300">
+      <div></div>
+
+      <div className="overflow-hidden rounded-md ">
         <Resizable
-          className="relative flex items-center justify-center"
+          className="relative flex items-center justify-center border-4 border-slate-300"
           defaultSize={DEFAULT_CANVAS_SIZE}
           onResizeStart={() => {
             setShowLoader(true);
           }}
           onResizeStop={(_, __, ___, delta) => {
-            console.log({ delta });
             setShowLoader(false);
             setCanvasSize({
               height: canvasSize.height + delta.height,
@@ -160,39 +186,39 @@ const ModifyShapeModal: FC<{
           minWidth={420}
           grid={[CELL_SIZE, CELL_SIZE]}
         >
-          {showLoader ? (
-            <CircularProgress className="text-slate-300" />
-          ) : (
-            <>
-              <canvas
-                className="absolute top-0 left-0 h-full w-full"
-                width={canvasSize.width}
-                height={canvasSize.height}
-                ref={(canvas) => {
-                  if (!canvas) return;
-                  const ctx = canvas.getContext('2d');
-                  if (!ctx) return;
-                  console.log(canvas.width, canvas.height);
-                  drawGrid(ctx, canvas.width, canvas.height);
-                }}
-              ></canvas>
-              <canvas
-                className="absolute top-0 left-0 z-10 h-full w-full"
-                style={{
-                  cursor: eraserActive
-                    ? `url("${svg}") 20 20, auto`
-                    : 'crosshair',
-                }}
-                width={canvasSize.width}
-                height={canvasSize.height}
-                ref={(canvas) => {
-                  console.log({ color });
-                  if (!canvas || hasPlacedListeners || !nodePath || !color)
-                    return;
+          <CircularProgress
+            style={{ visibility: showLoader ? 'visible' : 'hidden' }}
+            className="text-slate-300"
+          />
+          <div style={{ visibility: showLoader ? 'hidden' : 'visible' }}>
+            <canvas
+              className="absolute top-0 left-0 h-full w-full"
+              width={canvasSize.width}
+              height={canvasSize.height}
+              ref={(canvas) => {
+                if (!canvas) return;
 
-                  setHasPlacedListeners(true);
-                  paper.setup(canvas);
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
 
+                drawGrid(ctx, canvas.width, canvas.height);
+              }}
+            ></canvas>
+            <canvas
+              className="absolute top-0 left-0 z-10 h-full w-full"
+              style={{
+                cursor: eraserActive
+                  ? `url("${svg}") 20 20, auto`
+                  : 'crosshair',
+              }}
+              width={canvasSize.width}
+              height={canvasSize.height}
+              ref={(canvas) => {
+                if (!canvas || !nodePath || !color) return;
+
+                paper.setup(canvas);
+
+                if (!drawingCanvas.current) {
                   path = new paper.Path();
                   path.strokeWidth = 4;
                   path.fillColor = new paper.Color(color);
@@ -213,18 +239,21 @@ const ModifyShapeModal: FC<{
                   path = path.unite(p);
                   prevPath.remove();
                   p.remove();
+                  path.position = paper.view.center;
 
-                  DRAW_ON_EVENTS.map((event) =>
+                  DRAW_ON_EVENTS.map((eventType) =>
                     canvas.addEventListener(
-                      event,
-                      (event) => handleMovement(event, canvas),
+                      eventType,
+                      (event) => handleMovement(eventType, event, canvas),
                       true
                     )
                   );
-                }}
-              ></canvas>
-            </>
-          )}
+
+                  drawingCanvas.current = canvas;
+                }
+              }}
+            ></canvas>
+          </div>
         </Resizable>
       </div>
       <div className="mt-3 flex w-full justify-between">

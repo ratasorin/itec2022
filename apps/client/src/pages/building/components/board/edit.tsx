@@ -40,8 +40,8 @@ const GRID_BACKGROUND = new go.Panel('Grid', {
   gridCellSize: CELL_SIZE,
   background: '#cbd5e1',
 }).add(
-  new go.Shape('LineH', { stroke: '#64748b' }),
-  new go.Shape('LineV', { stroke: '#64748b' })
+  new go.Shape('LineH', { stroke: '#94a3b8' }),
+  new go.Shape('LineV', { stroke: '#94a3b8' })
 );
 
 const GRID_FLOOR_CONTAINER = $(
@@ -82,15 +82,15 @@ const GRID_FLOOR_CONTAINER = $(
   })
     .bindTwoWay('desiredSize', 'size', go.Size.parse, go.Size.stringify)
     .add(
-      new go.Shape('LineH', { stroke: '#94a3b8' }),
-      new go.Shape('LineV', { stroke: '#94a3b8' })
+      new go.Shape('LineH', { stroke: '#cbd5e1' }),
+      new go.Shape('LineV', { stroke: '#cbd5e1' })
     ),
 
   new go.Shape('Rectangle', {
     name: FLOOR_CONTAINER_BORDERS_NAME,
     fill: 'transparent',
-    stroke: '#94a3b8',
-    strokeWidth: 3,
+    stroke: '#334155',
+    strokeWidth: 8,
   }).bindTwoWay('desiredSize', 'size', go.Size.parse, go.Size.stringify)
 );
 
