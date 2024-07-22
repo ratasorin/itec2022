@@ -1,7 +1,7 @@
 import { Resizable } from 're-resizable';
 import { strokeColorBasedOnFill } from '../utils/draggable-node';
 import { FC, useEffect, useRef, useState } from 'react';
-import { Button, CircularProgress, TextField } from '@mui/material';
+import { Button, CircularProgress, Paper, TextField } from '@mui/material';
 import * as paper from 'paper';
 import { atom, useAtom } from 'jotai';
 import { jotaiStore } from '@client/main';
@@ -151,8 +151,22 @@ const ModifyShapeModal: FC<{
 
   useEffect(() => {
     if (drawingCanvas.current && path) {
+      console.log('PATH BOUNDS:', path.bounds.width, path.bounds.height);
       paper.setup(drawingCanvas.current);
-      path.position = paper.view.center;
+
+      const closestCell = {
+        x: Math.floor(
+          (paper.view.center.x - path.bounds.width / 2) / CELL_SIZE
+        ),
+        y: Math.floor(
+          (paper.view.center.y - path.bounds.height / 2) / CELL_SIZE
+        ),
+      };
+
+      const x = closestCell.x * CELL_SIZE;
+      const y = closestCell.y * CELL_SIZE;
+      path.pivot = path.bounds.topLeft;
+      path.position = new paper.Point(x, y);
     }
   }, [canvasSize]);
 
@@ -239,7 +253,6 @@ const ModifyShapeModal: FC<{
                   path = path.unite(p);
                   prevPath.remove();
                   p.remove();
-                  path.position = paper.view.center;
 
                   DRAW_ON_EVENTS.map((eventType) =>
                     canvas.addEventListener(
