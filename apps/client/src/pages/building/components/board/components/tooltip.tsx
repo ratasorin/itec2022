@@ -14,7 +14,7 @@ import {
   TextField,
 } from '@mui/material';
 import { modifyShapeModalAtom } from '../edit';
-import { INITIAL_FILL_COLOR } from '../constants';
+import { INITIAL_FILL_COLOR, silverChaliceColorScheme } from '../constants';
 import { LuTextCursorInput } from 'react-icons/lu';
 import { Tooltip as TooltipMUI } from '@mui/material';
 import { LuShapes } from 'react-icons/lu';
@@ -200,12 +200,25 @@ const Tooltip: FC<{
             disableTouchListener
             title={
               <TwitterPicker
+                width="full"
+                styles={{
+                  default: {
+                    hash: { display: 'none' },
+                    input: { display: 'none' },
+                  },
+                }}
                 triangle="hide"
-                onChange={(color) => {
+                colors={[
+                  silverChaliceColorScheme[300],
+                  silverChaliceColorScheme[400],
+                  silverChaliceColorScheme[500],
+                  silverChaliceColorScheme[600],
+                ]}
+                onChange={(color: any) => {
                   console.log({ hex: color.hex });
                   setColor(color.hex);
                 }}
-              />
+              ></TwitterPicker>
             }
           >
             <Button

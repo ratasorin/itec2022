@@ -30,45 +30,39 @@ const drawGrid = (
   ctx.stroke();
 };
 
-type CanvasUserAction = 'mouse-down' | 'mouse-up' | 'mouse-out' | 'mouse-move';
-let flag = false,
-  prevX = 0,
-  currX = 0,
-  prevY = 0,
-  currY = 0,
-  dot_flag = false;
+let currX = 0,
+  currY = 0;
 
-const findXY = (
-  action: CanvasUserAction,
+const handleMouseMovement = (
   e: MouseEvent,
+  canvasTop: number,
+  canvasLeft: number
+) => {
+  currX = e.clientX - canvasLeft;
+  currY = e.clientY - canvasTop;
+  draw();
+};
+
+const handleTouchMovement = (
+  e: TouchEvent,
+  canvasLeft: number,
+  canvasTop: number
+) => {
+  const touch = e.touches[0] || e.changedTouches[0];
+
+  currX = touch.clientX - canvasLeft;
+  currY = touch.clientY - canvasTop;
+  draw();
+};
+
+const handleMovement = (
+  e: TouchEvent | MouseEvent,
   canvas: HTMLCanvasElement
 ) => {
   const { top: canvasTop, left: canvasLeft } = canvas.getBoundingClientRect();
 
-  if (action == 'mouse-down') {
-    prevX = currX;
-    prevY = currY;
-    currX = e.clientX - canvasLeft;
-    currY = e.clientY - canvasTop;
-
-    flag = true;
-    dot_flag = true;
-    if (dot_flag) {
-      draw();
-    }
-  }
-  if (action == 'mouse-up' || action == 'mouse-out') {
-    flag = false;
-  }
-  if (action == 'mouse-move') {
-    if (flag) {
-      prevX = currX;
-      prevY = currY;
-      currX = e.clientX - canvasLeft;
-      currY = e.clientY - canvasTop;
-      draw();
-    }
-  }
+  if (e instanceof MouseEvent) handleMouseMovement(e, canvasTop, canvasLeft);
+  if (e instanceof TouchEvent) handleTouchMovement(e, canvasLeft, canvasTop);
 };
 
 let path: null | paper.PathItem = null;
@@ -117,6 +111,13 @@ function draw() {
   prevPath.remove();
   rect.remove();
 }
+
+const DRAW_ON_EVENTS = [
+  'touchstart',
+  'touchmove',
+  'mousedown',
+  'mousemove',
+] as const;
 
 console.log({ url: `url(${decodeURIComponent(svg)})` });
 const DEFAULT_CANVAS_SIZE = { width: 420, height: 420 };
@@ -213,33 +214,12 @@ const ModifyShapeModal: FC<{
                   prevPath.remove();
                   p.remove();
 
-                  canvas.addEventListener(
-                    'mousemove',
-                    function (e) {
-                      findXY('mouse-move', e, canvas);
-                    },
-                    true
-                  );
-                  canvas.addEventListener(
-                    'mousedown',
-                    function (e) {
-                      findXY('mouse-down', e, canvas);
-                    },
-                    true
-                  );
-                  canvas.addEventListener(
-                    'mouseup',
-                    function (e) {
-                      findXY('mouse-up', e, canvas);
-                    },
-                    true
-                  );
-                  canvas.addEventListener(
-                    'mouseout',
-                    function (e) {
-                      findXY('mouse-out', e, canvas);
-                    },
-                    true
+                  DRAW_ON_EVENTS.map((event) =>
+                    canvas.addEventListener(
+                      event,
+                      (event) => handleMovement(event, canvas),
+                      true
+                    )
                   );
                 }}
               ></canvas>

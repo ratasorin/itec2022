@@ -34,7 +34,7 @@ const createResizeHandle = (alignment: go.Spot, cursor: string) =>
     alignment,
     cursor,
     desiredSize: new go.Size(10, 10),
-    fill: '#0ea5e9',
+    fill: '#00BFFF',
     stroke: null,
   });
 
@@ -57,7 +57,7 @@ export const draggableNode = $(
       'Auto',
       $(go.Shape, {
         fill: null,
-        stroke: 'deepskyblue',
+        stroke: '#00BFFF',
         strokeWidth: 3,
         strokeDashArray: [4, 6],
         strokeJoin: 'round',
@@ -188,6 +188,7 @@ export const draggableNode = $(
       name: DESK_SHAPE_NAME,
       fill: INITIAL_FILL_COLOR,
       stroke: strokeColorBasedOnFill(INITIAL_FILL_COLOR),
+      minSize: new go.Size(20, 20),
       strokeWidth: 4,
       strokeCap: 'round',
       strokeJoin: 'round',
